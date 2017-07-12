@@ -16,4 +16,7 @@
     <string name="login_forgetpaswd">忘记密码?</string>
     <string name="login_account_hint">账号：请输入邮箱或手机号</string>
     <string name="login_password_hint">请输入密码</string>
+    <string name="panda_live">熊猫直播</string>
+    
+    
 </resources>

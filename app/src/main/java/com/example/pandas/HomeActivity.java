@@ -14,6 +14,7 @@ import com.example.pandas.homes.homepage.PageMain;
 import com.example.pandas.homes.homepage.PagePresenter;
 import com.example.pandas.homes.homepandabroadcast.PandaBroadcastMain;
 import com.example.pandas.homes.homepandalive.PandaLiveMain;
+import com.example.pandas.homes.homepandalive.PandaLivePresent;
 import com.example.pandas.homes.homerollvideo.RollVideoMain;
 
 import butterknife.Bind;
@@ -82,11 +83,13 @@ public class HomeActivity extends BaseActivity {
             case R.id.home_PandaLive:
                 if (pandaLiveMain == null) {
                     pandaLiveMain = new PandaLiveMain();
+                    new PandaLivePresent(pandaLiveMain);
                     transaction.add(R.id.home_framelayout, pandaLiveMain, PandaLiveMain.class.getSimpleName());
                     transaction.addToBackStack(null);
                 } else {
                     transaction.show(pandaLiveMain);
                 }
+
                 break;
             case R.id.home_RollVideo:
                 if (rollVideoMain == null) {

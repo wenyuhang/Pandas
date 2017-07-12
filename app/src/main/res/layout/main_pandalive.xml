@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <RelativeLayout
-        android:background="@color/top_bar"
+        android:background="@color/topBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y85">
 
@@ -31,13 +31,155 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y15"></View>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/pandaLive_tablayout"
+    <HorizontalScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
+        android:layout_height="wrap_content">
+        <RadioGroup
+            android:id="@+id/pandaLive_radioGroup"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pandaLive_viewPager"
+            <RadioButton
+                android:button="@null"
+                android:text="直播"
+                android:checked="true"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:textSize="@dimen/x34"
+                android:gravity="center"
+                android:id="@+id/radio_sending"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/black"
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"></View>
+
+            <RadioButton
+                android:id="@+id/radio_wonderfulMoment"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:text="精彩一刻"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:gravity="center"
+                android:textSize="@dimen/x34" />
+
+            <View
+                android:background="@color/black"
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"></View>
+
+            <RadioButton
+                android:id="@+id/radio_bearLet"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:gravity="center"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:text="当熊不让"
+                android:textSize="@dimen/x34" />
+
+            <View
+                android:background="@color/black"
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"></View>
+
+
+            <RadioButton
+                android:button="@null"
+                android:text="超萌滚滚秀"
+                android:textSize="@dimen/x34"
+                android:gravity="center"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:id="@+id/radio_adorable"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/black"
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"></View>
+
+            <RadioButton
+                android:button="@null"
+                android:text="熊猫档案"
+                android:textSize="@dimen/x34"
+                android:gravity="center"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:id="@+id/radio_pandaArchives"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/black"
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"></View>
+
+            <RadioButton
+                android:button="@null"
+                android:text="熊猫TOP榜"
+                android:textSize="@dimen/x34"
+                android:gravity="center"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:id="@+id/radio_topPanda"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/black"
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"></View>
+
+            <RadioButton
+                android:button="@null"
+                android:text="熊猫那些事儿"
+                android:textSize="@dimen/x34"
+                android:gravity="center"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:id="@+id/radio_pandaThing"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/black"
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"></View>
+
+            <RadioButton
+                android:button="@null"
+                android:text="特别节目"
+                android:textSize="@dimen/x34"
+                android:gravity="center"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:id="@+id/radio_pandaSpecial"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/black"
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"></View>
+
+            <RadioButton
+                android:button="@null"
+                android:text="原创新闻"
+                android:textSize="@dimen/x34"
+                android:gravity="center"
+                android:textColor="@color/pandalive_textchange"
+                android:background="@drawable/pandalive_radio"
+                android:id="@+id/radio_originalNews"
+                android:layout_width="@dimen/x180"
+                android:layout_height="match_parent" />
+        </RadioGroup>
+    </HorizontalScrollView>
+
+    <com.androidkun.PullToRefreshRecyclerView
+        android:id="@+id/pandaLive_ptrr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"></com.androidkun.PullToRefreshRecyclerView>
 </LinearLayout>
