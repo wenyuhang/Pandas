@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pandas</string>
+    <string name="panda_live">熊猫直播</string>
 </resources>

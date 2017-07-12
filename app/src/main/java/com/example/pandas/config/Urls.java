@@ -10,6 +10,9 @@ public class Urls {
     //服务器地址
     private static final String BASEURL = "http://www.ipanda.com/kehuduan/";
 
-    //熊猫直播
+    //熊猫直播第一个fragment
     public static final String PANDALIVE = BASEURL+"PAGE14501769230331752/index.json";
+
+//    熊猫直播tablayout标题
+    public static final String PANDALIVETAB = BASEURL+"PAGE14501772263221982/index.json";
 }
