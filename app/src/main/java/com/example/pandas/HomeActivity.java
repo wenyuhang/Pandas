@@ -20,7 +20,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 
-//3-4
+//3-5
 public class HomeActivity extends BaseActivity {
 
     @Bind(R.id.home_page)
