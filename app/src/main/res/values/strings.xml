@@ -10,6 +10,7 @@
     <string name="register">注册</string>
     <string name="login_weinxin">微信</string>
     <string name="login_qq">QQ</string>
+    <string name="p">温宇航</string>
     <string name="login_sina">微博</string>
     <string name="login_tips">使用社交账号登录到熊猫频道</string>
     <string name="login_cntv">CNTV通行证</string>
