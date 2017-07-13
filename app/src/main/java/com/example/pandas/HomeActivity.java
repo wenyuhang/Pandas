@@ -14,7 +14,6 @@ import com.example.pandas.homes.homepage.PageMain;
 import com.example.pandas.homes.homepage.PagePresenter;
 import com.example.pandas.homes.homepandabroadcast.PandaBroadcastMain;
 import com.example.pandas.homes.homepandalive.PandaLiveMain;
-import com.example.pandas.homes.homepandalive.PandaLivePresent;
 import com.example.pandas.homes.homerollvideo.RollVideoMain;
 
 import butterknife.Bind;
@@ -75,6 +74,7 @@ public class HomeActivity extends BaseActivity {
     public void onViewClicked(View view) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
+
         getpanduan(transaction);
         switch (view.getId()) {
             case R.id.home_page:
