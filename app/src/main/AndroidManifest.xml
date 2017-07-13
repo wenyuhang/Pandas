@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity">
+        <activity android:name=".personal.PersonalCenterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".personal.LoginActivity" />
+        <activity android:name=".personal.RegisterActivity" />
+        <activity android:name=".personal.ForgetActivity"></activity>
     </application>
 
 </manifest>

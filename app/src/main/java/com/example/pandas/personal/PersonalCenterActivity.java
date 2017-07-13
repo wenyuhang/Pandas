@@ -1,19 +1,17 @@
 package com.example.pandas.personal;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.example.pandas.R;
+import com.example.pandas.base.BaseActivity;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PersonalCenterActivity extends AppCompatActivity {
+public class PersonalCenterActivity extends BaseActivity {
 
     @Bind(R.id.fanhui)
     ImageButton fanhui;
@@ -28,11 +26,21 @@ public class PersonalCenterActivity extends AppCompatActivity {
     @Bind(R.id.activity_personal_center)
     LinearLayout activityPersonalCenter;
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_personal_center);
+//        ButterKnife.bind(this);
+//    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personal_center);
-        ButterKnife.bind(this);
+    public int getLayoutId() {
+        return R.layout.activity_personal_center;
+    }
+
+    @Override
+    public void initview() {
+
     }
 
     @OnClick({R.id.personalCenter_Signin, R.id.personalCenter_History, R.id.personalCenter_Collection, R.id.personalCenter_set, R.id.activity_personal_center})
