@@ -42,6 +42,7 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View 
 
     @Override
     protected void init(View view) {
+        new PandaLivePresent(this);
         sendingBeanList = new ArrayList<>();
         setTabText();
         pandaLivePtrr.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -83,7 +83,7 @@ public class HomeActivity extends BaseActivity {
             case R.id.home_PandaLive:
                 if (pandaLiveMain == null) {
                     pandaLiveMain = new PandaLiveMain();
-                    new PandaLivePresent(pandaLiveMain);
+
                     transaction.add(R.id.home_framelayout, pandaLiveMain, PandaLiveMain.class.getSimpleName());
                     transaction.addToBackStack(null);
                 } else {
