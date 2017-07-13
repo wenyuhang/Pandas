@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
+    android:orientation="vertical"
+    android:background="@color/colorGray">
+    <RelativeLayout
+        android:id="@+id/homepage_relativelayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="第一个Fragment"
-        android:textSize="35sp" />
+        android:layout_height="@dimen/y100"
+        android:background="@color/colorPrimary">
+        <ImageView
+            android:id="@+id/home_logo_img"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y80"
+            android:src="@mipmap/panda_sign"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/x10"/>
+        <ImageView
+            android:id="@+id/home_personal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/person_sign"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/x20"/>
+        <ImageView
+            android:id="@+id/home_interactive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/hudong_sign"
+            android:layout_toLeftOf="@id/home_personal"
+            android:layout_alignTop="@id/home_personal"
+            android:layout_marginRight="@dimen/x20"/>
+    </RelativeLayout>
 
-    <com.androidkun.PullToRefreshRecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.androidkun.PullToRefreshRecyclerView>
-</LinearLayout>
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:layout_below="@id/homepage_relativelayout"
+        android:id="@+id/home_xrecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+</RelativeLayout>

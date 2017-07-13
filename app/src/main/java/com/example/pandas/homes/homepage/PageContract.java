@@ -3,7 +3,7 @@ package com.example.pandas.homes.homepage;
 
 import com.example.pandas.base.BasePresenter;
 import com.example.pandas.base.BaseView;
-import com.example.pandas.model.datebean.PageBean;
+import com.example.pandas.model.datebean.HomePageBean;
 
 /**
  * Created by 联想 on 2017/7/12.
@@ -27,7 +27,7 @@ public interface PageContract {
          * 返回网络数据
          * @param netBean
          */
-        void setResult(PageBean netBean);
+        void setResult(HomePageBean netBean);
 
         /**
          * 显示返回信息（成功或失败）

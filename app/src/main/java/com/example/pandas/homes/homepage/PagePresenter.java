@@ -3,7 +3,7 @@ package com.example.pandas.homes.homepage;
 
 import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.biz.IHomeModel;
-import com.example.pandas.model.datebean.PageBean;
+import com.example.pandas.model.datebean.HomePageBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 
 /**
@@ -21,10 +21,10 @@ public class PagePresenter implements PageContract.Presenter {
 
     @Override
     public void strat() {
-        homeModel.getHomePageBean(new NetCallbacks<PageBean>() {
+        homeModel.getHomePageBean(new NetCallbacks<HomePageBean>() {
             @Override
-            public void onSuccess(PageBean pageBean) {
-                pageview.setResult(pageBean);
+            public void onSuccess(HomePageBean homePageBean) {
+                pageview.setResult(homePageBean);
             }
 
             @Override
