@@ -11,7 +11,7 @@
     <RelativeLayout
         android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="@dimen/x150">
         <ImageButton
             android:layout_centerVertical="true"
             android:id="@+id/fanhui"
@@ -22,7 +22,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/x150"
             android:text="@string/register"
             android:layout_alignParentRight="true"
             android:gravity="center"
@@ -34,7 +34,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/x150"
             android:gravity="center"
             android:textSize="@dimen/x50"
             android:textColor="#ffffff"

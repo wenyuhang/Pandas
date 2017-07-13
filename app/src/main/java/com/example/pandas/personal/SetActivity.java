@@ -1,6 +1,7 @@
 package com.example.pandas.personal;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -99,6 +100,7 @@ public class SetActivity extends BaseActivity {
             case R.id.personal_set_ping_layout:
                 break;
             case R.id.personal_set_about_layout:
+                    startActivity(new Intent(SetActivity.this,AboutActivity.class));
                 break;
         }
     }

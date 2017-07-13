@@ -1,5 +1,6 @@
 package com.example.pandas.personal;
 
+import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
 
 public class RegisterActivity extends BaseActivity {
@@ -12,7 +13,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_register;
     }
 
     @Override

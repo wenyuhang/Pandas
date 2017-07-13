@@ -32,9 +32,10 @@
     <string name="regist_yanzhengma">获取验证码</string>
 
 
-
     <!--设置-->
     <string name="quxiao">取消</string>
+    <string name="phone">手机注册</string>
+    <string name="mailbox">邮箱注册</string>
     <string name="queding">确定</string>
     <string name="set">设置</string>
     <string name="set_general">常用功能</string>
