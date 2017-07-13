@@ -25,6 +25,7 @@ public class SendingBean {
         return live;
     }
 
+
     public void setLive(List<LiveBean> live) {
         this.live = live;
     }

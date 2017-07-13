@@ -23,6 +23,6 @@ public class IHomeImpl implements IHomeModel{
      */
     @Override
     public void getSendingBean(NetCallbacks<SendingBean> callbacks) {
-        ihttp.get(Urls.PANDALIVETAB,null,callbacks);
+        ihttp.get(Urls.PANDALIVE,null,callbacks);
     }
 }
