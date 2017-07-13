@@ -25,4 +25,15 @@ public class IHomeImpl implements IHomeModel{
     public void getSendingBean(NetCallbacks<SendingBean> callbacks) {
         ihttp.get(Urls.PANDALIVE,null,callbacks);
     }
+
+
+    /**
+     * 获取直播中国中的首页
+     *
+     */
+    @Override
+    public void getLiveChinaBean(NetCallbacks callbacks) {
+
+    }
+
 }

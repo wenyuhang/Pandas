@@ -3,12 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:textSize="35sp"
-    android:gravity="center"
-    android:text="第五个Fragment"
-    />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y85"
+        android:background="@color/topBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/live_china"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x38" />
+
+        <ImageView
+            android:id="@+id/LiveChina_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x26"
+            android:src="@mipmap/person_sign" />
+    </RelativeLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        >
+    <android.support.design.widget.TabLayout
+        android:id="@+id/liveChina_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></android.support.design.widget.TabLayout>
+    </HorizontalScrollView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="点击"
+        android:id="@+id/sure"
+        />
+</RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/liveChina_viewpager"
+        ></android.support.v4.view.ViewPager>
 </LinearLayout>

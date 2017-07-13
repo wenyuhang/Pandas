@@ -18,8 +18,9 @@
     <string name="login_account_hint">账号：请输入邮箱或手机号</string>
     <string name="login_password_hint">请输入密码</string>
     <string name="panda_live">熊猫直播</string>
-
-
+    <string name="live_china">直播中国</string>
+    <string name="panda_broadcast">熊猫观察</string>
+    <string name="roll_video">熊猫文化</string>
     <!--忘记密码-->
     <string name="forget_pasword">忘记密码</string>
     <string name="forget_found_pswd">找回密码</string>
@@ -30,8 +31,6 @@
     <string name="forget_set_newpaswd_hint">请设置新密码</string>
     <string name="forget_image_yanzhengma">图形验证码</string>
     <string name="regist_yanzhengma">获取验证码</string>
-
-
     <!--设置-->
     <string name="quxiao">取消</string>
     <string name="phone">手机注册</string>

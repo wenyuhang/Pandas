@@ -15,4 +15,7 @@ public class Urls {
 
     //首页
     public static final String HOMEPAGE=BASEURL+"PAGE14501749764071042/index.json";
+
+    //直播中国
+    public static final String LIVECHINA="";
 }

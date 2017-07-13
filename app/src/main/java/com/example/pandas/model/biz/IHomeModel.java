@@ -13,4 +13,7 @@ public interface IHomeModel extends BaseModel{
    void getHomePageBean(NetCallbacks<HomePageBean> callbacks);
    //   直播首页 类
    void getSendingBean(NetCallbacks<SendingBean> callbacks);
+
+   //   直播中国
+   void getLiveChinaBean(NetCallbacks callbacks);
 }
