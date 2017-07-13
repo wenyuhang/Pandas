@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".personal.LoginActivity" />
-        <activity android:name=".personal.PersonalCenterActivity"></activity>
     </application>
 
 </manifest>
