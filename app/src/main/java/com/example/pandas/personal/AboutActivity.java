@@ -1,15 +1,30 @@
 package com.example.pandas.personal;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageButton;
 
 import com.example.pandas.R;
+import com.example.pandas.base.BaseActivity;
 
-public class AboutActivity extends AppCompatActivity {
+import butterknife.Bind;
+import butterknife.OnClick;
+
+public class AboutActivity extends BaseActivity {
+
+    @Bind(R.id.fanhui)
+    ImageButton fanhui;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+    public int getLayoutId() {
+        return R.layout.activity_about;
+    }
+
+    @Override
+    public void initview() {
+
+    }
+
+    @OnClick(R.id.fanhui)
+    public void onViewClicked() {
+        finish();
     }
 }

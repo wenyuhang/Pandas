@@ -9,10 +9,10 @@ import com.example.pandas.base.BaseFragment;
  * Created by li on 2017/7/13.
  */
 
-public class Phone extends BaseFragment {
+public class PhoneFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
-        return R.layout.phone;
+        return R.layout.phonefragment;
     }
 
     @Override
