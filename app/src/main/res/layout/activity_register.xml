@@ -61,7 +61,7 @@
             android:textColor="@color/pandalive_textchange"
             android:gravity="center"
             android:button="@null"
-            android:textSize="@dimen/x31"
+            android:textSize="@dimen/x30"
             android:background="@drawable/pandalive_radio"/>
     </RadioGroup>
 
