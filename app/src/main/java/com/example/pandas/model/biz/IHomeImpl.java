@@ -2,7 +2,7 @@ package com.example.pandas.model.biz;
 
 
 import com.example.pandas.config.Urls;
-import com.example.pandas.model.datebean.HomePageBean;
+import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 

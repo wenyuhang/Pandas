@@ -10,13 +10,14 @@ import android.widget.ImageView;
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.homes.homepage.PageContract;
-import com.example.pandas.model.datebean.HomePageBean;
+import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.personal.PersonalCenterActivity;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
 
 
 /**

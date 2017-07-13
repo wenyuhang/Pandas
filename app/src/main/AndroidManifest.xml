@@ -20,7 +20,6 @@
         </activity>
         <activity android:name=".personal.LoginActivity" />
         <activity android:name=".personal.RegisterActivity" />
-        <activity android:name=".personal.ForgetActivity" />
         <activity android:name=".personal.SetActivity" />
         <activity android:name=".personal.AboutActivity" />
         <activity android:name=".personal.PersonalCenterActivity" />
