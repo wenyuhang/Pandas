@@ -54,6 +54,7 @@ public class PersonalCenterActivity extends BaseActivity {
             case R.id.personalCenter_Collection:
                 break;
             case R.id.personalCenter_set:
+                startActivity(new Intent(PersonalCenterActivity.this,SetActivity.class));
                 break;
             case R.id.activity_personal_center:
                 break;

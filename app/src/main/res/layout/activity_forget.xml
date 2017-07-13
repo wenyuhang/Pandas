@@ -7,6 +7,30 @@
     android:orientation="vertical"
     tools:context="com.example.pandas.personal.ForgetActivity">
 
+    <RelativeLayout
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:id="@+id/fanhui"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y80"
+            android:background="@mipmap/fenlei_fanhui"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:textSize="@dimen/x50"
+            android:textColor="#ffffff"
+            android:text="@string/forget_pasword"
+
+            />
+
+    </RelativeLayout>
+
+
 
     <TextView
         android:layout_width="match_parent"

@@ -1,15 +1,22 @@
 package com.example.pandas.personal;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import com.example.pandas.base.BaseActivity;
 
-import com.example.pandas.R;
+public class RegisterActivity extends BaseActivity {
 
-public class RegisterActivity extends AppCompatActivity {
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_register);
+//    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    public int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public void initview() {
+
     }
 }
