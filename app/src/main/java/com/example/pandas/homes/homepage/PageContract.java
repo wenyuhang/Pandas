@@ -3,7 +3,7 @@ package com.example.pandas.homes.homepage;
 
 import com.example.pandas.base.BasePresenter;
 import com.example.pandas.base.BaseView;
-import com.example.pandas.model.datebean.HomePageBean;
+import com.example.pandas.model.datebean.homebean.HomePageBean;
 
 /**
  * Created by 联想 on 2017/7/12.

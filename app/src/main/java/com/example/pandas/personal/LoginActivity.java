@@ -53,6 +53,7 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fanhui:
+                finish();
                 break;
             case R.id.register:
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));

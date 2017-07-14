@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="@dimen/x10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120">
+        <Button
+            android:id="@+id/panda_watch_btn"
+            android:layout_width="@dimen/x130"
+            android:layout_height="@dimen/y50"
+            android:background="@mipmap/bk_cinmea_showtime_redborder"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="@dimen/homepage_text"
+            android:textColor="@color/colorPink"/>
+        <TextView
+            android:id="@+id/panda_watch_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/homepage_text"
+            android:layout_marginLeft="@dimen/x20"
+            android:textColor="@color/colorBlack"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y2"
+        android:background="#e8e8e8"></LinearLayout>
+</LinearLayout>

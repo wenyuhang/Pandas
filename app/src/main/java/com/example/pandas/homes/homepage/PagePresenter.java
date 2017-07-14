@@ -3,7 +3,7 @@ package com.example.pandas.homes.homepage;
 
 import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.biz.IHomeModel;
-import com.example.pandas.model.datebean.HomePageBean;
+import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 
 /**

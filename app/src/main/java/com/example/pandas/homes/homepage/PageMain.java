@@ -1,5 +1,6 @@
 package com.example.pandas.homes.homepage;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +9,8 @@ import android.widget.ImageView;
 import com.example.pandas.R;
 import com.example.pandas.app.App;
 import com.example.pandas.base.BaseFragment;
-import com.example.pandas.model.datebean.HomePageBean;
+import com.example.pandas.model.datebean.homebean.HomePageBean;
+import com.example.pandas.personal.LoginActivity;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -71,16 +73,15 @@ public class PageMain extends BaseFragment implements PageContract.View {
         homeXrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         homeXrecyclerview.setLoadingMoreEnabled(false);
         homeXrecyclerview.setRefreshProgressStyle(R.mipmap.xlistview_arrow);
-        homeXrecyclerview.setArrowImageView(R.mipmap.loading_10);
+        homeXrecyclerview.setArrowImageView(R.mipmap.xlistview_arrow);
         homeXrecyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                list.clear();
-                list.add(data);
-
                 App.context.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        list.clear();
+                        list.add(data);
                         homeXrecyclerview.refreshComplete();
                         homePageAdapter.notifyDataSetChanged();
                     }
@@ -100,7 +101,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     public void showMessage(String msg) {
-        Log.e("TAG", msg.toString());
+//        Log.e("TAG", msg.toString());
     }
 
     @Override
@@ -112,6 +113,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.home_personal:
+                startActivity(new Intent(getActivity(), LoginActivity.class));
                 break;
             case R.id.home_interactive:
                 break;

@@ -3,19 +3,18 @@ package com.example.pandas.model.biz;
 
 import com.example.pandas.config.Urls;
 import com.example.pandas.model.datebean.HomePageBean;
-import com.example.pandas.model.datebean.PdBBean;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by 联想 on 2017/7/12.
  */
 
 public class IHomeImpl implements IHomeModel{
-
+    /**
+     *  首页中的网络请求
+     * @param callbacks
+     */
     @Override
     public void getHomePageBean(NetCallbacks<HomePageBean> callbacks) {
         ihttp.get(Urls.HOMEPAGE,null,callbacks);
@@ -30,6 +29,7 @@ public class IHomeImpl implements IHomeModel{
         ihttp.get(Urls.PANDALIVE,null,callbacks);
     }
 
+
     /**
      * 获取直播中国中的首页
      *
@@ -38,7 +38,6 @@ public class IHomeImpl implements IHomeModel{
     public void getLiveChinaBean(NetCallbacks callbacks) {
 
     }
-
     @Override
     public void getPdBBean(String path, String primary_id, String serviceId, NetCallbacks<PdBBean> callbacks) {
         Map<String,String> map = new HashMap<>() ;

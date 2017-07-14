@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pandas</string>
+    <string name="app_name">熊猫频道</string>
     //个人中心的String
     <string name="personalCenter">个人中心</string>
     <string name="personalCenter_Signin">点击登录</string>
@@ -33,6 +33,9 @@
     <string name="regist_yanzhengma">获取验证码</string>
     <!--设置-->
     <string name="quxiao">取消</string>
+    <string name="shouchang">收藏</string>
+    <string name="lisi">历史记录</string>
+    <string name="bianji">编辑</string>
     <string name="phone">手机注册</string>
     <string name="mailbox">邮箱注册</string>
     <string name="queding">确定</string>

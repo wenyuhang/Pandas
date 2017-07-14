@@ -1,4 +1,4 @@
-package com.example.pandas.model.datebean;
+package com.example.pandas.model.datebean.homebean;
 
 import java.util.List;
 

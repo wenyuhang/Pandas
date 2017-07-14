@@ -16,6 +16,8 @@ import com.example.pandas.base.BaseActivity;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static com.example.pandas.R.id.personal_set_fankui_layout;
+
 public class SetActivity extends BaseActivity {
 
     @Bind(R.id.fanhui)
@@ -32,7 +34,7 @@ public class SetActivity extends BaseActivity {
     TextView setCacheSizeTv;
     @Bind(R.id.personal_set_delete_cache_layout)
     RelativeLayout personalSetDeleteCacheLayout;
-    @Bind(R.id.personal_set_fankui_layout)
+    @Bind(personal_set_fankui_layout)
     RelativeLayout personalSetFankuiLayout;
     @Bind(R.id.personal_set_udpate_layout)
     RelativeLayout personalSetUdpateLayout;
@@ -53,10 +55,11 @@ public class SetActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.fanhui, R.id.pe_set_push_view1, R.id.pe_set_push_view2, R.id.pe_set_play_view1, R.id.pe_set_play_view2, R.id.personal_set_delete_cache_layout, R.id.personal_set_fankui_layout, R.id.personal_set_udpate_layout, R.id.personal_set_ping_layout, R.id.personal_set_about_layout})
+    @OnClick({R.id.fanhui, R.id.pe_set_push_view1, R.id.pe_set_push_view2, R.id.pe_set_play_view1, R.id.pe_set_play_view2, R.id.personal_set_delete_cache_layout, personal_set_fankui_layout, R.id.personal_set_udpate_layout, R.id.personal_set_ping_layout, R.id.personal_set_about_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fanhui:
+                finish();
                 break;
             case R.id.pe_set_push_view1:
                 peSetPushView1.setVisibility(View.GONE);
@@ -93,7 +96,10 @@ public class SetActivity extends BaseActivity {
                     }
                 });
                 break;
-            case R.id.personal_set_fankui_layout:
+            case personal_set_fankui_layout:
+
+                startActivity(new Intent(SetActivity.this,UserFeedbackActivity.class));
+
                 break;
             case R.id.personal_set_udpate_layout:
                 break;
