@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/y400"
+    android:id="@+id/header_linerlayout"
+    >
+<android.support.v4.view.ViewPager
+    android:id="@+id/header_viewpager"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y400">
+
+</android.support.v4.view.ViewPager>
+<TextView
+    android:id="@+id/tv_desc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginLeft="@dimen/x30"
+    />
+    <LinearLayout
+        android:id="@+id/ll_point_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_marginBottom="8dp"
+        >
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 激活状态 -->
+    <item android:state_enabled="true"><shape android:shape="oval">
+        <corners android:radius="7dp" />
+        <solid
+            android:width="2dp"
+            android:color="#a2e2e9" />
+    </shape></item>
+
+    <!-- 未激活状态 -->
+    <item android:state_enabled="false"><shape android:shape="oval">
+        <corners android:radius="6dp" />
+        <solid
+            android:width="2dp"
+            android:color="#ffffff" />
+    </shape></item>
+
+</selector>

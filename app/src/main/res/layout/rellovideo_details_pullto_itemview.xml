@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/pullto_item_relative"
+    >
+    <ImageView
+        android:id="@+id/rellovideo_details_item_image"
+        android:layout_width="180dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        />
+
+    <TextView
+        android:id="@+id/rellovideo_details_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="19dp"
+        android:layout_toRightOf="@id/rellovideo_details_item_image"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        />
+    <TextView
+        android:id="@+id/rellovideo_details_item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_toRightOf="@id/rellovideo_details_item_image"
+        android:layout_below="@id/rellovideo_details_item_title"
+        android:layout_margin="10dp"
+        android:textColor="#7b7878"
+        android:lines="2"
+        android:ellipsize="end"
+        />
+</RelativeLayout>
