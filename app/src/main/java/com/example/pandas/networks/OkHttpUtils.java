@@ -2,8 +2,9 @@ package com.example.pandas.networks;
 
 
 import android.util.Log;
-import com.example.pandas.app.App;
+
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
+import com.example.pandas.wxapi.App;
 import com.google.gson.Gson;
 
 import java.io.IOException;
