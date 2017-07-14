@@ -3,6 +3,7 @@ package com.example.pandas.homes.homepage;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.example.pandas.model.datebean.homebean.LightChinaBean;
 import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 
@@ -143,7 +145,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder viewHolder= (MyViewHolder) holder;
+        final MyViewHolder viewHolder= (MyViewHolder) holder;
         for(int i=0;i<list.get(0).getBigImg().size();i++){
             imgLists.add(list.get(0).getBigImg().get(i).getImage());
         }
@@ -152,7 +154,33 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         viewHolder.homeBanner.setDelayTime(2000);
         viewHolder.homeBanner.setImages(imgLists);
         viewHolder.homeBanner.start();
-        viewHolder.homepageTitle.setText(list.get(0).getBigImg().get(position).getTitle());
+        viewHolder.homeBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+
+            }
+        });
+        viewHolder.homeBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position<4){
+                    viewHolder.homepageTitle.setText(list.get(0).getBigImg().get(position-1).getTitle());
+                }else{
+                    position=1;
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         scrollList.addAll(list.get(position).getArea().getListscroll());
         viewHolder.wonderfulRecommendation.setText(list.get(position).getArea().getTitle());

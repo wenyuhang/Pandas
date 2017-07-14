@@ -101,7 +101,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     public void showMessage(String msg) {
-        Log.e("TAG", msg.toString());
+//        Log.e("TAG", msg.toString());
     }
 
     @Override
