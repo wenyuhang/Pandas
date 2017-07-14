@@ -2,6 +2,7 @@ package com.example.pandas.model.biz;
 
 
 import com.example.pandas.model.datebean.PdBBean;
+import com.example.pandas.model.datebean.RollvideoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
@@ -19,4 +20,6 @@ public interface IHomeModel extends BaseModel{
    void getPdBBean(String path, String primary_id, String serviceId, NetCallbacks<PdBBean> callbacks);
    //   直播中国
    void getLiveChinaBean(NetCallbacks callbacks);
+
+   void getRollVideoBean(NetCallbacks<RollvideoBean> callbacks);
 }

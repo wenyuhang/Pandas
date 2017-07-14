@@ -16,6 +16,7 @@ import com.example.pandas.homes.homepandabroadcast.PandaBroadcastMain;
 import com.example.pandas.homes.homepandabroadcast.PandaBroadcastPresenter;
 import com.example.pandas.homes.homepandalive.PandaLiveMain;
 import com.example.pandas.homes.homerollvideo.RollVideoMain;
+import com.example.pandas.homes.homerollvideo.RollVideoPresenter;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -94,6 +95,7 @@ public class HomeActivity extends BaseActivity {
             case R.id.home_RollVideo:
                 if (rollVideoMain == null) {
                     rollVideoMain = new RollVideoMain();
+                    new RollVideoPresenter(rollVideoMain);
                     transaction.add(R.id.home_framelayout, rollVideoMain, RollVideoMain.class.getSimpleName());
                     transaction.addToBackStack(null);
                 } else {

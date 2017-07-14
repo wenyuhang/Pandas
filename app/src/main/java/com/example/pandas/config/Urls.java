@@ -22,4 +22,8 @@ public class Urls {
 
     //熊猫播报服务器地址
     public static final String PANDABROADCAST="http://api.cntv.cn/apicommon/index";
+
+    //    熊猫文化
+    public static final String RELLOVIDEO=BASEURL+"xmwh/index.json";
+
 }

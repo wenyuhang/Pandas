@@ -3,6 +3,7 @@ package com.example.pandas.model.biz;
 
 import com.example.pandas.config.Urls;
 import com.example.pandas.model.datebean.PdBBean;
+import com.example.pandas.model.datebean.RollvideoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
@@ -19,7 +20,6 @@ public class IHomeImpl implements IHomeModel{
      *  首页中的网络请求
      * @param callbacks
      */
-    @Override
     public void getHomePageBean(NetCallbacks<HomePageBean> callbacks) {
         ihttp.get(Urls.HOMEPAGE,null,callbacks);
     }
@@ -44,10 +44,16 @@ public class IHomeImpl implements IHomeModel{
     }
     @Override
     public void getPdBBean(String path, String primary_id, String serviceId, NetCallbacks<PdBBean> callbacks) {
-        Map<String,String> map = new HashMap<>() ;
-        map.put("path",path);
-        map.put("primary_id",primary_id);
-        map.put("serviceId",serviceId);
-        ihttp.get(Urls.PANDABROADCAST,map,callbacks);
+        Map<String, String> map = new HashMap<>();
+        map.put("path", path);
+        map.put("primary_id", primary_id);
+        map.put("serviceId", serviceId);
+        ihttp.get(Urls.PANDABROADCAST, map, callbacks);
+
     }
-}
+        @Override
+        public void getRollVideoBean(NetCallbacks<RollvideoBean> callbacks) {
+            ihttp.get(Urls.RELLOVIDEO,null,callbacks);
+        }
+
+    }
