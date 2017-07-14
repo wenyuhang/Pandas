@@ -26,7 +26,8 @@ public class PersonalXinActivity extends BaseActivity {
     RelativeLayout personalNicknameLayout;
     @Bind(R.id.btn_login_out)
     TextView btnLoginOut;
-
+    @Bind(R.id.nick_name)
+    TextView nickName;
     @Override
     public int getLayoutId() {
         return R.layout.activity_personal_xin;
@@ -34,7 +35,10 @@ public class PersonalXinActivity extends BaseActivity {
 
     @Override
     public void initview() {
-
+//        String iconurl = getIntent().getStringExtra("iconurl");
+//        String name = getIntent().getStringExtra("name");
+//        Glide.with(this).load(iconurl).into(ivHeadicon);
+//        nickName.setText(name);
     }
 
     @OnClick({R.id.fanhui, R.id.iv_headicon, R.id.person_have_login_layout, R.id.personal_nickname_layout, R.id.btn_login_out})
@@ -53,4 +57,5 @@ public class PersonalXinActivity extends BaseActivity {
                 break;
         }
     }
+
 }

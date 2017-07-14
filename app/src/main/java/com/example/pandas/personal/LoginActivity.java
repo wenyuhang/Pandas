@@ -91,9 +91,7 @@ public class LoginActivity extends BaseActivity {
             intent.putExtra("iconurl",iconurl);
             intent.putExtra("name",name);
             startActivity(intent);
-            finish();
         }
-
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
