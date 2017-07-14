@@ -10,6 +10,7 @@ import com.example.pandas.networks.mycallbacks.NetCallbacks;
  */
 
 public interface IHomeModel extends BaseModel{
+   //首页
    void getHomePageBean(NetCallbacks<HomePageBean> callbacks);
    //   直播首页 类
    void getSendingBean(NetCallbacks<SendingBean> callbacks);

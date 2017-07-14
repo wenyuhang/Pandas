@@ -12,6 +12,10 @@ import com.example.pandas.networks.mycallbacks.NetCallbacks;
 
 public class IHomeImpl implements IHomeModel{
 
+    /**
+     * 首页中的网络请求
+     * @param callbacks
+     */
     @Override
     public void getHomePageBean(NetCallbacks<HomePageBean> callbacks) {
         ihttp.get(Urls.HOMEPAGE,null,callbacks);
