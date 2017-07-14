@@ -2,7 +2,6 @@ package com.example.pandas.homes.homepage;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,6 +10,7 @@ import com.example.pandas.app.App;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.personal.LoginActivity;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -64,15 +64,13 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     public void setResult(final HomePageBean netBean) {
-        Log.e("PageMain", netBean.toString());
-
         final HomePageBean.DataBean data = netBean.getData();
 
         list.add(data);
         homeXrecyclerview.setHasFixedSize(true);
         homeXrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         homeXrecyclerview.setLoadingMoreEnabled(false);
-        homeXrecyclerview.setRefreshProgressStyle(R.mipmap.xlistview_arrow);
+        homeXrecyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         homeXrecyclerview.setArrowImageView(R.mipmap.xlistview_arrow);
         homeXrecyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -101,7 +99,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     public void showMessage(String msg) {
-//        Log.e("TAG", msg.toString());
+
     }
 
     @Override

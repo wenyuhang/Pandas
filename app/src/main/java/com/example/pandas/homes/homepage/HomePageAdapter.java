@@ -30,6 +30,7 @@ import com.example.pandas.model.datebean.homebean.LightChinaBean;
 import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
@@ -146,13 +147,14 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final MyViewHolder viewHolder= (MyViewHolder) holder;
+        imgLists.clear();
         for(int i=0;i<list.get(0).getBigImg().size();i++){
             imgLists.add(list.get(0).getBigImg().get(i).getImage());
         }
         viewHolder.homeBanner.setImageLoader(new ImageLoaders());
         viewHolder.homeBanner.isAutoPlay(true);
         viewHolder.homeBanner.setDelayTime(2000);
-        viewHolder.homeBanner.setImages(imgLists);
+        viewHolder.homeBanner.setImages(imgLists).setIndicatorGravity(BannerConfig.RIGHT);
         viewHolder.homeBanner.start();
         viewHolder.homeBanner.setOnBannerListener(new OnBannerListener() {
             @Override
@@ -168,7 +170,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
             @Override
             public void onPageSelected(int position) {
-                if(position<4){
+                if(position<=4){
                     viewHolder.homepageTitle.setText(list.get(0).getBigImg().get(position-1).getTitle());
                 }else{
                     position=1;
@@ -182,6 +184,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
             }
         });
 
+        scrollList.clear();
         scrollList.addAll(list.get(position).getArea().getListscroll());
         viewHolder.wonderfulRecommendation.setText(list.get(position).getArea().getTitle());
         Glide.with(context).load(list.get(position).getArea().getImage()).into(viewHolder.home_wonderful_recommendation_img);
@@ -201,6 +204,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         IHomeImpl.ihttp.get(list.get(position).getPandaeye().getPandaeyelist(), null, new NetCallbacks<PandaEyeListBean>() {
             @Override
             public void onSuccess(PandaEyeListBean pandaEyeListBean) {
+                pandaEyeList.clear();
                 pandaEyeList.addAll(pandaEyeListBean.getList());
                 handler.sendEmptyMessage(99);
             }
@@ -216,6 +220,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         viewHolder.pandaWatchNewsRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         viewHolder.pandaWatchNewsRecyclerview.setAdapter(pandaEyeAdapter);
 
+        pandaLiveList.clear();
         pandaLiveList.addAll(list.get(position).getPandalive().getList());
         viewHolder.pandaLive.setText(list.get(position).getPandalive().getTitle());
         viewHolder.pandaLiveRecyclerview.setHasFixedSize(true);
@@ -223,6 +228,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         PandaLiveAdapter pandaLiveAdapter=new PandaLiveAdapter(context,pandaLiveList);
         viewHolder.pandaLiveRecyclerview.setAdapter(pandaLiveAdapter);
 
+        wallList.clear();
         wallList.addAll(list.get(position).getWalllive().getList());
         viewHolder.greatWallLive.setText(list.get(position).getWalllive().getTitle());;
         viewHolder.greatWallLiveRecyclerview.setHasFixedSize(true);
@@ -230,6 +236,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         GreatWallLiveAdapter greatWallLiveAdapter=new GreatWallLiveAdapter(wallList,context);
         viewHolder.greatWallLiveRecyclerview.setAdapter(greatWallLiveAdapter);
 
+        chinaList.clear();
         chinaList.addAll(list.get(position).getChinalive().getList());
         viewHolder.liveInChina.setText(list.get(position).getChinalive().getTitle());
         viewHolder.liveInChinaRecyclerview.setHasFixedSize(true);
@@ -245,6 +252,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         IHomeImpl.ihttp.get(list.get(position).getCctv().getListurl(), null, new NetCallbacks<CCTVInfoBean>() {
             @Override
             public void onSuccess(CCTVInfoBean cctvInfoBean) {
+                cctvList.clear();
                 cctvList.addAll(cctvInfoBean.getList());
                 handler.sendEmptyMessage(66);
             }
@@ -263,6 +271,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         IHomeImpl.ihttp.get(list.get(position).getList().get(position).getListUrl(), null, new NetCallbacks<LightChinaBean>() {
             @Override
             public void onSuccess(LightChinaBean lightChinaBean) {
+                lightChinaList.clear();
                 lightChinaList.addAll(lightChinaBean.getList());
                 handler.sendEmptyMessage(77);
             }
@@ -276,7 +285,6 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         viewHolder.lightAndShadowInChinaRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         lightChinaAdapter = new LightChinaAdapter(context,lightChinaList);
         viewHolder.lightAndShadowInChinaRecyclerview.setAdapter(lightChinaAdapter);
-
     }
 
     @Override
