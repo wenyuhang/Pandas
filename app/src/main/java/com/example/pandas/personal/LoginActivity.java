@@ -65,7 +65,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.sina:
                 break;
             case R.id.forget:
-
+                startActivity(new Intent(LoginActivity.this,UpdateActivity.class));
                 break;
             case R.id.login:
                 break;

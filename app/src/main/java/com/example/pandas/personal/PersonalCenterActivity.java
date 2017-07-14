@@ -50,8 +50,10 @@ public class PersonalCenterActivity extends BaseActivity {
                 startActivity(new Intent(PersonalCenterActivity.this,LoginActivity.class));
                 break;
             case R.id.personalCenter_History:
+                startActivity(new Intent(PersonalCenterActivity.this,HistoryActivity.class));
                 break;
             case R.id.personalCenter_Collection:
+                startActivity(new Intent(PersonalCenterActivity.this,CollectionActivity.class));
                 break;
             case R.id.personalCenter_set:
                 startActivity(new Intent(PersonalCenterActivity.this,SetActivity.class));

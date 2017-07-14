@@ -25,6 +25,8 @@
         <activity android:name=".personal.PersonalCenterActivity" />
         <activity android:name=".personal.CollectionActivity" />
         <activity android:name=".personal.UserFeedbackActivity"></activity>
+        <activity android:name=".personal.UpdateActivity"></activity>
+        <activity android:name=".personal.HistoryActivity"></activity>
     </application>
 
 </manifest>
