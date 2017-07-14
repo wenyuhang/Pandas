@@ -1,8 +1,10 @@
 package com.example.pandas.model.biz;
 
 
-import com.example.pandas.model.datebean.PdBBean;
+import com.example.pandas.model.datebean.RollvideoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
+import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
+import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 
