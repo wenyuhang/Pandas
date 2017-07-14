@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@mipmap/pe_top_txt_bgg"
+        android:background="@mipmap/pe_top_txt_bgq"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
