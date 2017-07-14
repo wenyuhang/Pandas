@@ -24,7 +24,7 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
     public PandaBroadcastAdapter(Context context, List<PdBBean.ListBean> datas) {
         super(context, R.layout.pandabroadcast_down_item, datas);
     }
-
+//
     @Override
     public void convert(ViewHolder holder, PdBBean.ListBean listBean) {
         holder.setText(R.id.pdbd_d_title,listBean.getTitle());

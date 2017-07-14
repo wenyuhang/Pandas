@@ -9,7 +9,7 @@ import com.example.pandas.model.datebean.PdBBean;
  */
 
 public interface PandaBroadcastContract {
-
+//
     interface Presenter extends BasePresenter {
         void lodeMore(String path, String primary_id, String serviceId);
     }

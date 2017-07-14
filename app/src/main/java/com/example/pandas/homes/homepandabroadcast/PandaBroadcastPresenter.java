@@ -21,7 +21,7 @@ public class PandaBroadcastPresenter implements PandaBroadcastContract.Presenter
         homeModel = new IHomeImpl();
     }
 
-
+//
     @Override
     public void lodeMore(String path, String primary_id, String serviceId) {
         Log.d("PandaBroadcastPresenter",path);

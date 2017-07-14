@@ -49,7 +49,7 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     protected void init(View view) {
         listBeen = new ArrayList<>();
     }
-
+//
     @Override
     protected void loadData() {
         View inflate = View.inflate(getContext(), R.layout.pandabroadcast_up_item, null);
