@@ -1,10 +1,9 @@
 package com.example.pandas.homes.homepandabroadcast;
 
-import android.util.Log;
-
 import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.biz.IHomeModel;
-import com.example.pandas.model.datebean.PdBBean;
+import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
+import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 
 /**
@@ -24,9 +23,6 @@ public class PandaBroadcastPresenter implements PandaBroadcastContract.Presenter
 //
     @Override
     public void lodeMore(String path, String primary_id, String serviceId) {
-        Log.d("PandaBroadcastPresenter",path);
-        Log.d("PandaBroadcastPresenter",primary_id);
-        Log.d("PandaBroadcastPresenter",serviceId);
         homeModel.getPdBBean(path, primary_id, serviceId, new NetCallbacks<PdBBean>() {
             @Override
             public void onSuccess(PdBBean pdBBean) {
@@ -38,10 +34,21 @@ public class PandaBroadcastPresenter implements PandaBroadcastContract.Presenter
                 pandview.showMessage(errorMsg);
             }
         });
+
     }
 
     @Override
     public void strat() {
+        homeModel.getTitleBean(new NetCallbacks<TitleBean>() {
+            @Override
+            public void onSuccess(TitleBean titleBean) {
+                pandview.setResult1(titleBean);
+            }
 
+            @Override
+            public void onError(String errorMsg) {
+                pandview.showMessage(errorMsg);
+            }
+        });
     }
 }

@@ -20,6 +20,9 @@ public class Urls {
     //直播中国
     public static final String LIVECHINA="";
 
+    //熊猫播报title 图
+    public static final String PANDABROADCASTTITLE="http://www.ipanda.com/kehuduan/PAGE14503485387528442/index.json";
+
     //熊猫播报服务器地址
     public static final String PANDABROADCAST="http://api.cntv.cn/apicommon/index";
 }

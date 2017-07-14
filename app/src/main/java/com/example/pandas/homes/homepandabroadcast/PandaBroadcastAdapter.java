@@ -7,7 +7,7 @@ import com.androidkun.adapter.BaseAdapter;
 import com.androidkun.adapter.ViewHolder;
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
-import com.example.pandas.model.datebean.PdBBean;
+import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,5 +37,11 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
         holder.setText(R.id.pdbd_d_time,format1);
         ImageView imageView = holder.getView(R.id.pdbd_d_iamge);
         Glide.with(context).load(listBean.getPicurl()).into(imageView);
+//        holder.setOnclickListener(R.id.pulltorefersh_down, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context, "qqq", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }

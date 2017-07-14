@@ -1,4 +1,4 @@
-package com.example.pandas.model.datebean;
+package com.example.pandas.model.datebean.pandabroadcastbean;
 
 import java.util.List;
 
