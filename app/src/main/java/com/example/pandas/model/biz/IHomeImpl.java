@@ -51,6 +51,9 @@ public class IHomeImpl implements IHomeModel{
         ihttp.get(Urls.PANDABROADCAST, map, callbacks);
 
     }
+
+
+
         @Override
         public void getRollVideoBean(NetCallbacks<RollvideoBean> callbacks) {
             ihttp.get(Urls.RELLOVIDEO,null,callbacks);
