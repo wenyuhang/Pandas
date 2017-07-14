@@ -1,8 +1,6 @@
 package com.example.pandas.model.biz;
 
 
-import android.util.Log;
-
 import com.example.pandas.config.Urls;
 import com.example.pandas.model.datebean.HomePageBean;
 import com.example.pandas.model.datebean.PdBBean;
