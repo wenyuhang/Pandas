@@ -1,5 +1,7 @@
 package com.example.pandas.networks;
 
+
+import android.util.Log;
 import com.example.pandas.app.App;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 import com.google.gson.Gson;
@@ -51,7 +53,7 @@ public class OkHttpUtils implements IHttp {
             }
             url=buffer.deleteCharAt(buffer.length()-1).toString();
         }
-
+        Log.d("OkHttpUtils",buffer.toString());
         Request request = new Request.Builder().url(url).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.pandas.app.App;
+import com.example.pandas.wxapi.App;
 
 import butterknife.ButterKnife;
 

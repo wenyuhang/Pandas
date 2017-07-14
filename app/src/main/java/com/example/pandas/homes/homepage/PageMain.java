@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.pandas.R;
-import com.example.pandas.app.App;
+import com.example.pandas.wxapi.App;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.personal.LoginActivity;
