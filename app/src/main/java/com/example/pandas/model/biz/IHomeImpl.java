@@ -1,10 +1,16 @@
 package com.example.pandas.model.biz;
 
 
+import android.util.Log;
+
 import com.example.pandas.config.Urls;
 import com.example.pandas.model.datebean.HomePageBean;
+import com.example.pandas.model.datebean.PdBBean;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 联想 on 2017/7/12.
@@ -26,7 +32,6 @@ public class IHomeImpl implements IHomeModel{
         ihttp.get(Urls.PANDALIVE,null,callbacks);
     }
 
-
     /**
      * 获取直播中国中的首页
      *
@@ -36,4 +41,12 @@ public class IHomeImpl implements IHomeModel{
 
     }
 
+    @Override
+    public void getPdBBean(String path, String primary_id, String serviceId, NetCallbacks<PdBBean> callbacks) {
+        Map<String,String> map = new HashMap<>() ;
+        map.put("path",path);
+        map.put("primary_id",primary_id);
+        map.put("serviceId",serviceId);
+        ihttp.get(Urls.PANDABROADCAST,map,callbacks);
+    }
 }

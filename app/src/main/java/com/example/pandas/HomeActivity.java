@@ -13,6 +13,7 @@ import com.example.pandas.homes.homelivechina.LiveChinaMain;
 import com.example.pandas.homes.homepage.PageMain;
 import com.example.pandas.homes.homepage.PagePresenter;
 import com.example.pandas.homes.homepandabroadcast.PandaBroadcastMain;
+import com.example.pandas.homes.homepandabroadcast.PandaBroadcastPresenter;
 import com.example.pandas.homes.homepandalive.PandaLiveMain;
 import com.example.pandas.homes.homerollvideo.RollVideoMain;
 
@@ -83,7 +84,6 @@ public class HomeActivity extends BaseActivity {
             case R.id.home_PandaLive:
                 if (pandaLiveMain == null) {
                     pandaLiveMain = new PandaLiveMain();
-
                     transaction.add(R.id.home_framelayout, pandaLiveMain, PandaLiveMain.class.getSimpleName());
                     transaction.addToBackStack(null);
                 } else {
@@ -103,6 +103,7 @@ public class HomeActivity extends BaseActivity {
             case R.id.home_PandaBroadcast:
                 if (pandaBroadcastMain == null) {
                     pandaBroadcastMain = new PandaBroadcastMain();
+                    new PandaBroadcastPresenter(pandaBroadcastMain);
                     transaction.add(R.id.home_framelayout, pandaBroadcastMain, PandaBroadcastMain.class.getSimpleName());
                     transaction.addToBackStack(null);
                 } else {
