@@ -1,6 +1,7 @@
 package com.example.pandas.personal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -45,9 +46,15 @@ public class PersonalCenterActivity extends BaseActivity {
 
     @OnClick({R.id.personalCenter_Signin, R.id.personalCenter_History, R.id.personalCenter_Collection, R.id.personalCenter_set, R.id.activity_personal_center})
     public void onViewClicked(View view) {
+        SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
+        boolean aBoolean = xinxi.getBoolean("boolean", true);
         switch (view.getId()) {
             case R.id.personalCenter_Signin:
-                startActivity(new Intent(PersonalCenterActivity.this,LoginActivity.class));
+                if(aBoolean==true) {
+                    startActivity(new Intent(PersonalCenterActivity.this,LoginActivity.class));
+                }else {
+                    startActivity(new Intent(PersonalCenterActivity.this,PersonalXinActivity.class));
+                }
                 break;
             case R.id.personalCenter_History:
                 startActivity(new Intent(PersonalCenterActivity.this,HistoryActivity.class));
@@ -59,6 +66,9 @@ public class PersonalCenterActivity extends BaseActivity {
                 startActivity(new Intent(PersonalCenterActivity.this,SetActivity.class));
                 break;
             case R.id.activity_personal_center:
+                break;
+            case R.id.fanhui:
+                finish();
                 break;
         }
     }

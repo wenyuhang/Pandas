@@ -1,13 +1,22 @@
 package com.example.pandas.personal;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -37,8 +46,11 @@ public class PersonalXinActivity extends BaseActivity {
     public void initview() {
 //        String iconurl = getIntent().getStringExtra("iconurl");
 //        String name = getIntent().getStringExtra("name");
-//        Glide.with(this).load(iconurl).into(ivHeadicon);
-//        nickName.setText(name);
+        SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
+        String iconurl = xinxi.getString("iconurl", "");
+        String name = xinxi.getString("name", "");
+        Glide.with(this).load(iconurl).into(ivHeadicon);
+        nickName.setText(name);
     }
 
     @OnClick({R.id.fanhui, R.id.iv_headicon, R.id.person_have_login_layout, R.id.personal_nickname_layout, R.id.btn_login_out})
@@ -54,8 +66,40 @@ public class PersonalXinActivity extends BaseActivity {
             case R.id.personal_nickname_layout:
                 break;
             case R.id.btn_login_out:
+                UMShareAPI.get(PersonalXinActivity.this).deleteOauth(PersonalXinActivity.this
+                        , SHARE_MEDIA.QQ,new UMAuthListener() {
+                            @Override
+                            public void onStart(SHARE_MEDIA share_media) {
+                            }
+
+                            @Override
+                            public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+                                Toast.makeText(PersonalXinActivity.this, "退出成功", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(PersonalXinActivity.this,LoginActivity.class));
+                                SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
+                                SharedPreferences.Editor edit = xinxi.edit();
+                                edit.putBoolean("boolean",true);
+                                edit.commit();
+                            }
+
+                            @Override
+                            public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+
+                            }
+
+                            @Override
+                            public void onCancel(SHARE_MEDIA share_media, int i) {
+
+                            }
+                        });
+                finish();
                 break;
         }
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 
+    }
 }

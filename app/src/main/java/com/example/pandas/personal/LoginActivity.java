@@ -2,6 +2,7 @@ package com.example.pandas.personal;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -88,9 +89,16 @@ public class LoginActivity extends BaseActivity {
             Log.e("TAG",iconurl);
             Log.e("TAG",name);
             Intent intent = new Intent(LoginActivity.this,PersonalXinActivity.class);
-            intent.putExtra("iconurl",iconurl);
-            intent.putExtra("name",name);
+//            intent.putExtra();
+//            intent.putExtra();
             startActivity(intent);
+            SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
+            SharedPreferences.Editor edit = xinxi.edit();
+            edit.putBoolean("boolean",false);
+            edit.putString("iconurl",iconurl);
+            edit.putString("name",name);
+            edit.commit();
+            finish();
         }
 
         @Override

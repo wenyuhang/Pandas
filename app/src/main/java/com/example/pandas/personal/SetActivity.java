@@ -102,6 +102,7 @@ public class SetActivity extends BaseActivity {
 
                 break;
             case R.id.personal_set_udpate_layout:
+                Toast.makeText(SetActivity.this, "更新什么啊，是不是流量多了", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.personal_set_ping_layout:
                 break;
