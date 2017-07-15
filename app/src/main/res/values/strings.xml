@@ -19,6 +19,7 @@
     <string name="login_account_hint">账号：请输入邮箱或手机号</string>
     <string name="login_password_hint">请输入密码</string>
     <string name="panda_live">熊猫直播</string>
+    <string name="brief_introduction">简介</string>
     <string name="live_china">直播中国</string>
     <string name="panda_broadcast">熊猫观察</string>
     <string name="roll_video">熊猫文化</string>
@@ -74,6 +75,9 @@
     <string name="set_about_content">熊猫频道以24小时直播中国名山大川、自然风光以及熊猫、金丝猴等世界珍稀动物为特色，以CCTV电视节目资源为基础，旨在打造一个传播中国声音、讲好中国故事、展示中国文化独特魅力的中国频道，充分满足海外华人以及喜爱中国文化的外国人的需求，最终建成以视频为特色的中国互联网大百科。现阶段主要开设有《熊猫观察》、《熊猫直播》、《直播中国》、《熊猫文化》等特色栏目。</string>
 
     <!-- 修改昵称、头像 -->
+
+    <string name="watchChat_editHint">添加评论. . .</string>
+    <string name="send_edit">发送</string>
 
 
     <!--注册-->

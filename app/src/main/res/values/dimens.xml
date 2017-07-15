@@ -2,7 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
+    <dimen name="common_fontsSize">14sp</dimen>
     //首页所需字体大小
     <dimen name="homepage_text">12sp</dimen>
 </resources>

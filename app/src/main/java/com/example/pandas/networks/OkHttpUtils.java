@@ -1,6 +1,5 @@
 package com.example.pandas.networks;
 
-
 import android.util.Log;
 
 import com.example.pandas.networks.mycallbacks.NetCallbacks;

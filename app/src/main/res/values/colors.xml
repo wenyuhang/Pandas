@@ -15,4 +15,7 @@
     <color name="colorGray">#e8e8e8</color>
     <color name="colorBlack">#000000</color>
     <color name="colorPink">#ff0a5a</color>
+
+    <color name="pandlive_tabIndicatorColor">#21559c</color>
+    <color name="watch_floor">#dfdfdf</color>
 </resources>

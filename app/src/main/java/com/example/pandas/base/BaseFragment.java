@@ -8,17 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by 联想 on 2017/7/11.
  */
 
 public abstract class BaseFragment extends Fragment {
+
+    private EventBus build;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), null);
         ButterKnife.bind(this,view);
+//        setEventBus();
         return view;
     }
 
@@ -26,6 +31,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+//        build.unregister(this);
     }
 
     @Override
@@ -57,4 +63,13 @@ public abstract class BaseFragment extends Fragment {
     protected void onShow(){}
     //该方法在Fragment隐藏时调用，可以做数据保存
     protected void onHidden(){}
+
+    public EventBus setEventBus(boolean flg){
+        if(flg) {
+            build = EventBus.builder().eventInheritance(false).build();
+            build.register(this);
+
+        }
+        return build;
+    }
 }
