@@ -1,17 +1,24 @@
 package com.example.pandas.homes.homepage;
 
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.pandas.R;
-import com.example.pandas.wxapi.App;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
-import com.example.pandas.personal.LoginActivity;
+import com.example.pandas.personal.PersonalCenterActivity;
+import com.example.pandas.personal.homeinteractive.InteractiveMainActivity;
+import com.example.pandas.wxapi.App;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 
@@ -34,7 +41,11 @@ public class PageMain extends BaseFragment implements PageContract.View {
     XRecyclerView homeXrecyclerview;
     private PageContract.Presenter presenter;
     private ArrayList<HomePageBean.DataBean> list;
+    private ArrayList<Object> objectList;
     private HomePageAdapter homePageAdapter;
+    private ArrayList<String> imgLists=new ArrayList<>();
+    private Banner banner;
+    private TextView homepageTitle;
 
     @Override
     protected int getLayoutId() {
@@ -44,6 +55,8 @@ public class PageMain extends BaseFragment implements PageContract.View {
     @Override
     protected void init(View view) {
         list=new ArrayList<>();
+        objectList=new ArrayList<>();
+        imgLists=new ArrayList<>();
     }
 
     @Override
@@ -64,9 +77,25 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     public void setResult(final HomePageBean netBean) {
-        final HomePageBean.DataBean data = netBean.getData();
 
-        list.add(data);
+        objectList.add(netBean.getData().getArea());
+        objectList.add(netBean.getData().getPandaeye().getItems().get(0));
+        objectList.add(netBean.getData().getPandaeye());
+        objectList.add(netBean.getData().getPandalive());
+        objectList.add(netBean.getData().getWalllive());
+        objectList.add(netBean.getData().getChinalive());
+        objectList.add(netBean.getData().getInteractive());
+        objectList.add(netBean.getData().getCctv());
+        objectList.add(netBean.getData().getList().get(0));
+
+        View view= LayoutInflater.from(getActivity()).inflate(R.layout.homepage_header_item,null);
+        homeXrecyclerview.addHeaderView(view);
+        banner = (Banner) view.findViewById(R.id.home_banner);
+        homepageTitle = (TextView) view.findViewById(R.id.homepage_title);
+        carousel(netBean);
+
+
+        list.add(netBean.getData());
         homeXrecyclerview.setHasFixedSize(true);
         homeXrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         homeXrecyclerview.setLoadingMoreEnabled(false);
@@ -78,8 +107,22 @@ public class PageMain extends BaseFragment implements PageContract.View {
                 App.context.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        imgLists.clear();
+                        carousel(netBean);
+
                         list.clear();
-                        list.add(data);
+                        list.add(netBean.getData());
+
+                        objectList.clear();
+                        objectList.add(netBean.getData().getArea());
+                        objectList.add(netBean.getData().getPandaeye().getItems().get(0));
+                        objectList.add(netBean.getData().getPandaeye());
+                        objectList.add(netBean.getData().getPandalive());
+                        objectList.add(netBean.getData().getWalllive());
+                        objectList.add(netBean.getData().getChinalive());
+                        objectList.add(netBean.getData().getInteractive());
+                        objectList.add(netBean.getData().getCctv());
+                        objectList.add(netBean.getData().getList().get(0));
                         homeXrecyclerview.refreshComplete();
                         homePageAdapter.notifyDataSetChanged();
                     }
@@ -92,9 +135,47 @@ public class PageMain extends BaseFragment implements PageContract.View {
             }
         });
 
-        homePageAdapter = new HomePageAdapter(getActivity(),list);
+        homePageAdapter = new HomePageAdapter(getActivity(),list,objectList);
         homeXrecyclerview.setAdapter(homePageAdapter);
 
+    }
+
+    private void carousel(HomePageBean netBean) {
+        for(int i=0;i<netBean.getData().getBigImg().size();i++){
+            imgLists.add(netBean.getData().getBigImg().get(i).getImage());
+        }
+        banner.setImageLoader(new ImageLoaders());
+        banner.isAutoPlay(true);
+        banner.setDelayTime(2000);
+        banner.setImages(imgLists).setIndicatorGravity(BannerConfig.RIGHT);
+        banner.start();
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+
+            }
+        });
+        banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position<=4){
+                    homepageTitle.setText(list.get(0).getBigImg().get(position-1).getTitle());
+                }else{
+                    position=1;
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -111,10 +192,12 @@ public class PageMain extends BaseFragment implements PageContract.View {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.home_personal:
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                startActivity(new Intent(getActivity(), PersonalCenterActivity.class));
                 break;
             case R.id.home_interactive:
+                startActivity(new Intent(getActivity(), InteractiveMainActivity.class));
                 break;
+
         }
     }
 }

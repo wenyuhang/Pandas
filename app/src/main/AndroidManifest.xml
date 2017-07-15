@@ -27,60 +27,8 @@
         <activity android:name=".personal.UserFeedbackActivity"></activity>
         <activity android:name=".personal.UpdateActivity"></activity>
         <activity android:name=".personal.HistoryActivity"></activity>
+        <activity android:name=".personal.homeinteractive.InteractiveMainActivity"></activity>
         <activity android:name=".personal.PersonalXinActivity"></activity>
-
-
-
-
-
-
-
-
-
-
-
-
-        <activity
-            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-        <activity
-            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.umeng.qq.tencent.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="tencent100424468" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.umeng.qq.tencent.AssistActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value=" 596815a51c5dd006e3000bb8"></meta-data>
-
-
-
     </application>
 
 </manifest>

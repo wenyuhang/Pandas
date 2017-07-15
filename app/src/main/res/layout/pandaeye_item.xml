@@ -1,60 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/x15">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y2"
-        android:background="#e8e8e8"></LinearLayout>
-
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/y20">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/pandaeye_newsimg"
-                android:layout_width="@dimen/x270"
-                android:layout_height="@dimen/y170"
-                android:scaleType="fitXY"
-                android:layout_marginTop="@dimen/y20"/>
-            <LinearLayout
-                android:layout_width="@dimen/x140"
-                android:layout_height="@dimen/y40"
-                android:layout_marginTop="@dimen/y150"
-                android:background="@mipmap/lpanda_bottom_gra">
-                <TextView
-                    android:id="@+id/pandaeye_newstime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/home_play_icon"
-                    android:drawablePadding="@dimen/x10"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginLeft="@dimen/x10"
-                    android:layout_gravity="center_vertical"/>
-            </LinearLayout>
-        </RelativeLayout>
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="@dimen/x10">
-            <TextView
-                android:id="@+id/pandaeye_newstitle"
+            android:layout_height="@dimen/y2"
+            android:background="#e8e8e8"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="@dimen/x15"
+            android:layout_marginTop="@dimen/y10"
+            android:layout_marginBottom="@dimen/y20">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/pandaeye_newsimg"
+                    android:layout_width="@dimen/x270"
+                    android:layout_height="@dimen/y170"
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="@dimen/y20"/>
+                <LinearLayout
+                    android:layout_width="@dimen/x140"
+                    android:layout_height="@dimen/y40"
+                    android:layout_marginTop="@dimen/y150"
+                    android:background="@mipmap/lpanda_bottom_gra">
+                    <TextView
+                        android:id="@+id/pandaeye_newstime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/home_play_icon"
+                        android:drawablePadding="@dimen/x10"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+            </RelativeLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y15"
-                android:textColor="@color/colorBlack"/>
-            <TextView
-                android:id="@+id/pandaeye_newsdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y80"/>
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/x10">
+                <TextView
+                    android:id="@+id/pandaeye_newstitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y15"
+                    android:textColor="@color/colorBlack"/>
+                <TextView
+                    android:id="@+id/pandaeye_newsdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y80"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
