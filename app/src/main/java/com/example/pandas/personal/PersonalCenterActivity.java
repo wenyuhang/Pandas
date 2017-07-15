@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
 
@@ -26,6 +29,11 @@ public class PersonalCenterActivity extends BaseActivity {
     LinearLayout personalCenterSet;
     @Bind(R.id.activity_personal_center)
     LinearLayout activityPersonalCenter;
+    @Bind(R.id.image)
+    ImageView image;
+    @Bind(R.id.title)
+    TextView title;
+
 
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -48,22 +56,28 @@ public class PersonalCenterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
         boolean aBoolean = xinxi.getBoolean("boolean", true);
+        String iconurl = xinxi.getString("iconurl", "");
+        String name = xinxi.getString("name", "");
         switch (view.getId()) {
             case R.id.personalCenter_Signin:
-                if(aBoolean==true) {
-                    startActivity(new Intent(PersonalCenterActivity.this,LoginActivity.class));
-                }else {
-                    startActivity(new Intent(PersonalCenterActivity.this,PersonalXinActivity.class));
+                if (aBoolean == true) {
+                    startActivity(new Intent(PersonalCenterActivity.this, LoginActivity.class));
+                    image.setImageResource(R.mipmap.personal_login_head);
+                    title.setText("点击登录");
+                } else {
+                    startActivity(new Intent(PersonalCenterActivity.this, PersonalXinActivity.class));
+                    Glide.with(PersonalCenterActivity.this).load(iconurl).into(image);
+                    title.setText(name);
                 }
                 break;
             case R.id.personalCenter_History:
-                startActivity(new Intent(PersonalCenterActivity.this,HistoryActivity.class));
+                startActivity(new Intent(PersonalCenterActivity.this, HistoryActivity.class));
                 break;
             case R.id.personalCenter_Collection:
-                startActivity(new Intent(PersonalCenterActivity.this,CollectionActivity.class));
+                startActivity(new Intent(PersonalCenterActivity.this, CollectionActivity.class));
                 break;
             case R.id.personalCenter_set:
-                startActivity(new Intent(PersonalCenterActivity.this,SetActivity.class));
+                startActivity(new Intent(PersonalCenterActivity.this, SetActivity.class));
                 break;
             case R.id.activity_personal_center:
                 break;
@@ -72,4 +86,5 @@ public class PersonalCenterActivity extends BaseActivity {
                 break;
         }
     }
+
 }
