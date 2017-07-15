@@ -9,7 +9,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
 public class InteractiveMainActivity extends AppCompatActivity {
 
     @Bind(R.id.interactive_xrecyclerview)

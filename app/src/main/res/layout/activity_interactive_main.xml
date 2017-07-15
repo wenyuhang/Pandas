@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.pandas.personal.homeinteractive.InteractiveMainActivity">
 
+
     <RelativeLayout
         android:id="@+id/interactive_relativelayout"
         android:layout_width="match_parent"
@@ -24,6 +25,7 @@
             android:text="原创●互动"
             android:layout_centerInParent="true"
             android:textStyle="bold"/>
+
     </RelativeLayout>
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView

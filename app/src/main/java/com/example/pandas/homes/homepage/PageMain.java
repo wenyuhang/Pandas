@@ -29,7 +29,6 @@ import butterknife.OnClick;
 /**
  * Created by 联想 on 2017/7/10.
  */
-
 public class PageMain extends BaseFragment implements PageContract.View {
     @Bind(R.id.home_logo_img)
     ImageView homeLogoImg;

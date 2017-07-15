@@ -16,7 +16,6 @@ import java.util.ArrayList;
 /**
  * Created by Nicky on 2017/7/13.
  */
-
 public class PandaWatchTitleAdapter extends RecyclerView.Adapter {
 
     private Context context;

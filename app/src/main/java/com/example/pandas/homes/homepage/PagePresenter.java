@@ -9,7 +9,6 @@ import com.example.pandas.networks.mycallbacks.NetCallbacks;
 /**
  * Created by 联想 on 2017/7/12.
  */
-
 public class PagePresenter implements PageContract.Presenter {
     private PageContract.View pageview;
     private IHomeModel homeModel;

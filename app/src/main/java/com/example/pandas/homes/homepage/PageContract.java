@@ -8,7 +8,6 @@ import com.example.pandas.model.datebean.homebean.HomePageBean;
 /**
  * Created by 联想 on 2017/7/12.
  */
-
 public interface PageContract {
     /**
      * view接口

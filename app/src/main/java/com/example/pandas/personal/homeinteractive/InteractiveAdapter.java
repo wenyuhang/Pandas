@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 /**
  * Created by Nicky on 2017/7/14.
  */
-
 public class InteractiveAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

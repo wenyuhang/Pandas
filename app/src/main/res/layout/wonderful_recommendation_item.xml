@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:padding="@dimen/x10"
     android:layout_marginBottom="@dimen/y20">
-
     <ImageView
         android:id="@+id/wonderful_recommendation_img"
         android:layout_width="@dimen/x300"

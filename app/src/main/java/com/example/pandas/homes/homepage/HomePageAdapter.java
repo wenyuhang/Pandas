@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +69,6 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         this.context = context;
         this.list = list;
         this.objectList=objectList;
-        Log.e("tAG","++++++++++++++++++++"+list.size());
     }
 
     @Override
