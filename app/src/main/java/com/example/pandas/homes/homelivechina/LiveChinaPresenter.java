@@ -30,6 +30,7 @@ public class LiveChinaPresenter implements LiveChinaContract.Presenter{
             @Override
             public void onSuccess(LiveChinaBean liveChinaBean) {
                 liveview.setResult(liveChinaBean);
+
             }
 
             @Override

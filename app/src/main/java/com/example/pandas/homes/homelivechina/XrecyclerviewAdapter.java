@@ -6,24 +6,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.pandas.R;
+import com.example.pandas.config.VideoUtils;
 import com.example.pandas.model.datebean.livechina.LiveChinaBean;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * Created by 联想 on 2017/7/15.
  */
 
 public class XrecyclerviewAdapter extends RecyclerView.Adapter {
+
 
     private Context context;
     private List<LiveChinaBean.LiveBean> list;
@@ -36,15 +37,15 @@ public class XrecyclerviewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(context, R.layout.live_china_item, null);
-        LinearLayout.LayoutParams params=
+        LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(params);
         return new ViewHplder(view);
     }
 
-    class ViewHplder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        @Bind(R.id.livechina_adapter_imge)
-        ImageView livechinaAdapterImge;
+    class ViewHplder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @Bind(R.id.livechina_adapter_jc_video)
+        JCVideoPlayerStandard livechinaAdapterJcVideo;
         @Bind(R.id.livechina_adapter_title)
         TextView livechinaAdapterTitle;
         @Bind(R.id.livechina_adapter_conimag)
@@ -53,20 +54,21 @@ public class XrecyclerviewAdapter extends RecyclerView.Adapter {
         LinearLayout livechinaAdaLinearJianjie;
         @Bind(R.id.livechina_adapter_jianjie)
         TextView livechinaAdapterJianjie;
+
         public ViewHplder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
             livechinaAdapterConimag.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.livechina_adapter_conimag:
                     boolean checked = livechinaAdapterConimag.isChecked();
-                    if(checked){
+                    if (checked) {
                         livechinaAdapterJianjie.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         livechinaAdapterJianjie.setVisibility(View.GONE);
                     }
                     break;
@@ -77,11 +79,12 @@ public class XrecyclerviewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHplder mholder= (ViewHplder) holder;
+        ViewHplder mholder = (ViewHplder) holder;
         mholder.livechinaAdapterConimag.setChecked(false);
         mholder.livechinaAdapterTitle.setText(list.get(position).getTitle());
         mholder.livechinaAdapterJianjie.setText(list.get(position).getBrief());
-        Glide.with(context).load(list.get(position).getImage()).into(mholder.livechinaAdapterImge);
+        VideoUtils.getUtils().playVideo(mholder.livechinaAdapterJcVideo,"http://video.jiecao.fm/11/23/xin/%E5%81%87%E4%BA%BA.mp4","",list.get(position).getImage());
+//        Glide.with(context).load(list.get(position).getImage()).into(mholder.livechinaAdapterImge);
     }
 
     @Override
