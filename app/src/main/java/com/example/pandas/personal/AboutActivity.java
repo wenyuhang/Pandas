@@ -26,6 +26,7 @@ public class AboutActivity extends BaseActivity implements UMShareListener{
     @Override
     public void initview() {
 
+
     }
 
     @OnClick(R.id.fanhui)

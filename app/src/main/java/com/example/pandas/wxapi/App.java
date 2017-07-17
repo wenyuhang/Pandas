@@ -16,6 +16,7 @@ public class App extends Application{
     public static BaseActivity context=null;
 
 
+
     {
         PlatformConfig.setWeixin("wx967daebe835fbeac","5bb696d9ccd75a38c8a0bfe0675559b3");
         PlatformConfig.setQQZone("1106216909","ghMT4dVEBRqgcTjK");
