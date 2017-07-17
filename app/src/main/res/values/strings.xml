@@ -107,4 +107,22 @@
     <string name="regist_account_error">邮箱/手机格式不正确</string>
     <string name="regist_not_checked">未勾选《央视网网络服务使用协议》</string>
     <string name="regist_email_success">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+
+
+
+
+
+
+    <string name="problem1">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="problem2">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="problem3">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="problem4">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="problem5">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="Answer1">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="Answer2">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="Answer3">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="Answer4">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
+    <string name="Answer5">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
 </resources>
+
+

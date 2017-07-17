@@ -32,5 +32,45 @@
     </RelativeLayout>
 
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <RadioButton
+            android:id="@+id/phone"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y120"
+            android:text="直播"
+            android:gravity="center"
+            android:textSize="@dimen/x30"
+            android:button="@null"
+            android:checked="true"
+            android:textColor="@color/pandalive_textchange"
+            android:background="@drawable/pandalive_radio"
+            />
+
+        <View
+            android:layout_width="@dimen/x2"
+            android:layout_height="@dimen/y120"></View>
+
+        <RadioButton
+            android:id="@+id/mailbox"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y120"
+            android:text="精彩看点"
+            android:textColor="@color/pandalive_textchange"
+            android:gravity="center"
+            android:button="@null"
+            android:textSize="@dimen/x30"
+            android:background="@drawable/pandalive_radio"/>
+    </RadioGroup>
+
+
+
+
 
 </LinearLayout>

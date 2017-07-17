@@ -75,7 +75,7 @@ public class PersonalXinActivity extends BaseActivity {
                             @Override
                             public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
                                 Toast.makeText(PersonalXinActivity.this, "退出成功", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(PersonalXinActivity.this,LoginActivity.class));
+                                startActivity(new Intent(PersonalXinActivity.this,PersonalCenterActivity.class));
                                 SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
                                 SharedPreferences.Editor edit = xinxi.edit();
                                 edit.putBoolean("boolean",true);

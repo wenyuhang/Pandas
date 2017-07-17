@@ -74,7 +74,10 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 
     private UMAuthListener umAuthListener = new UMAuthListener() {
         @Override
@@ -88,7 +91,7 @@ public class LoginActivity extends BaseActivity {
             String name = data.get("name");
             Log.e("TAG",iconurl);
             Log.e("TAG",name);
-            Intent intent = new Intent(LoginActivity.this,PersonalXinActivity.class);
+            Intent intent = new Intent(LoginActivity.this,PersonalCenterActivity.class);
 //            intent.putExtra();
 //            intent.putExtra();
             startActivity(intent);
