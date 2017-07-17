@@ -1,5 +1,8 @@
 package com.example.pandas.model.datebean.homebean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -831,7 +834,23 @@ public class HomePageBean {
             }
         }
 
-        public static class InteractiveBean {
+        public static class InteractiveBean implements Parcelable {
+            protected InteractiveBean(Parcel in) {
+                title = in.readString();
+            }
+
+            public static final Creator<InteractiveBean> CREATOR = new Creator<InteractiveBean>() {
+                @Override
+                public InteractiveBean createFromParcel(Parcel in) {
+                    return new InteractiveBean(in);
+                }
+
+                @Override
+                public InteractiveBean[] newArray(int size) {
+                    return new InteractiveBean[size];
+                }
+            };
+
             @Override
             public String toString() {
                 return "InteractiveBean{" +
@@ -875,7 +894,38 @@ public class HomePageBean {
                 this.interactivetwo = interactivetwo;
             }
 
-            public static class InteractiveoneBean {
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(title);
+            }
+
+            public static class InteractiveoneBean implements Parcelable {
+                protected InteractiveoneBean(Parcel in) {
+                    image = in.readString();
+                    title = in.readString();
+                    url = in.readString();
+                    type = in.readString();
+                    vid = in.readString();
+                    order = in.readString();
+                }
+
+                public static final Creator<InteractiveoneBean> CREATOR = new Creator<InteractiveoneBean>() {
+                    @Override
+                    public InteractiveoneBean createFromParcel(Parcel in) {
+                        return new InteractiveoneBean(in);
+                    }
+
+                    @Override
+                    public InteractiveoneBean[] newArray(int size) {
+                        return new InteractiveoneBean[size];
+                    }
+                };
+
                 @Override
                 public String toString() {
                     return "InteractiveoneBean{" +
@@ -950,6 +1000,21 @@ public class HomePageBean {
 
                 public void setOrder(String order) {
                     this.order = order;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(image);
+                    dest.writeString(title);
+                    dest.writeString(url);
+                    dest.writeString(type);
+                    dest.writeString(vid);
+                    dest.writeString(order);
                 }
             }
         }

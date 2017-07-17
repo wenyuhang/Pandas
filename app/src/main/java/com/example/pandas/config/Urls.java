@@ -10,7 +10,7 @@ public class Urls {
     //服务器地址
     private static final String BASEURL = "http://www.ipanda.com/kehuduan/";
 
-    //熊猫直播首页
+    //熊猫直播
     public static final String PANDALIVE = BASEURL+"PAGE14501769230331752/index.json";
 
 
@@ -29,6 +29,9 @@ public class Urls {
     //    熊猫文化
     public static final String RELLOVIDEO=BASEURL+"xmwh/index.json";
 
+    //互动首页
+    public static final String INTERACTIVE=BASEURL+"PAGE14501767715521482/index.json";
+
     //    熊猫直播tablayout标题
     public static final String PANDALIVETAB = BASEURL+"PAGE14501772263221982/index.json";
 
@@ -41,4 +44,6 @@ public class Urls {
 
     //熊猫直播中的边看边聊数据
     public static final String WATCHCHATDATE = "http://newcomment.cntv.cn/comment/list";
+
+
 }

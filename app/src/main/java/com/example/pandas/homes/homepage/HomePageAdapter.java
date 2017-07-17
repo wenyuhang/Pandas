@@ -1,6 +1,7 @@
 package com.example.pandas.homes.homepage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,7 @@ import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.LightChinaBean;
 import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
+import com.example.pandas.personal.homeinteractive.InteractiveInfoActivity;
 import com.example.pandas.wxapi.App;
 
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     private ArrayList<HomePageBean.DataBean.ChinaliveBean.ListBeanXX> chinaList=new ArrayList<>();
     private ArrayList<CCTVInfoBean.ListBean> cctvList=new ArrayList<>();
     private ArrayList<LightChinaBean.ListBean> lightChinaList=new ArrayList<>();
+    private ArrayList<HomePageBean.DataBean.InteractiveBean.InteractiveoneBean> interactiveList=new ArrayList<>();
 
 
     public HomePageAdapter(Context context, ArrayList<HomePageBean.DataBean> list,ArrayList<Object> objectList) {
@@ -237,9 +240,19 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     }
 
     private void initPlan(PlanViewHolder planViewHolder) {
+        interactiveList.addAll(list.get(0).getInteractive().getInteractiveone());
         planViewHolder.specialPlanning.setText(list.get(0).getInteractive().getTitle());
-        Glide.with(context).load(list.get(0).getInteractive().getInteractiveone().get(0).getImage()).into(planViewHolder.specialPlanningImg);
-        planViewHolder.specialPlanningTitle.setText(list.get(0).getInteractive().getInteractiveone().get(0).getTitle());
+        Glide.with(context).load(interactiveList.get(0).getImage()).into(planViewHolder.specialPlanningImg);
+        planViewHolder.specialPlanningTitle.setText(interactiveList.get(0).getTitle());
+        planViewHolder.specialPlanningImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, InteractiveInfoActivity.class);
+                intent.putParcelableArrayListExtra("datas",interactiveList);
+                intent.putExtra("poss",0);
+                context.startActivity(intent);
+            }
+        });
     }
 
     private void initCCTV(CCTVViewHolder cctvViewHolder) {
