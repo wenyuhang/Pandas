@@ -18,7 +18,7 @@ public class Urls {
     public static final String HOMEPAGE=BASEURL+"PAGE14501749764071042/index.json";
 
     //直播中国
-    public static final String LIVECHINA="";
+    public static final String LIVECHINA=BASEURL+"PAGE14501775094142282/index.json";
 
     //熊猫播报title 图
     public static final String PANDABROADCASTTITLE="http://www.ipanda.com/kehuduan/PAGE14503485387528442/index.json";

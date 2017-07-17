@@ -3,6 +3,8 @@ package com.example.pandas.model.biz;
 
 import com.example.pandas.model.datebean.RollvideoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
+import com.example.pandas.model.datebean.livechina.LiveChinaBean;
+import com.example.pandas.model.datebean.livechina.SceneryBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
@@ -29,7 +31,10 @@ public interface IHomeModel extends BaseModel{
     //熊猫播报
     void getPdBBean(String path, String primary_id, String serviceId, NetCallbacks<PdBBean> callbacks);
     //   直播中国
-    void getLiveChinaBean(NetCallbacks callbacks);
+    void getLiveChinaBean(String str,NetCallbacks<LiveChinaBean> callbacks);
+
+    //直播中国详情
+    void getSeneryBean(NetCallbacks<SceneryBean> callbacks);
 
     void getRollVideoBean(NetCallbacks<RollvideoBean> callbacks);
 

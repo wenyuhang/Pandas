@@ -4,6 +4,7 @@ package com.example.pandas.model.biz;
 import com.example.pandas.config.Urls;
 import com.example.pandas.model.datebean.RollvideoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
+import com.example.pandas.model.datebean.livechina.SceneryBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
@@ -21,7 +22,6 @@ import java.util.Map;
  */
 
 public class IHomeImpl implements IHomeModel{
-
     /**
      *  首页中的网络请求
      * @param callbacks
@@ -51,8 +51,19 @@ public class IHomeImpl implements IHomeModel{
      *
      */
     @Override
-    public void getLiveChinaBean(NetCallbacks callbacks) {
+    public void getLiveChinaBean(String str,NetCallbacks callbacks) {
+        ihttp.get(str , null, callbacks);
+    }
 
+
+    /**
+     *
+     *获取tab详情页面
+     * @param callbacks
+     */
+    @Override
+    public void getSeneryBean(NetCallbacks<SceneryBean> callbacks) {
+        ihttp.get(Urls.LIVECHINA,null,callbacks);
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 
 import com.example.pandas.base.BaseActivity;
 import com.example.pandas.homes.homelivechina.LiveChinaMain;
+import com.example.pandas.homes.homelivechina.LiveChinaPresenter;
 import com.example.pandas.homes.homepage.PageMain;
 import com.example.pandas.homes.homepage.PagePresenter;
 import com.example.pandas.homes.homepandabroadcast.PandaBroadcastMain;
@@ -68,6 +69,7 @@ public class HomeActivity extends BaseActivity {
         transaction.add(R.id.home_framelayout, pageMain, PageMain.class.getSimpleName());
         transaction.addToBackStack(null);
         transaction.commit();
+
     }
 
 
@@ -115,6 +117,7 @@ public class HomeActivity extends BaseActivity {
             case R.id.home_LiveChina:
                 if (liveChinaMain == null) {
                     liveChinaMain = new LiveChinaMain();
+                    new LiveChinaPresenter(liveChinaMain);
                     transaction.add(R.id.home_framelayout, liveChinaMain, LiveChinaMain.class.getSimpleName());
                     transaction.addToBackStack(null);
                 } else {
