@@ -32,7 +32,23 @@ public class HomePageBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Parcelable {
+        protected DataBean(Parcel in) {
+            interactive = in.readParcelable(InteractiveBean.class.getClassLoader());
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
+
         @Override
         public String toString() {
             return "DataBean{" +
@@ -140,6 +156,16 @@ public class HomePageBean {
 
         public void setList(List<ListBeanXXX> list) {
             this.list = list;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeParcelable(interactive, flags);
         }
 
         public static class AreaBean {
@@ -1064,7 +1090,31 @@ public class HomePageBean {
             }
         }
 
-        public static class BigImgBean {
+        public static class BigImgBean implements Parcelable {
+            protected BigImgBean(Parcel in) {
+                image = in.readString();
+                title = in.readString();
+                url = in.readString();
+                id = in.readString();
+                type = in.readString();
+                stype = in.readString();
+                pid = in.readString();
+                vid = in.readString();
+                order = in.readString();
+            }
+
+            public static final Creator<BigImgBean> CREATOR = new Creator<BigImgBean>() {
+                @Override
+                public BigImgBean createFromParcel(Parcel in) {
+                    return new BigImgBean(in);
+                }
+
+                @Override
+                public BigImgBean[] newArray(int size) {
+                    return new BigImgBean[size];
+                }
+            };
+
             @Override
             public String toString() {
                 return "BigImgBean{" +
@@ -1172,6 +1222,24 @@ public class HomePageBean {
 
             public void setOrder(String order) {
                 this.order = order;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(image);
+                dest.writeString(title);
+                dest.writeString(url);
+                dest.writeString(id);
+                dest.writeString(type);
+                dest.writeString(stype);
+                dest.writeString(pid);
+                dest.writeString(vid);
+                dest.writeString(order);
             }
         }
 
