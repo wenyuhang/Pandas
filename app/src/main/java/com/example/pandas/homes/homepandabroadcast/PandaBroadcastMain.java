@@ -2,6 +2,7 @@ package com.example.pandas.homes.homepandabroadcast;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,10 +15,15 @@ import com.androidkun.callback.PullToRefreshListener;
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.config.ACache;
+import com.example.pandas.config.GsonUtiles;
 import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.personal.LoginActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +53,8 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     private ArrayList<PdBBean.ListBean> listBeen;
     private PandaBroadcastAdapter pandaBroadcastAdapter;
     private ImageView pdb_up_image;
+    private ACache aCache;
+
 
     @Override
     protected int getLayoutId() {
@@ -111,8 +119,31 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     //
     @Override
     protected void loadData() {
+        ACache aCache1 = ACache.get(getActivity());
+//        ACache aCache2 = ACache.get(getActivity());
+//        String titleBeanJson = aCache2.getAsString("name1");
+        String pdBBeanJson = aCache1.getAsString("name");
+        if(pdBBeanJson!=null){
+            Log.d("MainActivity1", pdBBeanJson);
+//            Gson gson = GsonUtiles.getInstance().getGson();
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<PdBBean.ListBean>>(){}.getType();
+            List<PdBBean.ListBean> pdBBean = gson.fromJson(pdBBeanJson, type);
+            listBeen.addAll(pdBBean);
+            textView.setText(listBeen.get(0).getTitle());
+            Glide.with(getContext()).load(listBeen.get(0).getPicurl()).into(pdb_up_image);
 
-        presenter.strat();
+//            Type type1 = new TypeToken<TitleBean.DataBean.BigImgBean>() {
+//            }.getType();
+            //List<TitleBean.DataBean.BigImgBean> o = gson.fromJson(titleBeanJson, type1);
+            //textView.setText(o.get(0).getTitle());
+            //Glide.with(getContext()).load(o.get(0).getImage()).into(pdb_up_image);
+            pandaBroadcastAdapter.notifyDataSetChanged();
+        }else {
+            presenter.strat();
+        }
+
+
 
 
     }
@@ -132,15 +163,32 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     public void setResult(PdBBean pdBBean) {
         list = pdBBean.getList();
         listBeen.addAll(list);
+        textView.setText(listBeen.get(5).getTitle());
+        Glide.with(getContext()).load(listBeen.get(5).getPicurl()).into(pdb_up_image);
         pandaBroadcastAdapter.notifyDataSetChanged();
+        aCache = ACache.get(getActivity());
+        Gson gson = GsonUtiles.getInstance().getGson();
+        String s1 = gson.toJson(list);
+        aCache.put("name1", s1);
+
+
+//        ACache aCache1 = ACache.get(getActivity());
+//        JSONObject sss1 = aCache1.getAsJSONObject("sss");
+//        PdBBean sss = (PdBBean) aCache1.getAsObject("sss");
+//        Log.d("PandaBroadcastMain1", "s:" + sss.toString()+sss1.toString());
 
     }
 
     @Override
     public void setResult1(TitleBean titleBean) {
         List<TitleBean.DataBean.BigImgBean> bigImg = titleBean.getData().getBigImg();
-        textView.setText(bigImg.get(0).getTitle());
-        Glide.with(getContext()).load(bigImg.get(0).getImage()).into(pdb_up_image);
+        textView.setText(bigImg.get(5).getTitle());
+        Glide.with(getContext()).load(bigImg.get(5).getImage()).into(pdb_up_image);
+//        ACache aCachetitle = ACache.get(getActivity());
+//        Gson gson = GsonUtiles.getInstance().getGson();
+//        String ssss = gson.toJson(bigImg);
+//        Log.e("ssssss",ssss);
+//        aCachetitle.put("name", ssss);
     }
 
     @Override

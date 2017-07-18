@@ -27,6 +27,7 @@ public class PandaBroadcastPresenter implements PandaBroadcastContract.Presenter
             @Override
             public void onSuccess(PdBBean pdBBean) {
                 pandview.setResult(pdBBean);
+
             }
 
             @Override

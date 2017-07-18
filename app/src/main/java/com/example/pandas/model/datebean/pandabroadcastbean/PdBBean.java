@@ -1,12 +1,16 @@
 package com.example.pandas.model.datebean.pandabroadcastbean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/13.
  */
 
-public class PdBBean {
+public class PdBBean implements Parcelable {
 //
     /**
      * total : 1404
@@ -147,4 +151,36 @@ public class PdBBean {
             this.focus_date = focus_date;
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.total);
+        dest.writeList(this.list);
+    }
+
+    public PdBBean() {
+    }
+
+    protected PdBBean(Parcel in) {
+        this.total = in.readInt();
+        this.list = new ArrayList<ListBean>();
+        in.readList(this.list, ListBean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<PdBBean> CREATOR = new Parcelable.Creator<PdBBean>() {
+        @Override
+        public PdBBean createFromParcel(Parcel source) {
+            return new PdBBean(source);
+        }
+
+        @Override
+        public PdBBean[] newArray(int size) {
+            return new PdBBean[size];
+        }
+    };
 }

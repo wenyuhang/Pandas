@@ -1,7 +1,9 @@
 package com.example.pandas.homes.homepandabroadcast;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.androidkun.adapter.BaseAdapter;
 import com.androidkun.adapter.ViewHolder;
@@ -26,7 +28,7 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
     }
 //
     @Override
-    public void convert(ViewHolder holder, PdBBean.ListBean listBean) {
+    public void convert(ViewHolder holder, final PdBBean.ListBean listBean) {
         holder.setText(R.id.pdbd_d_title,listBean.getTitle());
         long focus_date = listBean.getFocus_date();
         Date dat=new Date(focus_date);
@@ -37,11 +39,11 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
         holder.setText(R.id.pdbd_d_time,format1);
         ImageView imageView = holder.getView(R.id.pdbd_d_iamge);
         Glide.with(context).load(listBean.getPicurl()).into(imageView);
-//        holder.setOnclickListener(R.id.pulltorefersh_down, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context, "qqq", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        holder.setOnclickListener(R.id.pulltorefersh_down, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, listBean.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
