@@ -34,7 +34,9 @@ public class VideoUtils {
     public void playVideo(JCVideoPlayerStandard jc_video,String video_url,String video_title,String thumb_url) {
         jc_video.setUp(video_url, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, video_title);
         jc_video.thumbImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(App.context).load(thumb_url).into(jc_video.thumbImageView);
+        if(!thumb_url.equals("")){
+            Glide.with(App.context).load(thumb_url).into(jc_video.thumbImageView);
+        }
         JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
     }
 

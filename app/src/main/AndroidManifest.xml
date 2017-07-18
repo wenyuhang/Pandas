@@ -76,6 +76,9 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <activity android:name=".config.CultureSpActivity"
+            android:screenOrientation="landscape"/>
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value=" 596815a51c5dd006e3000bb8"></meta-data>

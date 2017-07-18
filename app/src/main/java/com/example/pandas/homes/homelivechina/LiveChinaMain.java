@@ -188,8 +188,6 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.live_china_pwindow_button:
-
-
                 settablayout();
                 popupWindow.dismiss();
                 break;

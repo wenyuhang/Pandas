@@ -59,7 +59,6 @@ public class OtherTabAdapter extends RecyclerView.Adapter {
         hold.pandaLiveItemLongTime.setText(otherTabDetails.get(position).getLen());
         Glide.with(context).load(otherTabDetails.get(position).getImg()).into(hold.pandaLiveItemImg);
 
-
     }
 
     @Override
