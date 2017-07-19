@@ -12,6 +12,7 @@ import com.example.pandas.networks.mycallbacks.NetCallbacks;
 
 public class PandaBroadcastPresenter implements PandaBroadcastContract.Presenter {
 
+
     private IHomeModel homeModel;
     private PandaBroadcastContract.View pandview;
     public PandaBroadcastPresenter(PandaBroadcastContract.View pandview){
