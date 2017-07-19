@@ -2,8 +2,10 @@ package com.example.pandas.homes.homepandalive.main_live.live_fragment;
 
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
@@ -18,6 +20,7 @@ import com.example.pandas.utils.FloorDate;
 import com.example.pandas.utils.LogUtils;
 import com.example.pandas.utils.MyRecyclerView;
 import com.example.pandas.utils.Watch;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.json.JSONArray;
@@ -29,7 +32,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.Bind;
 
@@ -64,6 +69,25 @@ public class WatchChatFragment extends BaseFragment implements SendingContract.V
         pullToRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         watchCommentAdapter = new WatchCommentAdapter(getActivity(),beanArrayList,strings);
         pullToRefreshRecyclerView.setAdapter(watchCommentAdapter);
+
+
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format1 = format.format(date);
+        View header =   LayoutInflater.from(getContext()).inflate(R.layout.xrecycler_head,null);
+        TextView dates = (TextView) header.findViewById(R.id.refresh_date);
+        dates.setText(format1);
+        pullToRefreshRecyclerView.addHeaderView(header);
+        pullToRefreshRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        pullToRefreshRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+//        TextView times = new TextView(getContext());
+//
+//        times.setText("最后更新时间："+format1);
+//
+//        TextView upLoad = new TextView(getContext());
+//        upLoad.setText("松开加载更多");
+//        pullToRefreshRecyclerView.addHeaderView(times);
+//        pullToRefreshRecyclerView.setFootView(upLoad);
 
         pullToRefreshRecyclerView.setLoadingMoreEnabled(true);
         pullToRefreshRecyclerView.setPullRefreshEnabled(true);

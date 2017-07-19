@@ -108,6 +108,10 @@
     <string name="regist_not_checked">未勾选《央视网网络服务使用协议》</string>
     <string name="regist_email_success">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
 
+    <string name="dialog_play">您正在使用移动数据网络，所产生的流量费用由当地运营商收取，是否继续?</string>
+
+
+
 
     <string name="problem1">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>
     <string name="problem2">请到您的邮箱激活账号后登录，是否现在去邮箱激活</string>

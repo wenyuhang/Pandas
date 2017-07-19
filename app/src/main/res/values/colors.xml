@@ -18,4 +18,6 @@
 
     <color name="pandlive_tabIndicatorColor">#21559c</color>
     <color name="watch_floor">#dfdfdf</color>
+
+    <color name="alph_gray">#88e8e8e8</color>
 </resources>
