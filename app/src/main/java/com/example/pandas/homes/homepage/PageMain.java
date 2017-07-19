@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.config.CultureSpActivity;
+import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
+import com.example.pandas.model.datebean.homebean.VideoInfoBean;
+import com.example.pandas.networks.mycallbacks.NetCallbacks;
 import com.example.pandas.personal.PersonalCenterActivity;
 import com.example.pandas.personal.homeinteractive.InteractiveInfoActivity;
 import com.example.pandas.personal.homeinteractive.InteractiveMainActivity;
@@ -22,6 +26,7 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -44,7 +49,8 @@ public class PageMain extends BaseFragment implements PageContract.View {
     private ArrayList<Object> objectList;
     private HomePageAdapter homePageAdapter;
     private ArrayList<String> imgLists=new ArrayList<>();
-    private ArrayList<HomePageBean.DataBean.BigImgBean> bigImgList=new ArrayList<>();
+    private ArrayList<HomePageBean.DataBean.BigImgBean> bigImgList;
+    private ArrayList<VideoInfoBean.VideoBean.ChaptersBean> videoList;
     private Banner banner;
     private TextView homepageTitle;
 
@@ -58,6 +64,8 @@ public class PageMain extends BaseFragment implements PageContract.View {
         list=new ArrayList<>();
         objectList=new ArrayList<>();
         imgLists=new ArrayList<>();
+        bigImgList=new ArrayList<>();
+        videoList=new ArrayList<>();
     }
 
     @Override
@@ -154,12 +162,31 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
-            public void OnBannerClick(int position) {
+            public void OnBannerClick(final int position) {
                 if(position==0){
                     Intent intent=new Intent(getActivity(), InteractiveInfoActivity.class);
                     intent.putParcelableArrayListExtra("bigImgList",bigImgList);
                     intent.putExtra("position",position);
                     startActivity(intent);
+                }else{
+                    HashMap<String,String> map=new HashMap<String, String>();
+                    map.put("pid",netBean.getData().getBigImg().get(position).getPid());
+                    IHomeImpl.ihttp.get("http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do", map, new NetCallbacks<VideoInfoBean>() {
+                        @Override
+                        public void onSuccess(final VideoInfoBean videoInfoBean) {
+                            videoList.addAll(videoInfoBean.getVideo().getChapters());
+                            Intent intent=new Intent(getActivity(), CultureSpActivity.class);
+                            intent.putExtra("url",videoList.get(0).getUrl());
+                            intent.putExtra("title",list.get(0).getBigImg().get(position).getTitle());
+                            startActivity(intent);
+                            videoList.clear();
+                        }
+
+                        @Override
+                        public void onError(String errorMsg) {
+
+                        }
+                    });
                 }
             }
         });
