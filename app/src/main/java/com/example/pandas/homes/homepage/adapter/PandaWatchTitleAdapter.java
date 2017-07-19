@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pandas.R;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
@@ -46,10 +47,16 @@ public class PandaWatchTitleAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder viewHolder= (MyViewHolder) holder;
         viewHolder.panda_watch_btn.setText(list.get(position).getBrief());
         viewHolder.panda_watch_title.setText(list.get(position).getTitle());
+        viewHolder.panda_watch_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, list.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

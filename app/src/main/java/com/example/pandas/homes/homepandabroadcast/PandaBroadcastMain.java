@@ -14,6 +14,7 @@ import com.androidkun.callback.PullToRefreshListener;
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.config.ACache;
 import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.personal.LoginActivity;
@@ -47,6 +48,8 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     private ArrayList<PdBBean.ListBean> listBeen;
     private PandaBroadcastAdapter pandaBroadcastAdapter;
     private ImageView pdb_up_image;
+    private ACache aCache;
+
 
     @Override
     protected int getLayoutId() {
@@ -112,7 +115,10 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     @Override
     protected void loadData() {
 
-        presenter.strat();
+            presenter.strat();
+
+
+
 
 
     }
@@ -132,15 +138,20 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     public void setResult(PdBBean pdBBean) {
         list = pdBBean.getList();
         listBeen.addAll(list);
+        textView.setText(listBeen.get(5).getTitle());
+        Glide.with(getContext()).load(listBeen.get(5).getPicurl()).into(pdb_up_image);
         pandaBroadcastAdapter.notifyDataSetChanged();
+
+
 
     }
 
     @Override
     public void setResult1(TitleBean titleBean) {
         List<TitleBean.DataBean.BigImgBean> bigImg = titleBean.getData().getBigImg();
-        textView.setText(bigImg.get(0).getTitle());
-        Glide.with(getContext()).load(bigImg.get(0).getImage()).into(pdb_up_image);
+//        textView.setText(bigImg.get(5).getTitle());
+//        Glide.with(getContext()).load(bigImg.get(5).getImage()).into(pdb_up_image);
+
     }
 
     @Override

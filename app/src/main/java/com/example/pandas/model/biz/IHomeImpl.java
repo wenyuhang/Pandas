@@ -4,7 +4,6 @@ package com.example.pandas.model.biz;
 import com.example.pandas.config.Urls;
 import com.example.pandas.model.datebean.RollvideoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
-import com.example.pandas.model.datebean.livechina.SceneryBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
@@ -13,6 +12,8 @@ import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
+import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
+import com.example.pandas.model.datebean.livechina.SceneryBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ import java.util.Map;
  */
 
 public class IHomeImpl implements IHomeModel{
+
     /**
      *  首页中的网络请求
      * @param callbacks
@@ -55,7 +57,6 @@ public class IHomeImpl implements IHomeModel{
         ihttp.get(str , null, callbacks);
     }
 
-
     /**
      *
      *获取tab详情页面
@@ -69,6 +70,11 @@ public class IHomeImpl implements IHomeModel{
     @Override
     public void getRollVideoBean(NetCallbacks<RollvideoBean> callbacks) {
         ihttp.get(Urls.RELLOVIDEO,null,callbacks);
+    }
+
+    @Override
+    public void getInteractiveBeans(NetCallbacks<InteractiveInfoBean> callbacks) {
+        ihttp.get(Urls.INTERACTIVE,null,callbacks);
     }
 
     @Override

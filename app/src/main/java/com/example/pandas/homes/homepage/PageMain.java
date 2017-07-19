@@ -12,6 +12,7 @@ import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.personal.PersonalCenterActivity;
+import com.example.pandas.personal.homeinteractive.InteractiveInfoActivity;
 import com.example.pandas.personal.homeinteractive.InteractiveMainActivity;
 import com.example.pandas.wxapi.App;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -43,6 +44,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
     private ArrayList<Object> objectList;
     private HomePageAdapter homePageAdapter;
     private ArrayList<String> imgLists=new ArrayList<>();
+    private ArrayList<HomePageBean.DataBean.BigImgBean> bigImgList=new ArrayList<>();
     private Banner banner;
     private TextView homepageTitle;
 
@@ -91,6 +93,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
         homeXrecyclerview.addHeaderView(view);
         banner = (Banner) view.findViewById(R.id.home_banner);
         homepageTitle = (TextView) view.findViewById(R.id.homepage_title);
+        bigImgList.addAll(netBean.getData().getBigImg());
         carousel(netBean);
 
 
@@ -139,7 +142,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     }
 
-    private void carousel(HomePageBean netBean) {
+    private void carousel(final HomePageBean netBean) {
         for(int i=0;i<netBean.getData().getBigImg().size();i++){
             imgLists.add(netBean.getData().getBigImg().get(i).getImage());
         }
@@ -148,12 +151,19 @@ public class PageMain extends BaseFragment implements PageContract.View {
         banner.setDelayTime(2000);
         banner.setImages(imgLists).setIndicatorGravity(BannerConfig.RIGHT);
         banner.start();
+
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-
+                if(position==0){
+                    Intent intent=new Intent(getActivity(), InteractiveInfoActivity.class);
+                    intent.putParcelableArrayListExtra("bigImgList",bigImgList);
+                    intent.putExtra("position",position);
+                    startActivity(intent);
+                }
             }
         });
+
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -162,10 +172,10 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
             @Override
             public void onPageSelected(int position) {
-                if(position<=4){
+                if(position<=4 && position!=0){
                     homepageTitle.setText(list.get(0).getBigImg().get(position-1).getTitle());
-                }else{
-                    position=1;
+                }else if(position<=4 && position<=0){
+                    position=0;
                 }
 
             }

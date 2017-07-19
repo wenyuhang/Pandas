@@ -1,5 +1,8 @@
 package com.example.pandas.model.datebean.homebean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -29,7 +32,23 @@ public class HomePageBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Parcelable {
+        protected DataBean(Parcel in) {
+            interactive = in.readParcelable(InteractiveBean.class.getClassLoader());
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
+
         @Override
         public String toString() {
             return "DataBean{" +
@@ -137,6 +156,16 @@ public class HomePageBean {
 
         public void setList(List<ListBeanXXX> list) {
             this.list = list;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeParcelable(interactive, flags);
         }
 
         public static class AreaBean {
@@ -831,7 +860,23 @@ public class HomePageBean {
             }
         }
 
-        public static class InteractiveBean {
+        public static class InteractiveBean implements Parcelable {
+            protected InteractiveBean(Parcel in) {
+                title = in.readString();
+            }
+
+            public static final Creator<InteractiveBean> CREATOR = new Creator<InteractiveBean>() {
+                @Override
+                public InteractiveBean createFromParcel(Parcel in) {
+                    return new InteractiveBean(in);
+                }
+
+                @Override
+                public InteractiveBean[] newArray(int size) {
+                    return new InteractiveBean[size];
+                }
+            };
+
             @Override
             public String toString() {
                 return "InteractiveBean{" +
@@ -875,7 +920,38 @@ public class HomePageBean {
                 this.interactivetwo = interactivetwo;
             }
 
-            public static class InteractiveoneBean {
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(title);
+            }
+
+            public static class InteractiveoneBean implements Parcelable {
+                protected InteractiveoneBean(Parcel in) {
+                    image = in.readString();
+                    title = in.readString();
+                    url = in.readString();
+                    type = in.readString();
+                    vid = in.readString();
+                    order = in.readString();
+                }
+
+                public static final Creator<InteractiveoneBean> CREATOR = new Creator<InteractiveoneBean>() {
+                    @Override
+                    public InteractiveoneBean createFromParcel(Parcel in) {
+                        return new InteractiveoneBean(in);
+                    }
+
+                    @Override
+                    public InteractiveoneBean[] newArray(int size) {
+                        return new InteractiveoneBean[size];
+                    }
+                };
+
                 @Override
                 public String toString() {
                     return "InteractiveoneBean{" +
@@ -951,6 +1027,21 @@ public class HomePageBean {
                 public void setOrder(String order) {
                     this.order = order;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(image);
+                    dest.writeString(title);
+                    dest.writeString(url);
+                    dest.writeString(type);
+                    dest.writeString(vid);
+                    dest.writeString(order);
+                }
             }
         }
 
@@ -999,7 +1090,31 @@ public class HomePageBean {
             }
         }
 
-        public static class BigImgBean {
+        public static class BigImgBean implements Parcelable {
+            protected BigImgBean(Parcel in) {
+                image = in.readString();
+                title = in.readString();
+                url = in.readString();
+                id = in.readString();
+                type = in.readString();
+                stype = in.readString();
+                pid = in.readString();
+                vid = in.readString();
+                order = in.readString();
+            }
+
+            public static final Creator<BigImgBean> CREATOR = new Creator<BigImgBean>() {
+                @Override
+                public BigImgBean createFromParcel(Parcel in) {
+                    return new BigImgBean(in);
+                }
+
+                @Override
+                public BigImgBean[] newArray(int size) {
+                    return new BigImgBean[size];
+                }
+            };
+
             @Override
             public String toString() {
                 return "BigImgBean{" +
@@ -1107,6 +1222,24 @@ public class HomePageBean {
 
             public void setOrder(String order) {
                 this.order = order;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(image);
+                dest.writeString(title);
+                dest.writeString(url);
+                dest.writeString(id);
+                dest.writeString(type);
+                dest.writeString(stype);
+                dest.writeString(pid);
+                dest.writeString(vid);
+                dest.writeString(order);
             }
         }
 

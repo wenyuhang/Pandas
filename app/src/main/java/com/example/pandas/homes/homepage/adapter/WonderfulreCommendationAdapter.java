@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
@@ -47,10 +48,16 @@ public class WonderfulreCommendationAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder viewHolder= (MyViewHolder) holder;;
         Glide.with(context).load(list.get(position).getImage()).into(viewHolder.wonderful_recommendation_img);
         viewHolder.wonderful_recommendation_title.setText(list.get(position).getTitle());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, list.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

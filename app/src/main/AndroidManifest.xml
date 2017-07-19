@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
     <application
         android:name=".wxapi.App"
         android:allowBackup="true"
@@ -38,10 +39,7 @@
         <activity android:name=".personal.HistoryActivity"></activity>
         <activity android:name=".personal.homeinteractive.InteractiveMainActivity"></activity>
         <activity android:name=".personal.PersonalXinActivity"></activity>
-
-
-
-
+        <activity android:name=".personal.homeinteractive.InteractiveInfoActivity"></activity>
 
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
@@ -78,10 +76,13 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <activity android:name=".config.CultureSpActivity"
+            android:screenOrientation="landscape"/>
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value=" 596815a51c5dd006e3000bb8"></meta-data>
-    </application>
 
+    </application>
 
 </manifest>
