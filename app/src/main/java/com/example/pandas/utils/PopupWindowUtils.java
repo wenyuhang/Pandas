@@ -36,6 +36,7 @@ public class PopupWindowUtils {
     private void initPopup(){
         view = LayoutInflater.from(context).inflate(R.layout.popup_anim,null);
 
+
         bar = (ProgressBar) view.findViewById(R.id.progressbar_anim);
         popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.MATCH_PARENT,true);
         popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.alph_gray));
