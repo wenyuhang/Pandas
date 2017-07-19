@@ -54,7 +54,7 @@ public class OtherTabAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         OtherTabHold hold = (OtherTabHold) holder;
         hold.pandaLiveItemTitle.setText(otherTabDetails.get(position).getT());
         hold.pandaLiveItemTime.setText(otherTabDetails.get(position).getPtime());
