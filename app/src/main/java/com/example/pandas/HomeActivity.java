@@ -147,4 +147,5 @@ public class HomeActivity extends BaseActivity {
             transaction.hide(liveChinaMain);
         }
     }
+
 }

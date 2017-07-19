@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
@@ -54,6 +55,10 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
     private DragAdapter dragAdapter;
     private ArrayList<String> strings1;
     private ArrayList<String> urls;
+    private boolean flag = false;
+    private Button but;
+    private DragGridView dragGridView;
+    private List<SceneryBean.AlllistBean> alllist;
 
 
     @Override
@@ -78,7 +83,7 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
         popupWindow.setWidth(ViewPager.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(ViewPager.LayoutParams.MATCH_PARENT);
         ImageButton popupwindowButton = (ImageButton) view1.findViewById(R.id.live_china_pwindow_button);
-        Button but = (Button) view1.findViewById(R.id.but);
+        but = (Button) view1.findViewById(R.id.but);
         setDragGridView();
         but.setOnClickListener(this);
         popupwindowButton.setOnClickListener(this);
@@ -86,9 +91,9 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
 
     private void setDragGridView() {
 
-        DragGridView dragGridView = (DragGridView) view1.findViewById(R.id.live_china_pwindow_DragGridview);
+        dragGridView = (DragGridView) view1.findViewById(R.id.live_china_pwindow_DragGridview);
+        dragGridView.setEnabled(false);
         strings1 = new ArrayList<String>();
-
         dragAdapter = new DragAdapter(getActivity(), strings1);
         dragGridView.setAdapter(dragAdapter);
 
@@ -96,16 +101,41 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
         list1 = new ArrayList<SceneryBean.AlllistBean>();
         gridview = (GridView) view1.findViewById(R.id.live_china_gridview);
         gridViewAdapter = new GridViewAdapter(list1, getActivity());
+        gridview.setEnabled(false);
         gridview.setAdapter(gridViewAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                strings1.add(list1.get(position).getTitle());
-                urls.add(list1.get(position).getUrl());
-                list1.remove(position);
-                gridViewAdapter.notifyDataSetChanged();
-                dragAdapter.notifyDataSetChanged();
+                if (flag) {
+                    strings1.add(list1.get(position).getTitle());
+                    urls.add(list1.get(position).getUrl());
+                    list1.remove(position);
+                    gridViewAdapter.notifyDataSetChanged();
+                    dragAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        dragGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (flag) {
+                    if (strings1.size() <= 5) {
+                        Toast.makeText(getActivity(), "栏目区，不能少于五个频道", Toast.LENGTH_SHORT).show();
+                    } else {
+                        strings1.remove(position);
+                        urls.remove(position);
+                        dragAdapter.notifyDataSetChanged();
+                        for (int i = 0; i < alllist.size(); i++) {
+                            if (strings.get(position).equals(alllist.get(i).getTitle())) {
+                                list1.add(alllist.get(i));
+                                gridViewAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                }
+
             }
         });
     }
@@ -134,7 +164,7 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
 
     @Override
     public void setResult2(SceneryBean netBean) {
-        List<SceneryBean.AlllistBean> alllist = netBean.getAlllist();
+        alllist = netBean.getAlllist();
         list1.addAll(alllist);
         gridViewAdapter.notifyDataSetChanged();
         setGridViewHeightBasedOnChildren(gridview);
@@ -179,7 +209,6 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
                 break;
             case R.id.sure:
                 popupWindow.showAtLocation(view1, Gravity.CENTER, 0, 0);
-
                 break;
         }
     }
@@ -192,6 +221,23 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
                 popupWindow.dismiss();
                 break;
             case R.id.but:
+                if (but.getText().toString().equals("编辑")) {
+                    but.setText("完成");
+                    dragAdapter.flag = true;
+                    dragGridView.setEnabled(true);
+                    gridview.setEnabled(true);
+                    flag = true;
+                    dragAdapter.notifyDataSetChanged();
+                } else {
+                    dragAdapter.flag = false;
+                    but.setText("编辑");
+                    dragGridView.setEnabled(false);
+                    gridview.setEnabled(false);
+                    flag = false;
+                    dragAdapter.notifyDataSetChanged();
+
+                }
+
                 break;
         }
     }
@@ -199,15 +245,16 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
     private void settablayout() {
         list.clear();
         strings.clear();
-        for(int i = 0; i <strings1.size() ; i++) {
+        for (int i = 0; i < strings1.size(); i++) {
             PageFragment pageFragment = new PageFragment();
-            pageFragment.s=urls.get(i);
+            pageFragment.s = urls.get(i);
             list.add(pageFragment);
             new LiveChinaPresenter(pageFragment);
             strings.add(strings1.get(i));
             lcPpageAdapter.notifyDataSetChanged();
         }
     }
+
 
     /**
      * 动态设置GridView的高度

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pandas.R;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class DragAdapter extends BaseAdapter {
     private Context context;
     public ArrayList<String> channels;
+    public boolean flag=false;
 
     public DragAdapter(Activity activity, ArrayList<String> channels) {
         context = activity;
@@ -44,11 +46,17 @@ public class DragAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.category_item, null);
             viewHolder.textView = (TextView) convertView.findViewById(R.id.text_item);
+            viewHolder.imgbut= (ImageView) convertView.findViewById(R.id.catefpry_item_image);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.textView.setText(channels.get(position));
+        if(flag){
+            viewHolder.imgbut.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.imgbut.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
@@ -66,5 +74,6 @@ public class DragAdapter extends BaseAdapter {
 
     static class ViewHolder {
         public TextView textView;
+        public ImageView imgbut;
     }
 }
