@@ -5,8 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -27,26 +27,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".personal.LoginActivity" />
         <activity android:name=".personal.RegisterActivity" />
         <activity android:name=".personal.SetActivity" />
         <activity android:name=".personal.AboutActivity" />
         <activity android:name=".personal.PersonalCenterActivity" />
         <activity android:name=".personal.CollectionActivity" />
-        <activity android:name=".personal.UserFeedbackActivity"></activity>
-        <activity android:name=".personal.UpdateActivity"></activity>
-        <activity android:name=".personal.HistoryActivity"></activity>
-        <activity android:name=".personal.homeinteractive.InteractiveMainActivity"></activity>
-        <activity android:name=".personal.PersonalXinActivity"></activity>
-        <activity android:name=".personal.homeinteractive.InteractiveInfoActivity"></activity>
-
+        <activity android:name=".personal.UserFeedbackActivity" />
+        <activity android:name=".personal.UpdateActivity" />
+        <activity android:name=".personal.HistoryActivity" />
+        <activity android:name=".personal.homeinteractive.InteractiveMainActivity" />
+        <activity android:name=".personal.PersonalXinActivity" />
+        <activity android:name=".personal.homeinteractive.InteractiveInfoActivity" />
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
@@ -75,14 +73,15 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <activity android:name=".config.CultureSpActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".config.CultureSpActivity"
+            android:screenOrientation="landscape" />
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value=" 596815a51c5dd006e3000bb8"></meta-data>
+            android:value=" 596815a51c5dd006e3000bb8" />
 
+        <activity android:name=".homes.homepandabroadcast.MWebView"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 package com.example.pandas.config;
 
+import android.content.SharedPreferences;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +48,16 @@ public class CultureSpActivity extends BaseActivity {
             return;
         }
         super.onBackPressed();
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        SharedPreferences.Editor s1 = getSharedPreferences("s1", MODE_PRIVATE).edit();
+        s1.putBoolean("bool",false);
+        s1.commit();
+        finish();
+        return false;
     }
 }
 

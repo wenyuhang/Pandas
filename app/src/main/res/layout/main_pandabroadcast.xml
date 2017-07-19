@@ -12,6 +12,7 @@
                 android:layout_centerVertical="true"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
+                android:textColor="#ffffff"
                 android:layout_height="wrap_content"
                 android:text="熊猫播报"
                 android:textSize="@dimen/x38"/>
