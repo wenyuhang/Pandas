@@ -97,6 +97,7 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
             }
         });
 
+
         collectNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
