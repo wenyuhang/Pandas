@@ -6,29 +6,67 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.pandas.homes.homepandabroadcast.MWebView">
+
     <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/colorPrimary"
-        android:layout_centerVertical="true"
-        android:layout_centerInParent="true"
+        android:id="@+id/mLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/butiamge"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/y50"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/umeng_socialize_back_icon" />
+
+    </LinearLayout>
+
+
+    <WebView
+        android:id="@+id/mvebview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y100">
-            <ImageView
-                android:id="@+id/butiamge"
-                android:layout_gravity="center_vertical"
-                android:layout_width="@dimen/x50"
-                android:layout_height="@dimen/y50"
-                android:src="@drawable/umeng_socialize_back_icon"/>
-        </LinearLayout>
+        android:layout_above="@+id/line123"
+        android:layout_below="@+id/mLinearLayout">
 
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/mvebview"></WebView>
-        </LinearLayout>
+    </WebView>
 
+    <LinearLayout
+
+        android:id="@+id/line123"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:button="@null"
+                android:id="@+id/collect"
+                android:layout_width="@dimen/x100"
+                android:layout_height="@dimen/y100"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/collect" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/share"
+                android:layout_width="@dimen/x100"
+                android:layout_height="@dimen/y100"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:background="@mipmap/pe_share_img" />
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

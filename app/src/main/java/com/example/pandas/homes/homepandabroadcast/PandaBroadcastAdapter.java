@@ -37,6 +37,7 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
 
     @Override
     public void convert(final ViewHolder holder, final PdBBean.ListBean pdBBean) {
+        holder.setText(R.id.pdbd_d_newstime,pdBBean.getVideolength());
         holder.setText(R.id.pdbd_d_title, pdBBean.getTitle());
         long focus_date = pdBBean.getFocus_date();
         Date dat = new Date(focus_date);
@@ -79,10 +80,6 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
                             edit.putBoolean("bool",true);
                             edit.commit();
                         }
-
-
-
-
                     }
 
                     @Override
