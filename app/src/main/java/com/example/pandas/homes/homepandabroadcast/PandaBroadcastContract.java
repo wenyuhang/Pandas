@@ -12,7 +12,7 @@ import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 public interface PandaBroadcastContract {
 //
     interface Presenter extends BasePresenter {
-        void lodeMore(String path, String primary_id, String serviceId);
+
     }
     interface View extends BaseView<Presenter>  {
         void showProgressDialog();

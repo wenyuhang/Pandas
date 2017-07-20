@@ -1,15 +1,16 @@
 package com.example.pandas.homes.homepandalive;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.config.ACache;
 import com.example.pandas.homes.homepandalive.main_live.PandaLiveMainFragment;
 import com.example.pandas.homes.homepandalive.wonderfu_moment.MarvellousFragment;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
@@ -17,12 +18,13 @@ import com.example.pandas.model.datebean.pandasending.MultipleBean;
 import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
+import com.example.pandas.personal.PersonalCenterActivity;
+import com.example.pandas.utils.PopupWindowUtils;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
 
 
 /**
@@ -40,18 +42,12 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View{
     ViewPager pandaLiveViewpager;
 
     private ArrayList<Fragment> fragmentArrayList;
+    private ArrayList<String> strings;
     private SendingContract.Presenter present;
     private ArrayList<LiveTabBean.TablistBean> tablistBeen;
-    private EventBus eventBus;
-    private MarvellousFragment marvellousFragment;
-    private MarvellousFragment otherTabDetail1;
-    private MarvellousFragment otherTabDetail2;
-    private MarvellousFragment otherTabDetail3;
-    private MarvellousFragment otherTabDetail4;
-    private MarvellousFragment otherTabDetail5;
-    private MarvellousFragment otherTabDetail6;
-    private MarvellousFragment otherTabDetail7;
     private PandaLiveTabAdapter adapter;
+    private PopupWindowUtils pop;
+    private LiveTabBean bean;
 
     @Override
     protected int getLayoutId() {
@@ -60,20 +56,25 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View{
 
     @Override
     protected void init(View view) {
+        showProgressDialog();
         new PandaLivePresent(this);
-
         tablistBeen = new ArrayList<>();
         fragmentArrayList = new ArrayList<>();
+        strings = new ArrayList<>();
 
-        PandaLiveMainFragment pandaLiveMainFragment = new PandaLiveMainFragment();
-
-        fragmentArrayList.add(pandaLiveMainFragment);
-
-        adapter = new PandaLiveTabAdapter(getActivity().getSupportFragmentManager(),fragmentArrayList);
+        adapter = new PandaLiveTabAdapter(getActivity().getSupportFragmentManager(),fragmentArrayList,strings);
         pandaLiveViewpager.setAdapter(adapter);
 
         pandaLiveTablayout.setupWithViewPager(pandaLiveViewpager);
         pandaLiveTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        pandaLiveLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PersonalCenterActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -95,12 +96,14 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View{
 
     @Override
     public void showProgressDialog() {
+        pop = PopupWindowUtils.getInstance(getActivity());
+        pop.startPopup();
 
     }
 
     @Override
     public void dismissProgressDialog() {
-
+        pop.stopPopup();
     }
 
     @Override
@@ -110,122 +113,48 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View{
 
     @Override
     public void setLiveTabBean(LiveTabBean bean) {
+        this.bean = bean;
+        if(bean !=null) {
+            dismissProgressDialog();
+        }
+        ACache aCache = ACache.get(getActivity());
+//        for (int pos=0;pos<bean.getTablist().size();pos++){
+//            aCache.put(pos,bean.getTablist().get(0).getTitle());
+//            aCache.put("",bean.getTablist().get(0).getId());
+//        }
+//        aCache.put("list",bean.getTablist());
         tablistBeen.addAll(bean.getTablist());
 
-        marvellousFragment = new MarvellousFragment();
-        Bundle bundle1 = new Bundle();
-        bundle1.putString("vsid",tablistBeen.get(1).getId());
-        marvellousFragment.setArguments(bundle1);
-        Log.e("PandaLiveMain", "argument1");
-
-        otherTabDetail1 = new MarvellousFragment();
-        Bundle bundle2 = new Bundle();
-        bundle2.putString("vsid",tablistBeen.get(2).getId());
-        otherTabDetail1.setArguments(bundle2);
-        Log.e("PandaLiveMain", "argument2");
-
-        otherTabDetail2 = new MarvellousFragment();
-        Bundle bundle3 = new Bundle();
-        bundle3.putString("vsid",tablistBeen.get(3).getId());
-        otherTabDetail2.setArguments(bundle3);
-
-
-        otherTabDetail3 = new MarvellousFragment();
-        Bundle bundle4 = new Bundle();
-        bundle4.putString("vsid",tablistBeen.get(4).getId());
-        otherTabDetail3.setArguments(bundle4);
-
-
-        otherTabDetail4 = new MarvellousFragment();
-        Bundle bundle5 = new Bundle();
-        bundle5.putString("vsid",tablistBeen.get(5).getId());
-        otherTabDetail4.setArguments(bundle5);
-
-
-        otherTabDetail5 = new MarvellousFragment();
-        Bundle bundle6 = new Bundle();
-        bundle6.putString("vsid",tablistBeen.get(6).getId());
-        otherTabDetail5.setArguments(bundle6);
-
-
-        otherTabDetail6 = new MarvellousFragment();
-        Bundle bundle7 = new Bundle();
-        bundle7.putString("vsid",tablistBeen.get(7).getId());
-        otherTabDetail6.setArguments(bundle7);
-
-
-        otherTabDetail7 = new MarvellousFragment();
-        Bundle bundle8 = new Bundle();
-        bundle8.putString("vsid",tablistBeen.get(8).getId());
-        otherTabDetail7.setArguments(bundle8);
-
-
-        fragmentArrayList.add(marvellousFragment);
-        fragmentArrayList.add(otherTabDetail1);
-        fragmentArrayList.add(otherTabDetail2);
-        fragmentArrayList.add(otherTabDetail3);
-        fragmentArrayList.add(otherTabDetail4);
-        fragmentArrayList.add(otherTabDetail5);
-        fragmentArrayList.add(otherTabDetail6);
-        fragmentArrayList.add(otherTabDetail7);
-
-        adapter.notifyDataSetChanged();
-
-        pandaLiveTablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()){
-                    case 0:
-                        break;
-                    case 1:
-                        EventBus.getDefault().postSticky(tablistBeen.get(1).getId());
-//                        Bundle bundle1 = new Bundle();
-//                        bundle1.putString("vsid",tablistBeen.get(1).getId());
-//                        marvellousFragment.setArguments(bundle1);
-                        break;
-                    case 2:
-                        Bundle bundle3 = new Bundle();
-                        bundle3.putString("vsid",tablistBeen.get(3).getId());
-                        otherTabDetail2.setArguments(bundle3);
-                        EventBus.getDefault().postSticky(tablistBeen.get(2).getId());
-                        break;
-                    case 3:
-
-                        EventBus.getDefault().postSticky(tablistBeen.get(3).getId());
-                        break;
-                    case 4:
-
-                        EventBus.getDefault().postSticky(tablistBeen.get(4).getId());
-                        break;
-                    case 5:
-
-                        EventBus.getDefault().postSticky(tablistBeen.get(5).getId());
-                        break;
-                    case 6:
-
-                        EventBus.getDefault().postSticky(tablistBeen.get(6).getId());
-                        break;
-                    case 7:
-
-                        EventBus.getDefault().postSticky(tablistBeen.get(7).getId());
-                        break;
-                    case 8:
-
-                        EventBus.getDefault().postSticky(tablistBeen.get(8).getId());
-                        break;
-                }
+        boolean flg = false;
+        boolean fff = false;
+        int pos =0;
+        for (int i=0;i<tablistBeen.size();i++){
+            if(i==0) {
+                flg = true;
+                pos = 0;
+            }else {
+                fff = true;
+                pos=i;
             }
+        }
+        if(flg) {
+            PandaLiveMainFragment pandaLiveMainFragment = new PandaLiveMainFragment();
+            fragmentArrayList.add(0,pandaLiveMainFragment);
+            strings.add(0,tablistBeen.get(0).getTitle());
+            adapter.notifyDataSetChanged();
+        }
+        if(fff) {
+            for (int o=1;o<=pos;o++){
+                MarvellousFragment marvellousFragment = new MarvellousFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("vsid",tablistBeen.get(o).getId());
+                marvellousFragment.setArguments(bundle);
+                fragmentArrayList.add(o,marvellousFragment);
+                strings.add(o,tablistBeen.get(o).getTitle());
+        }
+                adapter.notifyDataSetChanged();
+        }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
 

@@ -12,63 +12,79 @@
         >
 
         <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:id="@+id/home_radiogroup"
-            android:orientation="horizontal">
-
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black"
+            >
             <RadioButton
                 android:id="@+id/home_page"
-                android:button="@null"
-                android:text="首页"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:button="@null"
+                android:drawablePadding="5dp"
+                android:drawableTop="@mipmap/tab_home_normal"
+                android:gravity="center"
+                android:background="@drawable/radio_bg"
                 android:checked="true"
-                android:gravity="center_horizontal|bottom"/>
-
+                android:text="首页"
+                android:textSize="12sp"/>
             <RadioButton
                 android:id="@+id/home_PandaLive"
-                android:button="@null"
-                android:text="熊猫直播"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center_horizontal|bottom"/>
-
-
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:button="@null"
+                android:gravity="center"
+                android:drawableTop="@mipmap/tab_panda_live_normal"
+                android:text="熊猫直播"
+                android:drawablePadding="5dp"
+                android:background="@drawable/radio_bg"
+                android:textSize="12sp"/>
             <RadioButton
                 android:id="@+id/home_RollVideo"
-                android:button="@null"
-                android:text="滚滚视频"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center_horizontal|bottom"/>
-
-
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:button="@null"
+                android:gravity="center"
+                android:drawableTop="@mipmap/tab_panda_culture_normals"
+                android:text="滚滚视频"
+                android:drawablePadding="5dp"
+                android:background="@drawable/radio_bg"
+                android:textSize="12sp"/>
             <RadioButton
                 android:id="@+id/home_PandaBroadcast"
-                android:button="@null"
-                android:text="熊猫播报"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center_horizontal|bottom"/>
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:button="@null"
+                android:gravity="center"
+                android:drawableTop="@mipmap/tab_panda_eye_normal"
 
+                android:text="熊猫文化"
+                android:drawablePadding="5dp"
+                android:background="@drawable/radio_bg"
+                android:textSize="12sp"/>
 
             <RadioButton
                 android:id="@+id/home_LiveChina"
-                android:button="@null"
-                android:text="直播中国"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center_horizontal|bottom"/>
-
-
+                android:drawableTop="@mipmap/tab_live_china_normal"
+                android:button="@null"
+                android:gravity="center"
+                android:text="直播中国"
+                android:drawablePadding="5dp"
+                android:background="@drawable/radio_bg"
+                android:textSize="12sp"
+                />
         </RadioGroup>
+
 
         <FrameLayout
             android:layout_width="match_parent"

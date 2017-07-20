@@ -2,10 +2,12 @@ package com.example.pandas.homes.homepandalive.wonderfu_moment;
 
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.config.ACache;
 import com.example.pandas.homes.homepandalive.PandaLivePresent;
 import com.example.pandas.homes.homepandalive.SendingContract;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
@@ -13,6 +15,8 @@ import com.example.pandas.model.datebean.pandasending.MultipleBean;
 import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
+import com.example.pandas.utils.PopupWindowUtils;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -32,6 +36,7 @@ public class MarvellousFragment extends BaseFragment implements SendingContract.
     private OtherTabAdapter otherTabAdapter;
     private String vsid;
     private int p=1;
+    private PopupWindowUtils pop;
 
     @Override
     protected int getLayoutId() {
@@ -42,6 +47,7 @@ public class MarvellousFragment extends BaseFragment implements SendingContract.
     protected void init(View view) {
         new PandaLivePresent(this);
         otherTabDetails = new ArrayList<>();
+        showProgressDialog();
     }
 
     @Override
@@ -51,10 +57,14 @@ public class MarvellousFragment extends BaseFragment implements SendingContract.
 
         presenter.loadMore(vsid,"7","panda","desc","time",String.valueOf(p));
 
+//        PopupWindow
         xRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         otherTabAdapter = new OtherTabAdapter(getActivity(),otherTabDetails);
         xRecyclerView.setAdapter(otherTabAdapter);
-
+        xRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        xRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        View foot = LayoutInflater.from(getActivity()).inflate(R.layout.xrecycler_footer,null);
+        xRecyclerView.setFootView(foot);
         xRecyclerView.setPullRefreshEnabled(true);
         xRecyclerView.setLoadingMoreEnabled(true);
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -68,6 +78,7 @@ public class MarvellousFragment extends BaseFragment implements SendingContract.
 
             @Override
             public void onLoadMore() {
+
                 xRecyclerView.loadMoreComplete();
                 presenter.loadMore(vsid,"7","panda","desc","time",String.valueOf(p));
                 otherTabAdapter.notifyDataSetChanged();
@@ -84,12 +95,13 @@ public class MarvellousFragment extends BaseFragment implements SendingContract.
 
     @Override
     public void showProgressDialog() {
-
+        pop = PopupWindowUtils.getInstance(getActivity());
+        pop.startPopup();
     }
 
     @Override
     public void dismissProgressDialog() {
-
+        pop.stopPopup();
     }
 
     @Override
@@ -105,11 +117,17 @@ public class MarvellousFragment extends BaseFragment implements SendingContract.
 
     @Override
     public void setOtherTabBean(OtherTabDetail bean) {
+        if(bean !=null) {
+            dismissProgressDialog();
+}
         otherTabDetails.addAll(bean.getVideo());
-        otherTabAdapter.notifyDataSetChanged();
-    }
+                otherTabAdapter.notifyDataSetChanged();
 
-    @Override
+                ACache aCache = ACache.get(getActivity());
+//        aCache.put("",bean);
+                }
+
+@Override
     public void setShowMessage(String message) {
 
     }

@@ -1,12 +1,15 @@
 package com.example.pandas.homes.homepandalive.main_live;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,6 +31,7 @@ import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 import com.example.pandas.utils.LogUtils;
+import com.example.pandas.utils.NonSwipeableViewPager;
 
 import java.util.ArrayList;
 
@@ -52,12 +56,10 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
     View pandaLiveIntroductionDV;
     @Bind(R.id.pandaLive_bookMark_tab)
     TabLayout pandaLiveBookMarkTab;
-    @Bind(R.id.pandaLive_sendingLinear)
-    LinearLayout pandaLiveSendingLinear;
     @Bind(R.id.panda_live_mainTitle)
     TextView pandaLiveMainTitle;
     @Bind(R.id.pandaLive_mainPager)
-    ViewPager pandaLiveMainPager;
+    NonSwipeableViewPager pandaLiveMainPager;
     @Bind(R.id.panda_live_showLinear)
     LinearLayout pandaLiveShowLinear;
     @Bind(R.id.live_main_stick)
@@ -69,6 +71,15 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
     private MainLiveAdapter adapter;
     private boolean flg = false;
 
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String image_url = intent.getStringExtra("image_url");
+            String url = intent.getStringExtra("url");
+
+        }
+    };
+
     @Override
     protected int getLayoutId() {
         return R.layout.live_main_fragment;
@@ -79,7 +90,26 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
         new PandaLivePresent(this);
         mainLiveFragments = new ArrayList<>();
 
-        liveMainStick.fullScroll(ScrollView.FOCUS_UP);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.sending_url");
+        getActivity().registerReceiver(receiver,filter);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_play)
+               .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+
+                   }
+               })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }) ;
+        builder.create();
+        builder.show();
     }
 
     @Override
@@ -99,10 +129,9 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
                     Intent intent = new Intent();
                     intent.setAction("com.pandas.tag");
                     getActivity().sendBroadcast(intent);
-//                    pandaLiveMainPager.setTag(sticky);
                     ViewGroup.LayoutParams layoutParams = pandaLiveMainPager.getLayoutParams();
                     if (flg) {
-                        layoutParams.height = 660;
+                        layoutParams.height = 670;
                         //            让上面的view横向   获取焦点 防止点击时跳到下面gridview  里的 第一条
                         pandaLiveShowIntroduction.setFocusable(true);
                         pandaLiveShowIntroduction.setFocusableInTouchMode(true);
@@ -114,10 +143,10 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
                         pandaLiveBookMarkTab.setFocusableInTouchMode(true);
                         pandaLiveBookMarkTab.requestFocus();
                     }
+                    pandaLiveMainPager.setLayoutParams(layoutParams);
                 } else if (tab.getPosition() == 0) {
-                    pandaLiveBookMarkTab.setTag("sticky");
                     ViewGroup.LayoutParams layoutParams = pandaLiveMainPager.getLayoutParams();
-                    layoutParams.height = 1050;
+                    layoutParams.height = 1800;
                     if(flg) {
                         //            让上面的view横向   获取焦点 防止点击时跳到下面gridview  里的 第一条
                         pandaLiveShowIntroduction.setFocusable(true);
@@ -131,6 +160,7 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
                         pandaLiveBookMarkTab.requestFocus();
 
                     }
+                    pandaLiveMainPager.setLayoutParams(layoutParams);
                 }
             }
 
@@ -174,7 +204,6 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
         String url1 = bean.getBookmark().getWatchTalk().get(0).getUrl();
         bundle1.putString("wathch_url", url1);
         LogUtils.setLog("plmf", url1);
-        Log.e("PandaLiveMainFragment", bean.getBookmark().getWatchTalk().get(0).getUrl());
         multiAngleFragment.setArguments(bundle1);
 
 
@@ -233,5 +262,11 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
             pandaLiveBookMarkTab.setFocusableInTouchMode(true);
             pandaLiveBookMarkTab.requestFocus();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(receiver);
     }
 }

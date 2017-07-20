@@ -4,7 +4,8 @@ package com.example.pandas.model.biz;
 import com.example.pandas.config.Urls;
 import com.example.pandas.model.datebean.RollvideoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
-import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
+import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
+import com.example.pandas.model.datebean.livechina.SceneryBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
@@ -12,8 +13,6 @@ import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
-import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
-import com.example.pandas.model.datebean.livechina.SceneryBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,14 +76,6 @@ public class IHomeImpl implements IHomeModel{
         ihttp.get(Urls.INTERACTIVE,null,callbacks);
     }
 
-    @Override
-    public void getPdBBean(String path, String primary_id, String serviceId, NetCallbacks<PdBBean> callbacks) {
-        Map<String,String> map = new HashMap<>() ;
-        map.put("path",path);
-        map.put("primary_id",primary_id);
-        map.put("serviceId",serviceId);
-        ihttp.get(Urls.PANDABROADCAST,map,callbacks);
-    }
 
     /**
      * 获取tab标题栏数据
@@ -121,4 +112,8 @@ public class IHomeImpl implements IHomeModel{
         map.put("page",page);
         ihttp.get(Urls.WATCHCHATDATE,map,callbacks);
     }
+
+
+
+
 }

@@ -4,11 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/pandaLive_sendingLinear"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/y415">
@@ -63,11 +58,11 @@
         <ScrollView
             android:id="@+id/live_main_stick"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="fill_parent">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="fill_parent">
 
                 <View
                     android:background="@color/panda_bar_down"
@@ -75,7 +70,7 @@
                     android:layout_height="@dimen/y2"></View>
 
                 <LinearLayout
-
+                    android:visibility="gone"
                     android:id="@+id/panda_live_showLinear"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -114,17 +109,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
 
-                    <android.support.v4.view.ViewPager
+                    <com.example.pandas.utils.NonSwipeableViewPager
                         android:background="@color/white"
-                        android:tag="sticky"
                         android:layout_marginTop="@dimen/y6"
                         android:layout_marginLeft="@dimen/x11"
                         android:layout_marginRight="@dimen/x11"
                         android:id="@+id/pandaLive_mainPager"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y800"></android.support.v4.view.ViewPager>
+                        android:layout_height="@dimen/y1280"></com.example.pandas.utils.NonSwipeableViewPager>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-    </LinearLayout>
 </LinearLayout>

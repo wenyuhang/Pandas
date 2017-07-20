@@ -2,6 +2,7 @@ package com.example.pandas.homes.homepandalive.wonderfu_moment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
+import com.example.pandas.personal.LoginActivity;
 
 import java.util.List;
 
@@ -52,13 +54,23 @@ public class OtherTabAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         OtherTabHold hold = (OtherTabHold) holder;
         hold.pandaLiveItemTitle.setText(otherTabDetails.get(position).getT());
         hold.pandaLiveItemTime.setText(otherTabDetails.get(position).getPtime());
         hold.pandaLiveItemLongTime.setText(otherTabDetails.get(position).getLen());
         Glide.with(context).load(otherTabDetails.get(position).getImg()).into(hold.pandaLiveItemImg);
 
+        hold.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LoginActivity.class);
+                intent.putExtra("title",otherTabDetails.get(position).getT());
+                intent.putExtra("url",otherTabDetails.get(position).getUrl());
+                intent.putExtra("image",otherTabDetails.get(position).getImg());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

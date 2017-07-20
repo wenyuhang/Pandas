@@ -12,6 +12,7 @@ import com.example.pandas.networks.mycallbacks.NetCallbacks;
 
 public class PandaBroadcastPresenter implements PandaBroadcastContract.Presenter {
 
+
     private IHomeModel homeModel;
     private PandaBroadcastContract.View pandview;
     public PandaBroadcastPresenter(PandaBroadcastContract.View pandview){
@@ -20,23 +21,6 @@ public class PandaBroadcastPresenter implements PandaBroadcastContract.Presenter
         homeModel = new IHomeImpl();
     }
 
-//
-    @Override
-    public void lodeMore(String path, String primary_id, String serviceId) {
-        homeModel.getPdBBean(path, primary_id, serviceId, new NetCallbacks<PdBBean>() {
-            @Override
-            public void onSuccess(PdBBean pdBBean) {
-                pandview.setResult(pdBBean);
-
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-                pandview.showMessage(errorMsg);
-            }
-        });
-
-    }
 
     @Override
     public void strat() {
@@ -44,6 +28,18 @@ public class PandaBroadcastPresenter implements PandaBroadcastContract.Presenter
             @Override
             public void onSuccess(TitleBean titleBean) {
                 pandview.setResult1(titleBean);
+                IHomeImpl.ihttp.get(titleBean.getData().getListurl(), null, new NetCallbacks<PdBBean>() {
+                    @Override
+                    public void onSuccess(PdBBean pdBBean) {
+                        pandview.setResult(pdBBean);
+
+                    }
+
+                    @Override
+                    public void onError(String errorMsg) {
+
+                    }
+                });
             }
 
             @Override

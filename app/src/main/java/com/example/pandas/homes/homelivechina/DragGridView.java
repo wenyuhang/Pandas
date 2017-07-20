@@ -103,6 +103,7 @@ public class DragGridView extends GridView {
                 }
                 windowLayoutParams = new WindowManager.LayoutParams();
                 windowLayoutParams.gravity = Gravity.TOP | Gravity.LEFT;
+                TextView tv = (TextView) view.findViewById(R.id.text_item);
                 windowLayoutParams.width = view.getWidth();
                 windowLayoutParams.height = view.getHeight();
                 windowLayoutParams.x = (int) ev.getRawX() - (windowX - view.getLeft());//view.getX()=view.getLeft()+view.getTranslationX()//偏移一般为0；

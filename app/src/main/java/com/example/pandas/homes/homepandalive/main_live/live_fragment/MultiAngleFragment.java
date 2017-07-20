@@ -1,8 +1,9 @@
 package com.example.pandas.homes.homepandalive.main_live.live_fragment;
 
 
-import android.util.Log;
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.pandas.R;
@@ -45,15 +46,24 @@ public class MultiAngleFragment extends BaseFragment implements SendingContract.
         adapter = new MultipleGridAdapter(getActivity(),multipleList);
         pandaLiveGrid.setAdapter(adapter);
 
-        pandaLiveGrid.setFocusable(true);
-        pandaLiveGrid.setFocusableInTouchMode(true);
-        pandaLiveGrid.requestFocus();
+        pandaLiveGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setAction("com.sending_url");
+                intent.putExtra("image_url",multipleList.get(position).getImage());
+                intent.putExtra("url",multipleList.get(position).getUrl());
+                getActivity().sendBroadcast(intent);
+            }
+        });
+
     }
 
     @Override
     protected void loadData() {
         presenter.strat();
     }
+
 
     @Override
     public void setPresenter(SendingContract.Presenter presenter) {
@@ -94,11 +104,8 @@ public class MultiAngleFragment extends BaseFragment implements SendingContract.
     public void setMultipleBean(MultipleBean bean) {
         LogUtils.setLog("maf",bean.getList().size()+"");
         multipleList.addAll(bean.getList());
-        for(int i = 0; i<multipleList.size();i++){
-            Log.e("maf",multipleList.get(i).getTitle());
-        }
+
         adapter.notifyDataSetChanged();
-        pandaLiveGrid.setSelection(0);
     }
 
     @Override

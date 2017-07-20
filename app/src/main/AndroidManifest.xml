@@ -27,7 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".personal.LoginActivity" />
         <activity android:name=".personal.RegisterActivity" />
         <activity android:name=".personal.SetActivity" />
@@ -40,13 +39,17 @@
         <activity android:name=".personal.homeinteractive.InteractiveMainActivity"></activity>
         <activity android:name=".personal.PersonalXinActivity"></activity>
         <activity android:name=".personal.homeinteractive.InteractiveInfoActivity"></activity>
+        <activity
+            android:name=".config.CultureSpActivity"
+            android:screenOrientation="landscape" />
 
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
@@ -75,9 +78,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <activity android:name=".config.CultureSpActivity"
-            android:screenOrientation="landscape"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
