@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 public class MainLiveAdapter extends FragmentPagerAdapter{
     ArrayList<Fragment> mainLiveFragments;
-    String[] liveMainTitle = {"多视角直播","边看边聊"};
-    public MainLiveAdapter(FragmentManager fm, ArrayList<Fragment> mainLiveFragments) {
+    ArrayList<String> list;
+    public MainLiveAdapter(FragmentManager fm, ArrayList<Fragment> mainLiveFragments, ArrayList<String> list) {
         super(fm);
         this.mainLiveFragments = mainLiveFragments;
+        this.list = list;
     }
 
     @Override
@@ -27,6 +28,6 @@ public class MainLiveAdapter extends FragmentPagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return liveMainTitle[position];
+        return list.get(position);
     }
 }

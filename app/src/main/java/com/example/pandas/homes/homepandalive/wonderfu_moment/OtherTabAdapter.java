@@ -2,7 +2,6 @@ package com.example.pandas.homes.homepandalive.wonderfu_moment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
-import com.example.pandas.personal.LoginActivity;
 
 import java.util.List;
 
@@ -24,11 +22,21 @@ public class OtherTabAdapter extends RecyclerView.Adapter {
     List<OtherTabDetail.VideoBean> otherTabDetails;
     Context context;
     private LayoutInflater inflater;
+    OnclickGoPlay onclickGoPlay;
 
     public OtherTabAdapter(Context activity, List<OtherTabDetail.VideoBean> otherTabDetails) {
         this.otherTabDetails = otherTabDetails;
         this.context = activity;
         inflater = LayoutInflater.from(activity);
+
+    }
+
+    public void setOnclickGoPlay(OnclickGoPlay onclickGoPlay) {
+        this.onclickGoPlay = onclickGoPlay;
+    }
+
+    public interface OnclickGoPlay{
+        void goPlay(int pos);
     }
 
     class OtherTabHold extends RecyclerView.ViewHolder {
@@ -64,11 +72,8 @@ public class OtherTabAdapter extends RecyclerView.Adapter {
         hold.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, LoginActivity.class);
-                intent.putExtra("title",otherTabDetails.get(position).getT());
-                intent.putExtra("url",otherTabDetails.get(position).getUrl());
-                intent.putExtra("image",otherTabDetails.get(position).getImg());
-                context.startActivity(intent);
+                onclickGoPlay.goPlay(position);
+
             }
         });
     }

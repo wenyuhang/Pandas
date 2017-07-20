@@ -13,6 +13,7 @@ import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
 import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
+import com.example.pandas.model.datebean.pandasending.PlayBean;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
@@ -30,7 +31,6 @@ public interface IHomeModel extends BaseModel{
     void getLiveTabBean(NetCallbacks<LiveTabBean> callbacks);
     //熊猫播报title
     void getTitleBean(NetCallbacks<TitleBean> callbacks);
-
 
     //   直播中国
     void getLiveChinaBean(String str,NetCallbacks<LiveChinaBean> callbacks);
@@ -54,6 +54,7 @@ public interface IHomeModel extends BaseModel{
     //    边看边聊数据
     void getWatchChatBean(String app, String itemId, String nature, String page, NetCallbacks<WatchChatBean> callbacks);
 
+    void getPandaPlayBean(String pid,NetCallbacks<PlayBean> callbacks);
     //    熊猫文化详情的CCTVvideo
     void getCCTVVideo(String n, String vsid, String p , String serviceId,String em, NetCallbacks<CCTVBaen> callbacks);
     //    熊猫文化详情播放视频

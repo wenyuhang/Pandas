@@ -5,7 +5,6 @@ import com.example.pandas.base.BasePresenter;
 import com.example.pandas.base.BaseView;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
-import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 
@@ -33,11 +32,6 @@ public interface SendingContract {
          */
         void setLiveTabBean(LiveTabBean bean);
 
-        /**
-         * 返回 tablayout 剩下的所有数据
-         * @param bean
-         */
-        void setOtherTabBean(OtherTabDetail bean);
 
         /**
          * 显示 是否成功
@@ -60,7 +54,6 @@ public interface SendingContract {
 
 
     interface Presenter extends BasePresenter{
-        void loadMore(String vsid,String n,String serviceId,String o,String of,String p);
-        void watchAt(String app, String itemId, String nature, String page);
+
     }
 }

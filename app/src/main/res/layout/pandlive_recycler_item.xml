@@ -28,7 +28,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_width="@dimen/x150"
+            android:layout_width="@dimen/x160"
             android:layout_height="@dimen/y40">
 
             <ImageView
@@ -41,7 +41,8 @@
                 android:textColor="@color/white"
                 android:text="00:00:38"
                 android:id="@+id/pandaLive_itemLongTime"
-                android:layout_marginLeft="@dimen/x10"
+                android:layout_marginTop="@dimen/y2"
+                android:layout_marginLeft="@dimen/x8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

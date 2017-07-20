@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,7 +29,6 @@ import com.example.pandas.homes.homepandalive.main_live.live_fragment.MultiAngle
 import com.example.pandas.homes.homepandalive.main_live.live_fragment.WatchChatFragment;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
-import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 import com.example.pandas.utils.LogUtils;
@@ -70,12 +71,44 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
     private ArrayList<Fragment> mainLiveFragments;
     private MainLiveAdapter adapter;
     private boolean flg = false;
+    private boolean sureFirst = false;
+    private ArrayList<String> list;
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String image_url = intent.getStringExtra("image_url");
             String url = intent.getStringExtra("url");
+
+        }
+    };
+    private AlertDialog.Builder builder;
+
+    Handler hand = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what == 1000) {
+                builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage(R.string.dialog_play)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }) ;
+                builder.create();
+                builder.show();
+            }else if(msg.what == 2000) {
+                LogUtils.setLog("PLMF",list.size()+"::"+mainLiveFragments.size());
+                adapter.notifyDataSetChanged();
+            }
 
         }
     };
@@ -89,38 +122,24 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
     protected void init(View view) {
         new PandaLivePresent(this);
         mainLiveFragments = new ArrayList<>();
+        list = new ArrayList<>();
 
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.sending_url");
         getActivity().registerReceiver(receiver,filter);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.dialog_play)
-               .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialog, int which) {
-
-                   }
-               })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        }) ;
-        builder.create();
-        builder.show();
     }
 
     @Override
     protected void loadData() {
         present.strat();
 
-        adapter = new MainLiveAdapter(getActivity().getSupportFragmentManager(), mainLiveFragments);
+        adapter = new MainLiveAdapter(getActivity().getSupportFragmentManager(), mainLiveFragments,list);
         pandaLiveMainPager.setAdapter(adapter);
 
         pandaLiveBookMarkTab.setupWithViewPager(pandaLiveMainPager);
         pandaLiveBookMarkTab.setTabMode(TabLayout.MODE_FIXED);
+
+        pandaLiveMainPager.setOffscreenPageLimit(2);
 
         pandaLiveBookMarkTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -131,13 +150,13 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
                     getActivity().sendBroadcast(intent);
                     ViewGroup.LayoutParams layoutParams = pandaLiveMainPager.getLayoutParams();
                     if (flg) {
-                        layoutParams.height = 670;
+                        layoutParams.height = 700;
                         //            让上面的view横向   获取焦点 防止点击时跳到下面gridview  里的 第一条
                         pandaLiveShowIntroduction.setFocusable(true);
                         pandaLiveShowIntroduction.setFocusableInTouchMode(true);
                         pandaLiveShowIntroduction.requestFocus();
                     } else {
-                        layoutParams.height = 580;
+                        layoutParams.height = 600;
                         //          把上面的tablayout设为焦点 防止 直接显示第一条
                         pandaLiveBookMarkTab.setFocusable(true);
                         pandaLiveBookMarkTab.setFocusableInTouchMode(true);
@@ -177,6 +196,25 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+                if(sureFirst == false) {
+                    hand.sendEmptyMessage(1000);
+                    sureFirst = true;
+                }else {
+                    Intent intent = new Intent();
+                    intent.setAction("can.refresh");
+                    intent.putExtra("refresh",true);
+                    getActivity().sendBroadcast(intent);
+                    hand.sendEmptyMessage(2000);
+                }
+            Log.i("abc","pandaLiveMainFragment==="+this);
+
+        }
+    }
+
+    @Override
     public void setPresenter(SendingContract.Presenter presenter) {
         this.present = presenter;
     }
@@ -198,14 +236,17 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
         pandaLiveIntroduction.setText(bean.getLive().get(0).getBrief());
 
         MultiAngleFragment multiAngleFragment = new MultiAngleFragment();
+        new PandaLivePresent(multiAngleFragment);
 
         WatchChatFragment watchChatFragment = new WatchChatFragment();
-        Bundle bundle1 = new Bundle();
-        String url1 = bean.getBookmark().getWatchTalk().get(0).getUrl();
-        bundle1.putString("wathch_url", url1);
-        LogUtils.setLog("plmf", url1);
-        multiAngleFragment.setArguments(bundle1);
+//        Bundle bundle1 = new Bundle();
+//        String url1 = bean.getBookmark().getWatchTalk().get(0).getUrl();
+//        bundle1.putString("wathch_url", url1);
+//        LogUtils.setLog("plmf", url1);
+//        multiAngleFragment.setArguments(bundle1);
 
+        list.add(bean.getBookmark().getMultiple().get(0).getTitle());
+        list.add(bean.getBookmark().getWatchTalk().get(0).getTitle());
 
         mainLiveFragments.add(multiAngleFragment);
         mainLiveFragments.add(watchChatFragment);
@@ -215,11 +256,6 @@ public class PandaLiveMainFragment extends BaseFragment implements SendingContra
 
     @Override
     public void setLiveTabBean(LiveTabBean bean) {
-
-    }
-
-    @Override
-    public void setOtherTabBean(OtherTabDetail bean) {
 
     }
 

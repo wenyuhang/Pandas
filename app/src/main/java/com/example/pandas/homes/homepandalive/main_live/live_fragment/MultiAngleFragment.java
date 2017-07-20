@@ -1,18 +1,19 @@
 package com.example.pandas.homes.homepandalive.main_live.live_fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
-import com.example.pandas.homes.homepandalive.PandaLivePresent;
 import com.example.pandas.homes.homepandalive.SendingContract;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
-import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 import com.example.pandas.utils.LogUtils;
@@ -33,6 +34,16 @@ public class MultiAngleFragment extends BaseFragment implements SendingContract.
     private ArrayList<MultipleBean.ListBean> multipleList;
     private String url;
 
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            multipleList.clear();
+            presenter.strat();
+            adapter.notifyDataSetChanged();
+            LogUtils.setLog("Multi",multipleList.size()+"::");
+        }
+    };
+
     @Override
     protected int getLayoutId() {
         return R.layout.pandalive_multiple;
@@ -40,8 +51,12 @@ public class MultiAngleFragment extends BaseFragment implements SendingContract.
 
     @Override
     protected void init(View view) {
-        new PandaLivePresent(this);
+
         multipleList = new ArrayList<>();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("can.refresh");
+        getActivity().registerReceiver(receiver,filter);
 
         adapter = new MultipleGridAdapter(getActivity(),multipleList);
         pandaLiveGrid.setAdapter(adapter);
@@ -87,11 +102,6 @@ public class MultiAngleFragment extends BaseFragment implements SendingContract.
 
     @Override
     public void setLiveTabBean(LiveTabBean bean) {
-
-    }
-
-    @Override
-    public void setOtherTabBean(OtherTabDetail bean) {
 
     }
 

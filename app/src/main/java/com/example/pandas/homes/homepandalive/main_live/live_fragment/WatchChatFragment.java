@@ -1,6 +1,10 @@
 package com.example.pandas.homes.homepandalive.main_live.live_fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +13,6 @@ import android.widget.TextView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
-import com.example.pandas.homes.homepandalive.PandaLivePresent;
-import com.example.pandas.homes.homepandalive.SendingContract;
-import com.example.pandas.model.datebean.pandasending.LiveTabBean;
-import com.example.pandas.model.datebean.pandasending.MultipleBean;
-import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
-import com.example.pandas.model.datebean.pandasending.SendingBean;
-import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 import com.example.pandas.utils.FloorDate;
 import com.example.pandas.utils.LogUtils;
 import com.example.pandas.utils.MyRecyclerView;
@@ -41,7 +38,7 @@ import butterknife.Bind;
 /**
  * 边看边聊
  */
-public class WatchChatFragment extends BaseFragment implements SendingContract.View{
+public class WatchChatFragment extends BaseFragment{
     @Bind(R.id.watchChat_edit)
     EditText watchChatEdit;
     @Bind(R.id.watchChat_pulltoRecycler)
@@ -53,6 +50,18 @@ public class WatchChatFragment extends BaseFragment implements SendingContract.V
     private ArrayList<FloorDate> strings;
     private int page = 1;
 
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            beanArrayList.clear();
+            strings.clear();
+            loadData();
+            watchCommentAdapter.notifyDataSetChanged();
+
+            LogUtils.setLog("WatchChat",beanArrayList.size()+"::"+strings.size());
+        }
+    };
+
     @Override
     protected int getLayoutId() {
         return R.layout.watchchatfragment;
@@ -60,16 +69,18 @@ public class WatchChatFragment extends BaseFragment implements SendingContract.V
 
     @Override
     protected void init(View view) {
-        new PandaLivePresent(this);
 
         strings = new ArrayList<>();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("can.refresh");
+        getActivity().registerReceiver(receiver,filter);
 
         pullToRefreshRecyclerView.setFocusable(true);
 
         pullToRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         watchCommentAdapter = new WatchCommentAdapter(getActivity(),beanArrayList,strings);
         pullToRefreshRecyclerView.setAdapter(watchCommentAdapter);
-
 
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -193,47 +204,4 @@ public class WatchChatFragment extends BaseFragment implements SendingContract.V
 
     }
 
-    @Override
-    public void setPresenter(SendingContract.Presenter presenter) {
-    }
-
-    @Override
-    public void showProgressDialog() {
-
-    }
-
-    @Override
-    public void dismissProgressDialog() {
-
-    }
-
-    @Override
-    public void setPandaLiveDate(SendingBean bean) {
-
-    }
-
-    @Override
-    public void setLiveTabBean(LiveTabBean bean) {
-
-    }
-
-    @Override
-    public void setOtherTabBean(OtherTabDetail bean) {
-
-    }
-
-    @Override
-    public void setShowMessage(String message) {
-
-    }
-
-    @Override
-    public void setMultipleBean(MultipleBean bean) {
-
-    }
-
-    @Override
-    public void setWatchAtBean(WatchChatBean bean) {
-
-    }
 }

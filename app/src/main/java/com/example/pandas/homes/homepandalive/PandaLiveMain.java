@@ -1,12 +1,15 @@
 package com.example.pandas.homes.homepandalive;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
@@ -15,16 +18,13 @@ import com.example.pandas.homes.homepandalive.main_live.PandaLiveMainFragment;
 import com.example.pandas.homes.homepandalive.wonderfu_moment.MarvellousFragment;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
-import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
-import com.example.pandas.personal.PersonalCenterActivity;
-import com.example.pandas.utils.PopupWindowUtils;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import butterknife.ButterKnife;
 
 
 /**
@@ -32,21 +32,24 @@ import butterknife.OnClick;
  * 熊猫直播页面
  */
 
-public class PandaLiveMain extends BaseFragment implements SendingContract.View{
+public class PandaLiveMain extends BaseFragment implements SendingContract.View {
 
-    @Bind(R.id.pandaLive_login)
-    ImageView pandaLiveLogin;
     @Bind(R.id.pandaLive_tablayout)
     TabLayout pandaLiveTablayout;
     @Bind(R.id.pandaLive_viewpager)
     ViewPager pandaLiveViewpager;
+    @Bind(R.id.linear_show)
+    LinearLayout linearShow;
+    @Bind(R.id.pandalive_probar)
+    ProgressBar pandaliveProbar;
+    @Bind(R.id.pandalive_relalayout)
+    RelativeLayout pandaliveRelalayout;
 
     private ArrayList<Fragment> fragmentArrayList;
     private ArrayList<String> strings;
     private SendingContract.Presenter present;
     private ArrayList<LiveTabBean.TablistBean> tablistBeen;
     private PandaLiveTabAdapter adapter;
-    private PopupWindowUtils pop;
     private LiveTabBean bean;
 
     @Override
@@ -56,37 +59,23 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View{
 
     @Override
     protected void init(View view) {
-        showProgressDialog();
+        pandaliveRelalayout.setVisibility(View.VISIBLE);
         new PandaLivePresent(this);
         tablistBeen = new ArrayList<>();
         fragmentArrayList = new ArrayList<>();
         strings = new ArrayList<>();
 
-        adapter = new PandaLiveTabAdapter(getActivity().getSupportFragmentManager(),fragmentArrayList,strings);
+        adapter = new PandaLiveTabAdapter(getActivity().getSupportFragmentManager(), fragmentArrayList, strings);
         pandaLiveViewpager.setAdapter(adapter);
 
         pandaLiveTablayout.setupWithViewPager(pandaLiveViewpager);
         pandaLiveTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-        pandaLiveLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PersonalCenterActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
     @Override
     protected void loadData() {
         present.strat();
-    }
-
-
-    @OnClick(R.id.pandaLive_login)
-    public void onViewClicked() {
-
     }
 
     @Override
@@ -96,14 +85,11 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View{
 
     @Override
     public void showProgressDialog() {
-        pop = PopupWindowUtils.getInstance(getActivity());
-        pop.startPopup();
-
     }
 
     @Override
     public void dismissProgressDialog() {
-        pop.stopPopup();
+        pandaliveRelalayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -113,53 +99,31 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View{
 
     @Override
     public void setLiveTabBean(LiveTabBean bean) {
-        this.bean = bean;
-        if(bean !=null) {
+        if (bean != null) {
             dismissProgressDialog();
         }
         ACache aCache = ACache.get(getActivity());
-//        for (int pos=0;pos<bean.getTablist().size();pos++){
-//            aCache.put(pos,bean.getTablist().get(0).getTitle());
-//            aCache.put("",bean.getTablist().get(0).getId());
-//        }
-//        aCache.put("list",bean.getTablist());
+
         tablistBeen.addAll(bean.getTablist());
 
-        boolean flg = false;
-        boolean fff = false;
-        int pos =0;
-        for (int i=0;i<tablistBeen.size();i++){
-            if(i==0) {
-                flg = true;
-                pos = 0;
-            }else {
-                fff = true;
-                pos=i;
-            }
-        }
-        if(flg) {
-            PandaLiveMainFragment pandaLiveMainFragment = new PandaLiveMainFragment();
-            fragmentArrayList.add(0,pandaLiveMainFragment);
-            strings.add(0,tablistBeen.get(0).getTitle());
-            adapter.notifyDataSetChanged();
-        }
-        if(fff) {
-            for (int o=1;o<=pos;o++){
+        for (int i = 0; i < tablistBeen.size(); i++) {
+            if (i == 0) {
+                PandaLiveMainFragment pandaLiveMainFragment = new PandaLiveMainFragment();
+                new PandaLivePresent(pandaLiveMainFragment);
+                fragmentArrayList.add(0, pandaLiveMainFragment);
+                strings.add(0, tablistBeen.get(0).getTitle());
+            } else {
                 MarvellousFragment marvellousFragment = new MarvellousFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("vsid",tablistBeen.get(o).getId());
+                new OtherTabPresenter(marvellousFragment);
+                bundle.putString("vsid", tablistBeen.get(i).getId());
                 marvellousFragment.setArguments(bundle);
-                fragmentArrayList.add(o,marvellousFragment);
-                strings.add(o,tablistBeen.get(o).getTitle());
+                fragmentArrayList.add(marvellousFragment);
+                strings.add(tablistBeen.get(i).getTitle());
+            }
         }
-                adapter.notifyDataSetChanged();
-        }
-
-    }
-
-
-    @Override
-    public void setOtherTabBean(OtherTabDetail bean) {
+        adapter.notifyDataSetChanged();
+        pandaLiveViewpager.setOffscreenPageLimit(tablistBeen.size());
 
     }
 
@@ -176,5 +140,19 @@ public class PandaLiveMain extends BaseFragment implements SendingContract.View{
     @Override
     public void setWatchAtBean(WatchChatBean bean) {
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

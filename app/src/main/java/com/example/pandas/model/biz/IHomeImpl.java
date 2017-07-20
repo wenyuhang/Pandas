@@ -13,6 +13,7 @@ import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
 import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
+import com.example.pandas.model.datebean.pandasending.PlayBean;
 import com.example.pandas.model.datebean.pandasending.SendingBean;
 import com.example.pandas.model.datebean.pandasending.WatchChatBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
@@ -116,6 +117,14 @@ public class IHomeImpl implements IHomeModel{
         map.put("page",page);
         ihttp.get(Urls.WATCHCHATDATE,map,callbacks);
     }
+
+    @Override
+    public void getPandaPlayBean(String pid,NetCallbacks<PlayBean> callbacks) {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",pid);
+        ihttp.get(Urls.PANDAVOD,map,callbacks);
+    }
+
 
     //    熊猫文化详情的CCTVvideo
     public void getCCTVVideo(String n, String vsid, String p , String serviceId,String em, NetCallbacks<CCTVBaen> callbacks){

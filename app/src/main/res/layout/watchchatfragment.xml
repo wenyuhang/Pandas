@@ -4,32 +4,29 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:layout_marginTop="@dimen/y8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/watchChat_edit"
-
+            android:background="@drawable/edit_near"
             android:hint="@string/watchChat_editHint"
-            android:layout_marginLeft="@dimen/x20"
-            android:layout_width="@dimen/x450"
-            android:layout_height="@dimen/x100" />
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_width="@dimen/x485"
+            android:layout_height="@dimen/x70" />
         <Button
+            android:id="@+id/watchChat_send"
             android:text="@string/send_edit"
             android:textColor="@color/white"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/x10"
             android:background="@color/pandlive_tabIndicatorColor"
-            android:layout_width="@dimen/x200"
-            android:layout_height="@dimen/y90" />
+            android:layout_width="@dimen/x180"
+            android:layout_height="@dimen/y70" />
     </RelativeLayout>
-
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/y450">-->
     <com.example.pandas.utils.MyRecyclerView
         android:id="@+id/watchChat_pulltoRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.example.pandas.utils.MyRecyclerView>
-    <!--</ScrollView>-->
 </LinearLayout>

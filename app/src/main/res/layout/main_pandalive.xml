@@ -1,32 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <RelativeLayout
-        android:background="@color/topBar"
+
+    <LinearLayout
+        android:id="@+id/linear_show"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y85">
-
-        <TextView
-            android:text="@string/panda_live"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/x38"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/pandaLive_login"
-            android:src="@mipmap/person_sign"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/x26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
+        android:layout_height="match_parent">
     <View
         android:background="@color/panda_bar_down"
         android:layout_width="match_parent"
@@ -41,9 +24,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
 
-    <android.support.v4.view.ViewPager
+    <com.example.pandas.utils.NonSwipeableViewPager
         android:id="@+id/pandaLive_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"></com.example.pandas.utils.NonSwipeableViewPager>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/pandalive_relalayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#cad9d7d7"
+        android:visibility="gone">
 
-</LinearLayout>
+        <ProgressBar
+            android:id="@+id/pandalive_probar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/livechina_prgressbar"
+            android:indeterminateDrawable="@drawable/bars"
+            android:padding="10dp" />
+    </RelativeLayout>
+</FrameLayout>
