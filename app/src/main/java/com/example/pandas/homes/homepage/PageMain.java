@@ -70,7 +70,6 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     protected void loadData() {
-
         presenter.strat();
     }
 

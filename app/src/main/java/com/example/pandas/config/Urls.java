@@ -45,5 +45,9 @@ public class Urls {
     //熊猫直播中的边看边聊数据
     public static final String WATCHCHATDATE = "http://newcomment.cntv.cn/comment/list";
 
+    //    熊猫文化里面视频播放的第一个地址
+    public static final String CCTVVIDEO="http://api.cntv.cn/video/videolistById";
+    //所有的播放视频的地址
+    public static final String PLAYVIDEO="http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do";
 
 }

@@ -2,7 +2,10 @@ package com.example.pandas.model.biz;
 
 
 import com.example.pandas.config.Urls;
-import com.example.pandas.model.datebean.RollvideoBean;
+import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
+import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
+import com.example.pandas.homes.pandaculture.bean.PlayVideo;
+import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
 import com.example.pandas.model.datebean.livechina.SceneryBean;
@@ -66,8 +69,9 @@ public class IHomeImpl implements IHomeModel{
         ihttp.get(Urls.LIVECHINA,null,callbacks);
     }
 
+    //熊猫文化
     @Override
-    public void getRollVideoBean(NetCallbacks<RollvideoBean> callbacks) {
+    public void getRollVideoBean(NetCallbacks<PandaCultureEntity> callbacks) {
         ihttp.get(Urls.RELLOVIDEO,null,callbacks);
     }
 
@@ -113,7 +117,28 @@ public class IHomeImpl implements IHomeModel{
         ihttp.get(Urls.WATCHCHATDATE,map,callbacks);
     }
 
-
-
-
+    //    熊猫文化详情的CCTVvideo
+    public void getCCTVVideo(String n, String vsid, String p , String serviceId,String em, NetCallbacks<CCTVBaen> callbacks){
+        Map<String,String> map = new HashMap<>();
+        map.put("n",n);
+        map.put("vsid",vsid);
+        map.put("p",p);
+        map.put("serviceId",serviceId);
+        map.put("em",em);
+        ihttp.get(Urls.CCTVVIDEO,map,callbacks);
+    }
+    //熊猫文化获取视频播放地址
+    @Override
+    public void getVideoUrl(String pid, NetCallbacks<PlayVideo> callbacks) {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",pid);
+        ihttp.get(Urls.PLAYVIDEO,map,callbacks);
+    }
+    //    熊猫文化全屏播放的
+    @Override
+    public void getStartVideo(String pid, NetCallbacks<VideoStartBean> callbacks) {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",pid);
+        ihttp.get(Urls.PLAYVIDEO,map,callbacks);
+    }
 }

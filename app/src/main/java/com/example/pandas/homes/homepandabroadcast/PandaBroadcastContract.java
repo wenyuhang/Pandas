@@ -14,6 +14,7 @@ public interface PandaBroadcastContract {
     interface Presenter extends BasePresenter {
 
     }
+
     interface View extends BaseView<Presenter>  {
         void showProgressDialog();
         void dismissDialog();
