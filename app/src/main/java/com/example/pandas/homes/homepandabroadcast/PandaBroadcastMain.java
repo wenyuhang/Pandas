@@ -2,6 +2,7 @@ package com.example.pandas.homes.homepandabroadcast;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,8 +39,8 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     private ArrayList<PdBBean.ListBean> listBeen;
     private PandaBroadcastAdapter pandaBroadcastAdapter;
     private ImageView pdb_up_image;
-
-
+    private List<TitleBean.DataBean.BigImgBean> bigImg;
+    private View inflate;
 
     @Override
     protected int getLayoutId() {
@@ -49,16 +50,10 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     @Override
     protected void init(View view) {
         listBeen = new ArrayList<>();
-        View inflate = View.inflate(getContext(), R.layout.pandabroadcast_up_item, null);
+        inflate = View.inflate(getContext(), R.layout.pandabroadcast_up_item, null);
         textView = (TextView) inflate.findViewById(R.id.pdb_up_image_title);
         pdb_up_image = (ImageView) inflate.findViewById(R.id.pdb_up_image);
         pdbPullToRefreshRecyclerView.addHeaderView(inflate);
-        inflate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              startActivity(new Intent(getContext(),MWebView.class));
-            }
-        });
         pdbPullToRefreshRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
         pandaBroadcastAdapter = new PandaBroadcastAdapter(getContext(), listBeen);
         pdbPullToRefreshRecyclerView.setAdapter(pandaBroadcastAdapter);
@@ -70,8 +65,8 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
                 pdbPullToRefreshRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        listBeen.clear();
-                        listBeen.addAll(list);
+//                        listBeen.clear();
+//                        listBeen.addAll(list);
                         pdbPullToRefreshRecyclerView.setRefreshComplete();
                         pandaBroadcastAdapter.notifyDataSetChanged();
                     }
@@ -121,10 +116,20 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
 
     @Override
     public void setResult1(TitleBean titleBean) {
-        List<TitleBean.DataBean.BigImgBean> bigImg = titleBean.getData().getBigImg();
+        bigImg = titleBean.getData().getBigImg();
         textView.setText(bigImg.get(0).getTitle());
         Glide.with(getContext()).load(bigImg.get(0).getImage()).into(pdb_up_image);
         pandaBroadcastAdapter.notifyDataSetChanged();
+        final String url = bigImg.get(0).getUrl();
+        Log.d("PandaBroadcastMain", url);
+        inflate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MWebView.class);
+                intent.putExtra("url",url);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
