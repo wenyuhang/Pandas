@@ -5,7 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pandas.R;
@@ -15,9 +16,7 @@ import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.VideoInfoBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
-import com.example.pandas.personal.PersonalCenterActivity;
 import com.example.pandas.personal.homeinteractive.InteractiveInfoActivity;
-import com.example.pandas.personal.homeinteractive.InteractiveMainActivity;
 import com.example.pandas.wxapi.App;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -29,26 +28,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import butterknife.ButterKnife;
 
 
 /**
  * Created by 联想 on 2017/7/10.
  */
 public class PageMain extends BaseFragment implements PageContract.View {
-    @Bind(R.id.home_logo_img)
-    ImageView homeLogoImg;
-    @Bind(R.id.home_personal)
-    ImageView homePersonal;
-    @Bind(R.id.home_interactive)
-    ImageView homeInteractive;
+
     @Bind(R.id.home_xrecyclerview)
     XRecyclerView homeXrecyclerview;
+    @Bind(R.id.pagemain_probar)
+    ProgressBar pagemainProbar;
+    @Bind(R.id.pagemain_relalayout)
+    RelativeLayout pagemainRelalayout;
     private PageContract.Presenter presenter;
     private ArrayList<HomePageBean.DataBean> list;
     private ArrayList<Object> objectList;
     private HomePageAdapter homePageAdapter;
-    private ArrayList<String> imgLists=new ArrayList<>();
+    private ArrayList<String> imgLists = new ArrayList<>();
     private ArrayList<HomePageBean.DataBean.BigImgBean> bigImgList;
     private ArrayList<VideoInfoBean.VideoBean.ChaptersBean> videoList;
     private Banner banner;
@@ -61,11 +59,12 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     protected void init(View view) {
-        list=new ArrayList<>();
-        objectList=new ArrayList<>();
-        imgLists=new ArrayList<>();
-        bigImgList=new ArrayList<>();
-        videoList=new ArrayList<>();
+        pagemainRelalayout.setVisibility(View.VISIBLE);
+        list = new ArrayList<>();
+        objectList = new ArrayList<>();
+        imgLists = new ArrayList<>();
+        bigImgList = new ArrayList<>();
+        videoList = new ArrayList<>();
     }
 
     @Override
@@ -85,6 +84,9 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     public void setResult(final HomePageBean netBean) {
+        if(netBean!=null){
+            pagemainRelalayout.setVisibility(View.GONE);
+        }
 
         objectList.add(netBean.getData().getArea());
         objectList.add(netBean.getData().getPandaeye().getItems().get(0));
@@ -96,7 +98,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
         objectList.add(netBean.getData().getCctv());
         objectList.add(netBean.getData().getList().get(0));
 
-        View view= LayoutInflater.from(getActivity()).inflate(R.layout.homepage_header_item,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.homepage_header_item, null);
         homeXrecyclerview.addHeaderView(view);
         banner = (Banner) view.findViewById(R.id.home_banner);
         homepageTitle = (TextView) view.findViewById(R.id.homepage_title);
@@ -106,7 +108,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
         list.add(netBean.getData());
         homeXrecyclerview.setHasFixedSize(true);
-        homeXrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        homeXrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         homeXrecyclerview.setLoadingMoreEnabled(false);
         homeXrecyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         homeXrecyclerview.setArrowImageView(R.mipmap.xlistview_arrow);
@@ -144,13 +146,13 @@ public class PageMain extends BaseFragment implements PageContract.View {
             }
         });
 
-        homePageAdapter = new HomePageAdapter(getActivity(),list,objectList);
+        homePageAdapter = new HomePageAdapter(getActivity(), list, objectList);
         homeXrecyclerview.setAdapter(homePageAdapter);
 
     }
 
     private void carousel(final HomePageBean netBean) {
-        for(int i=0;i<netBean.getData().getBigImg().size();i++){
+        for (int i = 0; i < netBean.getData().getBigImg().size(); i++) {
             imgLists.add(netBean.getData().getBigImg().get(i).getImage());
         }
         banner.setImageLoader(new ImageLoaders());
@@ -162,21 +164,21 @@ public class PageMain extends BaseFragment implements PageContract.View {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(final int position) {
-                if(position==0){
-                    Intent intent=new Intent(getActivity(), InteractiveInfoActivity.class);
-                    intent.putParcelableArrayListExtra("bigImgList",bigImgList);
-                    intent.putExtra("position",position);
+                if (position == 0) {
+                    Intent intent = new Intent(getActivity(), InteractiveInfoActivity.class);
+                    intent.putParcelableArrayListExtra("bigImgList", bigImgList);
+                    intent.putExtra("position", position);
                     startActivity(intent);
-                }else{
-                    HashMap<String,String> map=new HashMap<String, String>();
-                    map.put("pid",netBean.getData().getBigImg().get(position).getPid());
+                } else {
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    map.put("pid", netBean.getData().getBigImg().get(position).getPid());
                     IHomeImpl.ihttp.get("http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do", map, new NetCallbacks<VideoInfoBean>() {
                         @Override
                         public void onSuccess(final VideoInfoBean videoInfoBean) {
                             videoList.addAll(videoInfoBean.getVideo().getChapters());
-                            Intent intent=new Intent(getActivity(), CultureSpActivity.class);
-                            intent.putExtra("url",videoList.get(0).getUrl());
-                            intent.putExtra("title",list.get(0).getBigImg().get(position).getTitle());
+                            Intent intent = new Intent(getActivity(), CultureSpActivity.class);
+                            intent.putExtra("url", videoList.get(0).getUrl());
+                            intent.putExtra("title", list.get(0).getBigImg().get(position).getTitle());
                             startActivity(intent);
                             videoList.clear();
                         }
@@ -198,10 +200,10 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
             @Override
             public void onPageSelected(int position) {
-                if(position<=4 && position!=0){
-                    homepageTitle.setText(list.get(0).getBigImg().get(position-1).getTitle());
-                }else if(position<=4 && position<=0){
-                    position=0;
+                if (position <= 4 && position != 0) {
+                    homepageTitle.setText(list.get(0).getBigImg().get(position - 1).getTitle());
+                } else if (position <= 4 && position <= 0) {
+                    position = 0;
                 }
 
             }
@@ -223,16 +225,10 @@ public class PageMain extends BaseFragment implements PageContract.View {
         this.presenter = presenter;
     }
 
-    @OnClick({R.id.home_personal, R.id.home_interactive})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.home_personal:
-                startActivity(new Intent(getActivity(), PersonalCenterActivity.class));
-                break;
-            case R.id.home_interactive:
-                startActivity(new Intent(getActivity(), InteractiveMainActivity.class));
-                break;
 
-        }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }
