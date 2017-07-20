@@ -43,6 +43,7 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     private View inflate;
 
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.main_pandabroadcast;
