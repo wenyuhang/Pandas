@@ -1,10 +1,12 @@
 package com.example.pandas.homes.pandaculture.panda_culture;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class RollDtialActivity extends BaseActivity implements CultureContract.View {
@@ -52,10 +55,15 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
     @Bind(R.id.detils_pullto)
     XRecyclerView detilsPullto;
     VideoXRecylerAdapter adapter;
-    int p=1;
-    int pos=1;
-    boolean flags=true;
+    int p = 1;
+    int pos = 1;
+    boolean flags=false;
     String des;
+    @Bind(R.id.culture_insiad_probar)
+    ProgressBar cultureInsiadProbar;
+    @Bind(R.id.culture_insiad_relalayout)
+    RelativeLayout cultureInsiadRelalayout;
+
     @Override
     public int getLayoutId() {
         return R.layout.rollvideo_details;
@@ -63,15 +71,16 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
 
     @Override
     public void initview() {
+        cultureInsiadRelalayout.setVisibility(View.VISIBLE);
         pandaCulturePresenter = new PandaCulturePresenter(this);
         itemlist = new ArrayList<>();
         videourllist = new ArrayList<>();
-        adapter = new VideoXRecylerAdapter(itemlist,this);
+        adapter = new VideoXRecylerAdapter(itemlist, this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         detilsPullto.setLayoutManager(manager);
         detilsPullto.setAdapter(adapter);
         detilsPullto.setPullRefreshEnabled(true);
-        detilsPullto.setLoadingMoreEnabled(false);
+        detilsPullto.setLoadingMoreEnabled(true);
         detilsPullto.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -84,16 +93,15 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
             @Override
             public void onLoadMore() {
                 p++;
-                presenter.loadDate("6", "VSET100311356635", p+"", "panda","1");
+                presenter.loadDate("6", "VSET100311356635", p + "", "panda", "1");
                 detilsPullto.loadMoreComplete();
             }
         });
         adapter.setOnClick(new VideoXRecylerAdapter.setOnClick() {
             @Override
             public void mSetOnClick(View v, int postion) {
-//                Toast.makeText(RollDtialActivity.this,"吐司一下"+postion,Toast.LENGTH_SHORT).show();
-                presenter.playVideo(itemlist.get(postion-1).getVid());
-                pos=postion;
+                presenter.playVideo(itemlist.get(postion - 1).getVid());
+                pos = postion;
             }
         });
 
@@ -101,28 +109,21 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
             @Override
             public void onClick(View v) {
 
-                if(flags=true){
-                    flags=false;
-                    collectNo.setImageResource(R.drawable.collect_yes);
-                    Toast.makeText(RollDtialActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
-                    Intent it=new Intent();
-                    it.setAction("culturcollect");
-                    it.putExtra("image",itemlist.get(pos).getImg());
-                    it.putExtra("title",itemlist.get(pos).getT());
-                    sendBroadcast(it);
-                }else{
+                if (flags) {
                     collectNo.setImageResource(R.drawable.collect_no);
-                    Toast.makeText(RollDtialActivity.this,"取消收藏",Toast.LENGTH_SHORT).show();
-                    Intent it=new Intent();
-                    it.setAction("quxiaoculturcollect");
-                    sendBroadcast(it);
+                    Toast.makeText(RollDtialActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                    flags = false;
+                }else {
+                    flags=true;
+                    collectNo.setImageResource(R.drawable.collect_yes);
+                    Toast.makeText(RollDtialActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ShareAction(RollDtialActivity.this).setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.SINA)
+                new ShareAction(RollDtialActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.SINA)
                         .withText("hello")
                         .setCallback(new UMShareListener() {
                             @Override
@@ -172,7 +173,7 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
             }
         });
 
-        presenter.loadDate("6", "VSET100311356635", p+"", "panda","1");
+        presenter.loadDate("6", "VSET100311356635", p + "", "panda", "1");
 
     }
 
@@ -189,29 +190,33 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
     public void setResult(PandaCultureEntity pandaCultureEntity) {
 
     }
+
     @Override
     public void setVideoResult(CCTVBaen cctvBaen) {
-        des= cctvBaen.getVideoset().get_$0().getDesc();
+        des = cctvBaen.getVideoset().get_$0().getDesc();
         video = cctvBaen.getVideo();
-        if(cctvBaen.getVideo()!=null){
+        if (cctvBaen.getVideo() != null) {
             itemlist.addAll(video);
         }
         adapter.notifyDataSetChanged();
 
-        if(itemlist.size()>0){
+        if (itemlist.size() > 0) {
             presenter.playVideo(itemlist.get(0).getVid());
         }
     }
 
     @Override
     public void setvideoURl(PlayVideo playVideo) {
-        if(videourllist.size()>0) {
+        if(playVideo!=null){
+            cultureInsiadRelalayout.setVisibility(View.GONE);
+        }
+        if (videourllist.size() > 0) {
             videourllist.clear();
         }
         videourllist.addAll(playVideo.getVideo().getChapters2());
 
-        if(videourllist.size()>1&&itemlist.size()>1){
-            VideoUtils.getUtils().playVideo(cultureCctvVideo, videourllist.get(0).getUrl(), "", itemlist.get(pos-1).getImg());
+        if (videourllist.size() > 1 && itemlist.size() > 1) {
+            VideoUtils.getUtils().playVideo(cultureCctvVideo, videourllist.get(0).getUrl(), "", itemlist.get(pos - 1).getImg());
         }
 
     }
@@ -229,5 +234,12 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
     @Override
     public void setPresenter(CultureContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

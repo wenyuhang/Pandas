@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
@@ -27,6 +29,9 @@ public class WebViewActivity extends BaseActivity implements CultureContract.Vie
     @Bind(R.id.culture_webview)
     WebView cultureWebview;
     String url;
+    @Bind(R.id.fanhui)
+    ImageView fanhui;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_web_view;
@@ -34,9 +39,9 @@ public class WebViewActivity extends BaseActivity implements CultureContract.Vie
 
     @Override
     public void initview() {
-        Intent it=getIntent();
-        url=it.getStringExtra("url");
-        WebSettings webSettings=cultureWebview.getSettings();
+        Intent it = getIntent();
+        url = it.getStringExtra("url");
+        WebSettings webSettings = cultureWebview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
@@ -45,11 +50,11 @@ public class WebViewActivity extends BaseActivity implements CultureContract.Vie
         cultureWebview.loadUrl(url);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
-        Log.e("webview",url.toString());
+        Log.e("webview", url.toString());
         cultureWebview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                if(url!=null){
+                if (url != null) {
                     cultureWebview.loadUrl(url);
                 }
                 return true;
@@ -80,7 +85,7 @@ public class WebViewActivity extends BaseActivity implements CultureContract.Vie
 
             }
         });
-        cultureWebview.setWebChromeClient(new WebChromeClient(){
+        cultureWebview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
@@ -92,7 +97,12 @@ public class WebViewActivity extends BaseActivity implements CultureContract.Vie
 
             }
         });
-
+       fanhui.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               finish();
+           }
+       });
 
     }
 

@@ -3,7 +3,10 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-                android:id="@+id/panda_observe_relativeLayout">
+                android:id="@+id/panda_observe_relativeLayout"
+               android:layout_margin="4dp"
+    android:background="#e7e4e4"
+    >
 
   <RelativeLayout
       android:id="@+id/culture_relat"

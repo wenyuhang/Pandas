@@ -1,6 +1,7 @@
 package com.example.pandas.homes.pandaculture;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,6 +46,10 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
 
     @Bind(R.id.culture_pullrecycler)
     PullToRefreshRecyclerView culturePullrecycler;
+    @Bind(R.id.culture_out_probar)
+    ProgressBar cultureOutProbar;
+    @Bind(R.id.culture_out_relalayout)
+    RelativeLayout cultureOutRelalayout;
     private PandaCulturePresenter pandaCulturePersenter;
     private List<PandaCultureEntity.BigImgBean> dataBeanList;
     private List<ImageView> imgs;
@@ -57,21 +63,21 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
     private ViewGroup pointsLinearLayout;
     ImageView imageView;
     CultureContract.Presenter presenter;
-//    ArrayList<PlayVideo.VideoBean> playvideolist;
     int middle;
-    int i=0;
+    int i = 0;
     String titles;
- @Override
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_culture;
     }
 
     @Override
     protected void init(View view) {
+        cultureOutRelalayout.setVisibility(View.VISIBLE);
         imgs = new ArrayList<>();
         points = new ArrayList<>();
         listBeanList = new ArrayList<>();
-//        playvideolist=new ArrayList<>();
         pandaCulturePersenter = new PandaCulturePresenter(this);
         dataBeanList = new ArrayList<>();
         itemAdapter = new PandaCultureItemAdapter(getActivity(), listBeanList);
@@ -100,22 +106,24 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
                 }, 2000);
 
             }
+
             @Override
             public void onLoadMore() {
 
             }
         });
 
-  itemAdapter.msetonlistener(new PandaCultureItemAdapter.setOnclick() {
-    @Override
-    public void setonlistener(String pid, String title) {
-        Log.e("TAG","一个pid"+pid);
-        presenter.startVideo(pid);
-        titles=title;
+        itemAdapter.msetonlistener(new PandaCultureItemAdapter.setOnclick() {
+            @Override
+            public void setonlistener(String pid, String title) {
+                Log.e("TAG", "一个pid" + pid);
+                presenter.startVideo(pid);
+                titles = title;
+            }
+
+        });
     }
 
- });
-    }
     @Override
     protected void loadData() {
         new PandaCulturePresenter(this);
@@ -131,7 +139,7 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
                 currentPosition = position;
                 for (CircleImageView circleImageView : points) {
                     circleImageView.setImageResource(R.drawable.white_point);
-            }
+                }
                 points.get(position % points.size()).setImageResource(R.drawable.gray_point);
                 pandaCultureBannerTitle.setText(dataBeanList.get(position % points.size()).getTitle());
                 currentPosition = position;
@@ -145,13 +153,14 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
         pandaCultureViewPagerView.setOnTouchListener(montouch);
 
     }
-    View.OnTouchListener montouch=new View.OnTouchListener() {
+
+    View.OnTouchListener montouch = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            int action=event.getAction();
-             int startX;
-             int startY;
-            switch (action){
+            int action = event.getAction();
+            int startX;
+            int startY;
+            switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     startX = (int) event.getX();
                     startY = (int) event.getY();
@@ -161,7 +170,7 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
                 case MotionEvent.ACTION_UP:
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), WebViewActivity.class);
-                    intent.putExtra("url", dataBeanList.get(currentPosition%4).getUrl());
+                    intent.putExtra("url", dataBeanList.get(currentPosition % 4).getUrl());
                     startActivity(intent);
                     break;
             }
@@ -169,7 +178,6 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
             return false;
         }
     };
-
 
 
     Handler handler = new Handler() {
@@ -244,12 +252,16 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
     public void dismissDialog() {
 
     }
+
     @Override
     public void setResult(PandaCultureEntity pandaCultureEntity) {
         dataBeanList.addAll(pandaCultureEntity.getBigImg());
         listBeanList.addAll(pandaCultureEntity.getList());
         createImg(pandaCultureEntity);
         itemAdapter.notifyDataSetChanged();
+        if(pandaCultureEntity!=null){
+            cultureOutRelalayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -264,11 +276,11 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
 
     @Override
     public void setStartVideoURL(VideoStartBean videoStartBean) {
-        Log.e("playvideolist",videoStartBean.getVideo().getChapters().get(0).getUrl()+"请求有没有数据");
-        if(videoStartBean.getVideo().getChapters().get(0).getUrl()!=null){
-            Intent it=new Intent(getActivity(), CultureSpActivity.class);
-            it.putExtra("url",videoStartBean.getVideo().getChapters().get(0).getUrl());
-            it.putExtra("title",titles);
+        Log.e("playvideolist", videoStartBean.getVideo().getChapters().get(0).getUrl() + "请求有没有数据");
+        if (videoStartBean.getVideo().getChapters().get(0).getUrl() != null) {
+            Intent it = new Intent(getActivity(), CultureSpActivity.class);
+            it.putExtra("url", videoStartBean.getVideo().getChapters().get(0).getUrl());
+            it.putExtra("title", titles);
             startActivity(it);
         }
     }
@@ -280,6 +292,14 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
 
     @Override
     public void setPresenter(CultureContract.Presenter presenter) {
-     this.presenter=presenter;
+        this.presenter = presenter;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }

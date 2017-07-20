@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="335dp"
-            android:layout_height="50dp"
-            android:text="熊猫文化"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:gravity="center"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/person_sign"
-            android:layout_weight="0.13"
-            android:layout_marginTop="8dp"/>
-    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 <com.androidkun.PullToRefreshRecyclerView
     android:id="@+id/culture_pullrecycler"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
 </com.androidkun.PullToRefreshRecyclerView>
+
 </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/culture_out_relalayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/_no_net"
+        android:visibility="gone"
+        >
+
+        <ProgressBar
+            android:id="@+id/culture_out_probar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/livechina_prgressbar"
+            android:indeterminateDrawable="@drawable/bars"
+            android:padding="10dp" />
+    </RelativeLayout>
+</FrameLayout>

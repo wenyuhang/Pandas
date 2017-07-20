@@ -2,35 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efebeb"
+    android:background="#eae8e8"
     >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
-        android:background="#ffffff"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <ImageView
-            android:id="@+id/collect_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/personal_shoucang_img"
-            android:layout_marginLeft="@dimen/x240"
-            />
-
-        <ImageView
-            android:id="@+id/share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/share"
-            android:layout_marginLeft="@dimen/x20"
-            />
-
-    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,7 +89,7 @@
         <LinearLayout
             android:id="@+id/visibility_linear"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y380"
+            android:layout_height="wrap_content"
             android:background="#ffffff"
             android:visibility="gone"
             android:orientation="vertical"
@@ -119,15 +97,16 @@
             <TextView
                 android:id="@+id/detiles_text"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y380"
-                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
                 android:layout_margin="10dp"
                 android:textColor="#000000"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y90"
+            android:layout_height="@dimen/y80"
             android:layout_marginTop="@dimen/x15"
             android:layout_marginLeft="@dimen/x15"
             android:layout_marginRight="@dimen/x15"
@@ -138,7 +117,7 @@
                 android:layout_height="match_parent"
                 android:text="高清完整"
                 android:gravity="center_vertical"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="#262525"
                 android:layout_marginLeft="@dimen/x10"
                 />
@@ -147,7 +126,58 @@
         <com.jcodecraeer.xrecyclerview.XRecyclerView
             android:id="@+id/detils_pullto"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/y400" />
+            android:layout_height="@dimen/y446"
+            android:layout_marginLeft="@dimen/x11"
+            android:layout_marginRight="@dimen/x11"
+            android:layout_marginBottom="@dimen/y20"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90"
+            android:background="#ffffff"
+            android:orientation="horizontal"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="@dimen/y15"
+            >
+
+            <ImageView
+                android:id="@+id/collect_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/personal_shoucang_img"
+                android:layout_marginLeft="@dimen/x240"
+                />
+
+            <ImageView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/share"
+                android:layout_marginLeft="@dimen/x20"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/culture_insiad_relalayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#cad9d7d7"
+        android:visibility="gone"
+        >
+
+        <ProgressBar
+            android:id="@+id/culture_insiad_probar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/livechina_prgressbar"
+            android:indeterminateDrawable="@drawable/bars"
+            android:padding="10dp" />
+    </RelativeLayout>
 </RelativeLayout>
