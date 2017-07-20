@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pandas.base.BaseActivity;
 import com.example.pandas.homes.homelivechina.LiveChinaMain;
@@ -25,6 +26,7 @@ import com.example.pandas.personal.homeinteractive.InteractiveMainActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 
 //3-5
@@ -62,6 +64,7 @@ public class HomeActivity extends BaseActivity {
     private PandaBroadcastMain pandaBroadcastMain;
     private LiveChinaMain liveChinaMain;
     private PandaCultureFragment pandaCultureFragment;
+    private int x=0;
 
 
     @Override
@@ -174,4 +177,32 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        x++;
+        if(x==1){
+            Toast.makeText(this, "连续点击两次退出应用", Toast.LENGTH_SHORT).show();
+        }
+        if(x==2){
+            finish();
+        }
+
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        x=0;
+    }
 }

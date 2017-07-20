@@ -20,7 +20,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity">
+        <activity android:name=".HomeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,7 +41,9 @@
         <activity android:name=".personal.homeinteractive.InteractiveMainActivity"></activity>
         <activity android:name=".personal.PersonalXinActivity"></activity>
         <activity android:name=".personal.homeinteractive.InteractiveInfoActivity"></activity>
-        <activity android:name=".homes.pandaculture.panda_culture.RollDtialActivity"/>
+        <activity android:name=".homes.pandaculture.panda_culture.RollDtialActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            />
         <activity android:name=".homes.pandaculture.panda_culture.WebViewActivity"/>
         <activity android:name=".homes.homepandabroadcast.MWebView"/>
         <activity

@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class RollDtialActivity extends BaseActivity implements CultureContract.View {
@@ -235,5 +236,17 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
 }
