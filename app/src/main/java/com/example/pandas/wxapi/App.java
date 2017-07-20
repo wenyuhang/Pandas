@@ -20,7 +20,7 @@ public class App extends Application{
     {
         PlatformConfig.setWeixin("wx967daebe835fbeac","5bb696d9ccd75a38c8a0bfe0675559b3");
         PlatformConfig.setQQZone("1106216909","ghMT4dVEBRqgcTjK");
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+        PlatformConfig.setSinaWeibo("392923065", "62117a9f3004794b634595d97e1a2cbe","http://sns.whalecloud.com");
     }
     @Override
     public void onCreate() {

@@ -1,8 +1,11 @@
 package com.example.pandas.personal;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +50,10 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initview() {
-
+        if(Build.VERSION.SDK_INT>=23){
+            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
+            ActivityCompat.requestPermissions(this,mPermissionList,123);
+        }
     }
 
     @OnClick({R.id.fanhui, R.id.register, R.id.weixin, R.id.qq, R.id.sina, R.id.forget, R.id.login})
@@ -64,7 +70,8 @@ public class LoginActivity extends BaseActivity {
             case R.id.qq:
                 UMShareAPI.get(this).getPlatformInfo(this,SHARE_MEDIA.QQ,umAuthListener);
                 break;
-            case R.id.sina:
+            case R.id. sina:
+
                 UMShareAPI.get(this).getPlatformInfo(this,SHARE_MEDIA.SINA,umAuthListener);
                 break;
             case R.id.forget:

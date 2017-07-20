@@ -1,14 +1,19 @@
 package com.example.pandas.personal;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
+import com.example.pandas.personal.adapters.ListAdapter;
+import com.example.pandas.personal.beans.HistoryBean;
 
 import java.util.ArrayList;
 
@@ -33,6 +38,13 @@ public class HistoryActivity extends BaseActivity {
     ImageView personalHyNetLayout;
     @Bind(R.id.personal_history_data_layout)
     RelativeLayout personalHistoryDataLayout;
+    @Bind(R.id.personal_history_item_detail_bottom)
+    LinearLayout personalHistoryItemDetailBottom;
+    private ArrayList<HistoryBean> list;
+    private ArrayList<Integer> lists = new ArrayList<>();
+    private ListAdapter adapter;
+    private Integer integer;
+    private int i;
 
     @Override
     public int getLayoutId() {
@@ -41,12 +53,14 @@ public class HistoryActivity extends BaseActivity {
 
     @Override
     public void initview() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("sss");
+        list = new ArrayList<>();
+        list.add(new HistoryBean("http://img1.imgtn.bdimg.com/it/u=1494050267,2635264334&fm=26&gp=0.jpg", "00.30", "title", "2017/10/11", ""));
         if (list.size() == 0) {
             personalHyNetLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             personalHistoryDataLayout.setVisibility(View.VISIBLE);
+            adapter = new ListAdapter(this, list,lists);
+            personalHistoryListview.setAdapter(adapter);
         }
     }
 
@@ -56,18 +70,27 @@ public class HistoryActivity extends BaseActivity {
             case R.id.quxiao:
                 bianji.setVisibility(View.VISIBLE);
                 quxiao.setVisibility(View.GONE);
-                personalHyAll.setVisibility(View.GONE);
-                personalHyDelete.setVisibility(View.GONE);
+                personalHistoryItemDetailBottom.setVisibility(View.GONE);
+                Intent intent1 = new Intent("quxiao");
+                sendBroadcast(intent1);
                 break;
             case R.id.bianji:
                 bianji.setVisibility(View.GONE);
                 quxiao.setVisibility(View.VISIBLE);
-                personalHyAll.setVisibility(View.VISIBLE);
-                personalHyDelete.setVisibility(View.VISIBLE);
+                personalHistoryItemDetailBottom.setVisibility(View.VISIBLE);
+                Intent intent = new Intent("bianji");
+                sendBroadcast(intent);
                 break;
             case R.id.personal_hy_all:
                 break;
             case R.id.personal_hy_delete:
+                for (int x=0;x<lists.size();x++){
+                    integer = lists.get(x);
+                    i = integer.intValue();
+                    Log.e("TAG",i+"");
+                }
+                list.remove(i);
+                adapter.notifyDataSetChanged();
                 break;
         }
     }
