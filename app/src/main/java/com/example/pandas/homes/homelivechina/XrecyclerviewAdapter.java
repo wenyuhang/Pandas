@@ -41,6 +41,7 @@ public class XrecyclerviewAdapter extends RecyclerView.Adapter {
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(params);
         return new ViewHplder(view);
+
     }
 
     class ViewHplder extends RecyclerView.ViewHolder implements View.OnClickListener {

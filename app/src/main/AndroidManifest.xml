@@ -27,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".personal.LoginActivity" />
         <activity android:name=".personal.RegisterActivity" />
         <activity android:name=".personal.SetActivity" />
@@ -39,10 +40,11 @@
         <activity android:name=".personal.homeinteractive.InteractiveMainActivity"></activity>
         <activity android:name=".personal.PersonalXinActivity"></activity>
         <activity android:name=".personal.homeinteractive.InteractiveInfoActivity"></activity>
+        <activity android:name=".homes.pandaculture.panda_culture.RollDtialActivity"/>
+        <activity android:name=".homes.pandaculture.panda_culture.WebViewActivity"/>
         <activity
             android:name=".config.CultureSpActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -78,6 +80,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
 
         <meta-data
             android:name="UMENG_APPKEY"

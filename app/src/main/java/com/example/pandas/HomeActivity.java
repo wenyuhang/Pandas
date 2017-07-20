@@ -16,8 +16,7 @@ import com.example.pandas.homes.homepage.PagePresenter;
 import com.example.pandas.homes.homepandabroadcast.PandaBroadcastMain;
 import com.example.pandas.homes.homepandabroadcast.PandaBroadcastPresenter;
 import com.example.pandas.homes.homepandalive.PandaLiveMain;
-import com.example.pandas.homes.homerollvideo.RollVideoMain;
-import com.example.pandas.homes.homerollvideo.RollVideoPresenter;
+import com.example.pandas.homes.pandaculture.PandaCultureFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -47,9 +46,9 @@ public class HomeActivity extends BaseActivity {
     FrameLayout homeFramelayout;
     private PageMain pageMain;
     private PandaLiveMain pandaLiveMain;
-    private RollVideoMain rollVideoMain;
     private PandaBroadcastMain pandaBroadcastMain;
     private LiveChinaMain liveChinaMain;
+    private PandaCultureFragment pandaCultureFragment;
 
 
     @Override
@@ -95,13 +94,12 @@ public class HomeActivity extends BaseActivity {
 
                 break;
             case R.id.home_RollVideo:
-                if (rollVideoMain == null) {
-                    rollVideoMain = new RollVideoMain();
-                    new RollVideoPresenter(rollVideoMain);
-                    transaction.add(R.id.home_framelayout, rollVideoMain, RollVideoMain.class.getSimpleName());
+                if (pandaCultureFragment == null) {
+                    pandaCultureFragment = new  PandaCultureFragment();
+                    transaction.add(R.id.home_framelayout, pandaCultureFragment, PandaCultureFragment.class.getSimpleName());
                     transaction.addToBackStack(null);
                 } else {
-                    transaction.show(rollVideoMain);
+                    transaction.show(pandaCultureFragment);
                 }
                 break;
             case R.id.home_PandaBroadcast:
@@ -137,8 +135,8 @@ public class HomeActivity extends BaseActivity {
         if (pandaLiveMain != null) {
             transaction.hide(pandaLiveMain);
         }
-        if (rollVideoMain != null) {
-            transaction.hide(rollVideoMain);
+        if (pandaCultureFragment != null) {
+            transaction.hide(pandaCultureFragment);
         }
         if (pandaBroadcastMain != null) {
             transaction.hide(pandaBroadcastMain);

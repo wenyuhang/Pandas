@@ -33,4 +33,5 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //加载数据
     public abstract void initview();
+
 }

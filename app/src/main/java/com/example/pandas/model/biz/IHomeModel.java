@@ -1,7 +1,10 @@
 package com.example.pandas.model.biz;
 
 
-import com.example.pandas.model.datebean.RollvideoBean;
+import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
+import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
+import com.example.pandas.homes.pandaculture.bean.PlayVideo;
+import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
 import com.example.pandas.model.datebean.livechina.LiveChinaBean;
@@ -28,19 +31,19 @@ public interface IHomeModel extends BaseModel{
     //熊猫播报title
     void getTitleBean(NetCallbacks<TitleBean> callbacks);
 
+
     //   直播中国
     void getLiveChinaBean(String str,NetCallbacks<LiveChinaBean> callbacks);
 
     //直播中国详情
     void getSeneryBean(NetCallbacks<SceneryBean> callbacks);
-
-
-    void getRollVideoBean(NetCallbacks<RollvideoBean> callbacks);
+    //熊猫文化
+    void getRollVideoBean(NetCallbacks<PandaCultureEntity> callbacks);
 
     //互动首页
     void getInteractiveBeans(NetCallbacks<InteractiveInfoBean> callbacks);
 
-//    void getLiveTabBean(NetCallbacks<LiveTabBean> callbacks);
+    //    void getLiveTabBean(NetCallbacks<LiveTabBean> callbacks);
 
     //   直播 其他 tab  类
     void getOtherDetailBean(String vsid, String n, String serviceId, String o, String of, String p,NetCallbacks<OtherTabDetail> callbacks);
@@ -51,5 +54,10 @@ public interface IHomeModel extends BaseModel{
     //    边看边聊数据
     void getWatchChatBean(String app, String itemId, String nature, String page, NetCallbacks<WatchChatBean> callbacks);
 
-
+    //    熊猫文化详情的CCTVvideo
+    void getCCTVVideo(String n, String vsid, String p , String serviceId,String em, NetCallbacks<CCTVBaen> callbacks);
+    //    熊猫文化详情播放视频
+    void getVideoUrl(String pid, NetCallbacks<PlayVideo> callbacks);
+    //    熊猫文化全屏播放的
+    void getStartVideo(String pid, NetCallbacks<VideoStartBean> callbacks);
 }
