@@ -31,6 +31,8 @@ public class MWebView extends AppCompatActivity {
     private ImageView butiamge;
     private String url;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
