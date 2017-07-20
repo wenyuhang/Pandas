@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidkun.PullToRefreshRecyclerView;
@@ -14,14 +16,11 @@ import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
-import com.example.pandas.personal.PersonalCenterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 /**
@@ -30,10 +29,12 @@ import butterknife.OnClick;
 
 public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastContract.View {
     PandaBroadcastContract.Presenter presenter;
-    @Bind(R.id.pandaBroadcast_login)
-    ImageView pandaBroadcastLogin;
     @Bind(R.id.pdb_PullToRefreshRecyclerView)
     PullToRefreshRecyclerView pdbPullToRefreshRecyclerView;
+    @Bind(R.id.pandabroadcast_probar)
+    ProgressBar pandabroadcastProbar;
+    @Bind(R.id.pandabroadcast_relalayout)
+    RelativeLayout pandabroadcastRelalayout;
     private TextView textView;
     private List<PdBBean.ListBean> list;
     private ArrayList<PdBBean.ListBean> listBeen;
@@ -49,12 +50,13 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
 
     @Override
     protected void init(View view) {
+        pandabroadcastRelalayout.setVisibility(View.VISIBLE);
         listBeen = new ArrayList<>();
         inflate = View.inflate(getContext(), R.layout.pandabroadcast_up_item, null);
         textView = (TextView) inflate.findViewById(R.id.pdb_up_image_title);
         pdb_up_image = (ImageView) inflate.findViewById(R.id.pdb_up_image);
         pdbPullToRefreshRecyclerView.addHeaderView(inflate);
-        pdbPullToRefreshRecyclerView.setLayoutManager( new LinearLayoutManager(getContext()));
+        pdbPullToRefreshRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         pandaBroadcastAdapter = new PandaBroadcastAdapter(getContext(), listBeen);
         pdbPullToRefreshRecyclerView.setAdapter(pandaBroadcastAdapter);
         pdbPullToRefreshRecyclerView.setPullRefreshEnabled(true);
@@ -65,8 +67,8 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
                 pdbPullToRefreshRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        listBeen.clear();
-//                        listBeen.addAll(list);
+                        listBeen.clear();
+                        listBeen.addAll(list);
                         pdbPullToRefreshRecyclerView.setRefreshComplete();
                         pandaBroadcastAdapter.notifyDataSetChanged();
                     }
@@ -91,7 +93,7 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     //
     @Override
     protected void loadData() {
-          presenter.strat();
+        presenter.strat();
 
     }
 
@@ -108,6 +110,7 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
 
     @Override
     public void setResult(PdBBean pdBBean) {
+
         list = pdBBean.getList();
         listBeen.addAll(list);
         pandaBroadcastAdapter.notifyDataSetChanged();
@@ -116,6 +119,11 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
 
     @Override
     public void setResult1(TitleBean titleBean) {
+
+        if (titleBean != null) {
+            pandabroadcastRelalayout.setVisibility(View.GONE);
+        }
+
         bigImg = titleBean.getData().getBigImg();
         textView.setText(bigImg.get(0).getTitle());
         Glide.with(getContext()).load(bigImg.get(0).getImage()).into(pdb_up_image);
@@ -126,7 +134,7 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MWebView.class);
-                intent.putExtra("url",url);
+                intent.putExtra("url", url);
                 startActivity(intent);
             }
         });
@@ -144,14 +152,4 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
-    @OnClick(R.id.pandaBroadcast_login)
-    public void onViewClicked() {
-        startActivity(new Intent(getContext(), PersonalCenterActivity.class));
-    }
 }
