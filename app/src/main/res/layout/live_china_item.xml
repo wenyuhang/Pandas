@@ -4,12 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!--<ImageView-->
-        <!--android:id="@+id/livechina_adapter_imge"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--android:src="@mipmap/_tw" />-->
 
     <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
         android:layout_width="match_parent"

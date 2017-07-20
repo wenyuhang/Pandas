@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.pandas.R;
@@ -43,6 +45,12 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
     ImageButton sure;
     @Bind(R.id.liveChina_viewpager)
     ViewPager liveChinaViewpager;
+    @Bind(R.id.livechina_probar)
+    ProgressBar livechinaProbar;
+    @Bind(R.id.livechina_relalayout)
+    RelativeLayout livechinaRelalayout;
+
+
     private LCPpageAdapter lcPpageAdapter;
     private ArrayList<BaseFragment> list;
     private ArrayList<String> strings;
@@ -68,6 +76,8 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
 
     @Override
     protected void init(View view) {
+        livechinaRelalayout.setVisibility(View.VISIBLE);
+
         list = new ArrayList<BaseFragment>();
 
         strings = new ArrayList<String>();
@@ -160,10 +170,14 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
     @Override
     public void setResult(LiveChinaBean netBean) {
 
+
     }
 
     @Override
     public void setResult2(SceneryBean netBean) {
+        if(netBean!=null){
+            livechinaRelalayout.setVisibility(View.GONE);
+        }
         alllist = netBean.getAlllist();
         list1.addAll(alllist);
         gridViewAdapter.notifyDataSetChanged();
@@ -235,7 +249,6 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
                     gridview.setEnabled(false);
                     flag = false;
                     dragAdapter.notifyDataSetChanged();
-
                 }
 
                 break;
@@ -280,5 +293,6 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
         params.height = (totalHeight + (gridView.getMeasuredHeight() * (listAdapter.getCount() - 1))) / 3;
         gridView.setLayoutParams(params);
     }
+
 
 }

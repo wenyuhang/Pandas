@@ -1,60 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y85"
-        android:background="@color/topBar">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/live_china"
-            android:textColor="@color/white"
-            android:textSize="@dimen/x38" />
-
-        <ImageView
-            android:id="@+id/LiveChina_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x26"
-            android:src="@mipmap/person_sign" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <HorizontalScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
+            android:layout_height="@dimen/y85"
+            android:background="@color/topBar">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/liveChina_tablayout"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/live_china"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x38" />
+
+            <ImageView
+                android:id="@+id/LiveChina_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x26"
+                android:src="@mipmap/person_sign" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
-        </HorizontalScrollView>
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
 
-        <ImageButton
-            android:id="@+id/sure"
-            android:layout_width="@dimen/x90"
-            android:layout_height="@dimen/y120"
-            android:layout_alignParentRight="true"
-            android:background="@color/white"
-            android:src="@mipmap/live_china_add" />
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/liveChina_tablayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
+            </HorizontalScrollView>
+
+            <ImageButton
+                android:id="@+id/sure"
+                android:layout_width="@dimen/x90"
+                android:layout_height="@dimen/y120"
+                android:layout_alignParentRight="true"
+                android:background="@color/white"
+                android:src="@mipmap/live_china_add" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/liveChina_viewpager"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/liveChina_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/livechina_relalayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@mipmap/_no_net"
+        android:visibility="gone"
+        >
+
+        <ProgressBar
+            android:id="@+id/livechina_probar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/livechina_prgressbar"
+            android:indeterminateDrawable="@drawable/bars"
+            android:padding="10dp" />
+    </RelativeLayout>
+</RelativeLayout>

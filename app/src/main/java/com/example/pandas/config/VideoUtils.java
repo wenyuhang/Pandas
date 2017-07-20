@@ -41,7 +41,7 @@ public class VideoUtils {
             Glide.with(App.context).load(R.mipmap._no_img).into(jc_video.thumbImageView);
         }
         JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
-    }
+    } 
 
 
     class MyUserActionStandard implements JCUserActionStandard {
