@@ -39,7 +39,9 @@
         <activity android:name=".personal.homeinteractive.InteractiveMainActivity"></activity>
         <activity android:name=".personal.PersonalXinActivity"></activity>
         <activity android:name=".personal.homeinteractive.InteractiveInfoActivity"></activity>
+
         <activity android:name=".homes.homepandabroadcast.MWebView"/>
+
         <activity android:name=".config.CultureSpActivity"
             android:screenOrientation="landscape"
             />
