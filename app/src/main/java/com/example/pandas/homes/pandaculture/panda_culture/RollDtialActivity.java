@@ -1,6 +1,5 @@
 package com.example.pandas.homes.pandaculture.panda_culture;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class RollDtialActivity extends BaseActivity implements CultureContract.View {
@@ -234,12 +232,8 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
     @Override
     public void setPresenter(CultureContract.Presenter presenter) {
         this.presenter = presenter;
+
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }
