@@ -1,6 +1,5 @@
 package com.example.pandas.homes.homelivechina;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -10,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
@@ -21,7 +19,6 @@ import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.model.datebean.livechina.LiveChinaBean;
 import com.example.pandas.model.datebean.livechina.SceneryBean;
-import com.example.pandas.personal.PersonalCenterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +34,7 @@ import butterknife.OnClick;
 public class LiveChinaMain extends BaseFragment implements LiveChinaContract.View, View.OnClickListener {
 
 
-    @Bind(R.id.LiveChina_login)
-    ImageView LiveChinaLogin;
+
     @Bind(R.id.liveChina_tablayout)
     TabLayout liveChinaTablayout;
     @Bind(R.id.sure)
@@ -215,12 +211,9 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
     }
 
 
-    @OnClick({R.id.LiveChina_login, R.id.sure})
+    @OnClick({R.id.sure})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.LiveChina_login:
-                startActivity(new Intent(getActivity(), PersonalCenterActivity.class));
-                break;
             case R.id.sure:
                 popupWindow.showAtLocation(view1, Gravity.CENTER, 0, 0);
                 break;
@@ -266,6 +259,7 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
             strings.add(strings1.get(i));
             lcPpageAdapter.notifyDataSetChanged();
         }
+        liveChinaViewpager.setOffscreenPageLimit(strings.size());
     }
 
 

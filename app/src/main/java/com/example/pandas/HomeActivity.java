@@ -1,12 +1,15 @@
 package com.example.pandas;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.pandas.base.BaseActivity;
 import com.example.pandas.homes.homelivechina.LiveChinaMain;
@@ -17,6 +20,8 @@ import com.example.pandas.homes.homepandabroadcast.PandaBroadcastMain;
 import com.example.pandas.homes.homepandabroadcast.PandaBroadcastPresenter;
 import com.example.pandas.homes.homepandalive.PandaLiveMain;
 import com.example.pandas.homes.pandaculture.PandaCultureFragment;
+import com.example.pandas.personal.PersonalCenterActivity;
+import com.example.pandas.personal.homeinteractive.InteractiveMainActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -40,10 +45,18 @@ public class HomeActivity extends BaseActivity {
     RadioButton homeLiveChina;
     @Bind(R.id.home_radiogroup)
     RadioGroup homeRadiogroup;
-    @Bind(R.id.activity_home)
-    LinearLayout activityHome;
     @Bind(R.id.home_framelayout)
     FrameLayout homeFramelayout;
+    @Bind(R.id.home_icon)
+    ImageView homeIcon;
+    @Bind(R.id.home_person)
+    ImageView homePerson;
+    @Bind(R.id.home_text)
+    TextView homeText;
+    @Bind(R.id.home_interaction)
+    ImageView homeInteraction;
+    @Bind(R.id.activity_home)
+    RelativeLayout activityHome;
     private PageMain pageMain;
     private PandaLiveMain pandaLiveMain;
     private PandaBroadcastMain pandaBroadcastMain;
@@ -72,8 +85,7 @@ public class HomeActivity extends BaseActivity {
     }
 
 
-
-    @OnClick({R.id.home_page, R.id.home_PandaLive, R.id.home_RollVideo, R.id.home_PandaBroadcast, R.id.home_LiveChina, R.id.home_radiogroup})
+    @OnClick({R.id.home_page, R.id.home_PandaLive, R.id.home_RollVideo, R.id.home_PandaBroadcast, R.id.home_LiveChina, R.id.home_radiogroup,R.id.home_person,R.id.home_interaction})
     public void onViewClicked(View view) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -81,9 +93,13 @@ public class HomeActivity extends BaseActivity {
         getpanduan(transaction);
         switch (view.getId()) {
             case R.id.home_page:
-                    transaction.show(pageMain);
+                transaction.show(pageMain);
+                homeIcon.setVisibility(View.VISIBLE);
+                homeText.setVisibility(View.GONE);
+                homeInteraction.setVisibility(View.VISIBLE);
                 break;
             case R.id.home_PandaLive:
+                homeText.setText("熊猫直播");
                 if (pandaLiveMain == null) {
                     pandaLiveMain = new PandaLiveMain();
                     transaction.add(R.id.home_framelayout, pandaLiveMain, PandaLiveMain.class.getSimpleName());
@@ -94,8 +110,9 @@ public class HomeActivity extends BaseActivity {
 
                 break;
             case R.id.home_RollVideo:
+                homeText.setText("熊猫文化");
                 if (pandaCultureFragment == null) {
-                    pandaCultureFragment = new  PandaCultureFragment();
+                    pandaCultureFragment = new PandaCultureFragment();
                     transaction.add(R.id.home_framelayout, pandaCultureFragment, PandaCultureFragment.class.getSimpleName());
                     transaction.addToBackStack(null);
                 } else {
@@ -103,6 +120,7 @@ public class HomeActivity extends BaseActivity {
                 }
                 break;
             case R.id.home_PandaBroadcast:
+                homeText.setText("熊猫观察");
                 if (pandaBroadcastMain == null) {
                     pandaBroadcastMain = new PandaBroadcastMain();
                     new PandaBroadcastPresenter(pandaBroadcastMain);
@@ -113,6 +131,7 @@ public class HomeActivity extends BaseActivity {
                 }
                 break;
             case R.id.home_LiveChina:
+                homeText.setText("直播中国");
                 if (liveChinaMain == null) {
                     liveChinaMain = new LiveChinaMain();
                     new LiveChinaPresenter(liveChinaMain);
@@ -124,11 +143,20 @@ public class HomeActivity extends BaseActivity {
                 break;
             case R.id.home_radiogroup:
                 break;
+            case R.id.home_person:
+                startActivity(new Intent(this, PersonalCenterActivity.class));
+                break;
+            case R.id.home_interaction:
+                startActivity(new Intent(this, InteractiveMainActivity.class));
+                break;
         }
         transaction.commit();
     }
 
     public void getpanduan(FragmentTransaction transaction) {
+        homeIcon.setVisibility(View.GONE);
+        homeText.setVisibility(View.VISIBLE);
+        homeInteraction.setVisibility(View.GONE);
         if (pageMain != null) {
             transaction.hide(pageMain);
         }

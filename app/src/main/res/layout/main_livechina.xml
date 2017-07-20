@@ -8,28 +8,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y85"
-            android:background="@color/topBar">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/live_china"
-                android:textColor="@color/white"
-                android:textSize="@dimen/x38" />
-
-            <ImageView
-                android:id="@+id/LiveChina_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x26"
-                android:src="@mipmap/person_sign" />
-        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
