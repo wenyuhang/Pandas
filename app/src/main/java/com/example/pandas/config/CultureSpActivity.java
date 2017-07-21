@@ -14,7 +14,6 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class CultureSpActivity extends BaseActivity {
 
-
     @Bind(R.id.img1)
     ImageView img1;
     @Bind(R.id.img2)
