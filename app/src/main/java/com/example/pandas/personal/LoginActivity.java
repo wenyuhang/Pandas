@@ -120,7 +120,6 @@ public class LoginActivity extends BaseActivity {
                 UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.QQ, umAuthListener);
                 break;
             case R.id.sina:
-
                 UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, umAuthListener);
                 break;
             case R.id.forget:

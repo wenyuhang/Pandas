@@ -4,8 +4,10 @@ import android.widget.ImageButton;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
+import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -23,14 +25,12 @@ public class AboutActivity extends BaseActivity implements UMShareListener{
     @Override
     public void initview() {
 
-
     }
 
     @OnClick(R.id.fanhui)
     public void onViewClicked() {
-//        Toast.makeText(AboutActivity.this, "666", Toast.LENGTH_SHORT).show();
-//        UMImage umImage = new UMImage(this, R.mipmap.about_sign);
-//        new ShareAction(this).setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.SINA,SHARE_MEDIA.WEIXIN).withMedia(umImage).setCallback(this).open();
+        UMImage umImage = new UMImage(this, R.mipmap.about_sign);
+        new ShareAction(this).setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.SINA,SHARE_MEDIA.WEIXIN).withMedia(umImage).setCallback(this).open();
     }
 
     @Override

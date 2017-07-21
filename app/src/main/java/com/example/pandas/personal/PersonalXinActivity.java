@@ -21,7 +21,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class PersonalXinActivity extends BaseActivity {
+public class PersonalXinActivity extends BaseActivity implements UMAuthListener{
 
     @Bind(R.id.fanhui)
     ImageButton fanhui;
@@ -67,31 +67,9 @@ public class PersonalXinActivity extends BaseActivity {
                 break;
             case R.id.btn_login_out:
                 UMShareAPI.get(PersonalXinActivity.this).deleteOauth(PersonalXinActivity.this
-                        , SHARE_MEDIA.QQ,new UMAuthListener() {
-                            @Override
-                            public void onStart(SHARE_MEDIA share_media) {
-                            }
-
-                            @Override
-                            public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-                                Toast.makeText(PersonalXinActivity.this, "退出成功", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(PersonalXinActivity.this,PersonalCenterActivity.class));
-                                SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
-                                SharedPreferences.Editor edit = xinxi.edit();
-                                edit.putBoolean("boolean",true);
-                                edit.commit();
-                            }
-
-                            @Override
-                            public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-
-                            }
-
-                            @Override
-                            public void onCancel(SHARE_MEDIA share_media, int i) {
-
-                            }
-                        });
+                        , SHARE_MEDIA.QQ,this);
+                UMShareAPI.get(PersonalXinActivity.this).deleteOauth(PersonalXinActivity.this
+                        , SHARE_MEDIA.SINA,this);
                 finish();
                 break;
         }
@@ -100,6 +78,31 @@ public class PersonalXinActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+        Toast.makeText(PersonalXinActivity.this, "退出成功", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(PersonalXinActivity.this,PersonalCenterActivity.class));
+        SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
+        SharedPreferences.Editor edit = xinxi.edit();
+        edit.putBoolean("boolean",true);
+        edit.commit();
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media, int i) {
 
     }
 }
