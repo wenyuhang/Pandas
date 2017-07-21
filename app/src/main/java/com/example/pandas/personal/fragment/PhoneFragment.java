@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,6 +77,8 @@ public class PhoneFragment extends BaseFragment {
 //    };
     private byte[] bytes;
     private String exception;
+    private String phoneyanzhengma;
+    private String passwrod;
 
     @Override
     protected int getLayoutId() {
@@ -105,15 +108,12 @@ public class PhoneFragment extends BaseFragment {
                 String tPhoneNumber = editPhone.getText().toString().trim();
 //                    图形验证码
                 String imgyanzhengma = editImgyanzhengma.getText().toString().trim();
-                if (exception == "failure") {
-                    if (!tPhoneNumber.equals("") && !imgyanzhengma.equals("")) {
-                            nullPhone.setText("手机号错误");
-                    }else {
-                        nullPhone.setText("手机号为空");
-                        nullImagecheck.setText("验证码不能为空");
-                    }
-                }
 
+                    if (tPhoneNumber.equals("")&&tPhoneNumber==null&&imgyanzhengma.equals("")&&imgyanzhengma==null&&phoneyanzhengma.equals("")&&phoneyanzhengma==null) {
+                            nullPhone.setText("手机号不能为空");
+                            nullImagecheck.setText("验证码不能为空");
+                            nullPhonecheck.setText("验证码不能为空");
+                    }
                 getPersonalRegPhoneCheck();
                 break;
             //注册
@@ -123,6 +123,24 @@ public class PhoneFragment extends BaseFragment {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+
+
+                xieyiCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true) {
+                            try {
+                                getRegister();
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), "未勾选《央视网网络服务使用协议》", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
                 break;
         }
     }
@@ -245,10 +263,10 @@ public class PhoneFragment extends BaseFragment {
 //                    图形验证码
         String imgyanzhengma = editImgyanzhengma.getText().toString().trim();
         //手机验证码
-        String Phoneyanzhengma = editPhoneyanzhengma.getText().toString().trim();
-        Log.e("TAG", "手机验证码：" + Phoneyanzhengma);
+        phoneyanzhengma = editPhoneyanzhengma.getText().toString().trim();
+        Log.e("TAG", "手机验证码：" + phoneyanzhengma);
 //mima
-        String passwrod = editInputpasswrod.getText().toString().trim();
+        passwrod = editInputpasswrod.getText().toString().trim();
 
         Log.e("TAG", "密码：" + passwrod);
 
@@ -258,7 +276,7 @@ public class PhoneFragment extends BaseFragment {
         RequestBody body = new FormBody.Builder()
                 .add("method", "saveMobileRegisterM")
                 .add("mobile", tPhoneNumber)
-                .add("verfiCode", Phoneyanzhengma)
+                .add("verfiCode", phoneyanzhengma)
                 .add("passWd", URLEncoder.encode(passwrod, "UTF-8"))
                 .add("verfiCod eType", "1")
                 .add("addons", URLEncoder.encode("http://cbox_mobile.regclientuser.cntv.cn", "UTF-8"))

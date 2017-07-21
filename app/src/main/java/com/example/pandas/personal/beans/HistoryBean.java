@@ -6,13 +6,18 @@ package com.example.pandas.personal.beans;
 
 public class HistoryBean {
 
+    boolean flg;
     String image;
     String timer;
     String title;
     String data;
     String url;
 
-    public HistoryBean(String image, String timer, String title, String data, String url) {
+    public HistoryBean() {
+    }
+
+    public HistoryBean(boolean flg, String image, String timer, String title, String data, String url) {
+        this.flg = flg;
         this.image = image;
         this.timer = timer;
         this.title = title;
@@ -20,7 +25,12 @@ public class HistoryBean {
         this.url = url;
     }
 
-    public HistoryBean() {
+    public boolean isFlg() {
+        return flg;
+    }
+
+    public void setFlg(boolean flg) {
+        this.flg = flg;
     }
 
     public String getImage() {
