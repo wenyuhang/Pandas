@@ -135,7 +135,7 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
                         dragAdapter.notifyDataSetChanged();
 
                         for (int i = 0; i < alllist.size(); i++) {
-                            if (strings.get(position-1).equals(alllist.get(i).getTitle())) {
+                            if (strings1.get(position-1).equals(alllist.get(i).getTitle())) {
                                 list1.add(alllist.get(i));
                                 gridViewAdapter.notifyDataSetChanged();
                             }
