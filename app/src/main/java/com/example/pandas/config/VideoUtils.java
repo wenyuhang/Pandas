@@ -4,7 +4,6 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.pandas.R;
 import com.example.pandas.wxapi.App;
 
 import fm.jiecao.jcvideoplayer_lib.JCUserAction;
@@ -22,25 +21,25 @@ public class VideoUtils {
     }
 
     public static VideoUtils getUtils(){
-        if(utils==null){
-            synchronized (VideoUtils.class){
-                if(utils==null) {
+//        if(utils==null){
+//            synchronized (VideoUtils.class){
+//                if(utils==null) {
                     utils=new VideoUtils();
-                }
-            }
-        }
+//                }
+//            }
+//        }
         return utils;
     }
 
     public void playVideo(JCVideoPlayerStandard jc_video,String video_url,String video_title,String thumb_url) {
         jc_video.setUp(video_url, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, video_title);
         jc_video.thumbImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        if(!thumb_url.equals("")){
+//        if(!thumb_url.equals("")){
             Glide.with(App.context).load(thumb_url).into(jc_video.thumbImageView);
-        }
-        if(thumb_url.equals("")){
-            Glide.with(App.context).load(R.mipmap._no_img).into(jc_video.thumbImageView);
-        }
+//        }
+//        if(thumb_url.equals("")){
+//            Glide.with(App.context).load(R.mipmap._no_img).into(jc_video.thumbImageView);
+//        }
         JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
     } 
 
