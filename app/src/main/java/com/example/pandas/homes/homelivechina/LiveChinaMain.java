@@ -130,11 +130,12 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
                     if (strings1.size() <= 5) {
                         Toast.makeText(getActivity(), "栏目区，不能少于五个频道", Toast.LENGTH_SHORT).show();
                     } else {
-                        strings1.remove(position);
-                        urls.remove(position);
+                        strings1.remove(position-1);
+                        urls.remove(position-1);
                         dragAdapter.notifyDataSetChanged();
+
                         for (int i = 0; i < alllist.size(); i++) {
-                            if (strings.get(position).equals(alllist.get(i).getTitle())) {
+                            if (strings.get(position-1).equals(alllist.get(i).getTitle())) {
                                 list1.add(alllist.get(i));
                                 gridViewAdapter.notifyDataSetChanged();
                             }

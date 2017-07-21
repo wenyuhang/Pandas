@@ -37,7 +37,8 @@ public class VideoUtils {
         jc_video.thumbImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         if(!thumb_url.equals("")){
             Glide.with(App.context).load(thumb_url).into(jc_video.thumbImageView);
-        }else {
+        }
+        if(thumb_url.equals("")){
             Glide.with(App.context).load(R.mipmap._no_img).into(jc_video.thumbImageView);
         }
         JCVideoPlayer.setJcUserAction(new MyUserActionStandard());

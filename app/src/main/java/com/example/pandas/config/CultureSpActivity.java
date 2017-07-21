@@ -59,5 +59,11 @@ public class CultureSpActivity extends BaseActivity {
         finish();
         return false;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }
 
