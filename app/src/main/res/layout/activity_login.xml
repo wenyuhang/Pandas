@@ -149,6 +149,7 @@
             android:text="@string/login_cntv"/>
 
         <EditText
+            android:id="@+id/login_name"
             android:layout_marginLeft="@dimen/x30"
             android:layout_width="@dimen/x660"
             android:layout_height="@dimen/y100"
@@ -158,6 +159,7 @@
             />
 
         <EditText
+            android:id="@+id/login_pwd"
             android:layout_marginTop="@dimen/y60"
             android:layout_marginLeft="@dimen/x30"
             android:layout_width="@dimen/x660"

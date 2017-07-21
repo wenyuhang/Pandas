@@ -67,7 +67,6 @@ public class PersonalCenterActivity extends BaseActivity {
                     startActivity(new Intent(PersonalCenterActivity.this, LoginActivity.class));
 //                    image.setImageResource(R.mipmap.personal_login_head);
 //                    title.setText("点击登录");
-
                 } else {
                     Intent intent = new Intent(PersonalCenterActivity.this, PersonalXinActivity.class);
 //                    intent.putExtra("iconurl",iconurl);
@@ -93,5 +92,4 @@ public class PersonalCenterActivity extends BaseActivity {
                 break;
         }
     }
-
 }

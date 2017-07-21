@@ -29,12 +29,12 @@
             android:padding="15px"
             android:textSize="14sp"
             android:textColorHint="#c9c9c9"
-            android:textColor="@color/gray"
+            android:textColor="@color/black"
             android:textCursorDrawable="@null" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/hint_phone"
+        android:id="@+id/null_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60px"
@@ -57,10 +57,10 @@
             android:padding="15px"
             android:textColorHint="#c9c9c9"
             android:textSize="14sp"
-            android:textColor="@color/gray"
+            android:textColor="@color/black"
             android:textCursorDrawable="@null" />
 
-        <TextView
+        <ImageView
             android:id="@+id/personal_reg_imgcheck"
             android:layout_width="100dp"
             android:layout_height="match_parent"
@@ -68,12 +68,11 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="30px"
             android:background="@color/white"
-            android:gravity="center"
-            android:text="@string/forget_image_yanzhengma" />
+            android:gravity="center" />
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/hint_imagecheck"
+        android:id="@+id/null_imagecheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60px"
@@ -113,7 +112,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/hint_phonecheck"
+        android:id="@+id/null_phonecheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60px"
