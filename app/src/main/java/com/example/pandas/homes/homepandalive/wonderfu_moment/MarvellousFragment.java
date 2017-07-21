@@ -12,6 +12,7 @@ import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.config.ACache;
 import com.example.pandas.config.CultureSpActivity;
+import com.example.pandas.config.database.SqlUtils;
 import com.example.pandas.homes.homepandalive.OtherTabContract;
 import com.example.pandas.model.datebean.pandasending.OtherTabDetail;
 import com.example.pandas.model.datebean.pandasending.PlayBean;
@@ -103,9 +104,6 @@ public class MarvellousFragment extends BaseFragment implements OtherTabContract
 
     @Override
     public void setOtherTabBean(OtherTabDetail bean) {
-//        if(bean !) {
-//
-//        }
         otherTabDetails.addAll(bean.getVideo());
         otherTabAdapter.notifyDataSetChanged();
 
@@ -139,5 +137,9 @@ public class MarvellousFragment extends BaseFragment implements OtherTabContract
             intent.putExtra("url", chapters);
             getActivity().startActivity(intent);
         }
+
+        SqlUtils.getInstance().add(0,otherTabDetails.get(pos).getImg(),otherTabDetails.get(pos).getLen(),otherTabDetails.get(pos).getT(),otherTabDetails.get(pos).getPtime(),chapters);
+
+
     }
 }

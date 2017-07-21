@@ -17,7 +17,7 @@ public class OtherTabPresenter implements OtherTabContract.Presenter {
     }
     @Override
     public void strat() {
-          otherTab.showProgressDialog();
+
     }
 
     @Override

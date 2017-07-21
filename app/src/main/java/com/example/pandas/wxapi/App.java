@@ -1,8 +1,10 @@
 package com.example.pandas.wxapi;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.example.pandas.base.BaseActivity;
+import com.example.pandas.utils.CrashHandler;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -14,7 +16,7 @@ import com.umeng.socialize.UMShareAPI;
 
 public class App extends Application{
     public static BaseActivity context=null;
-
+    private static Context mContext;
 
 
     {
@@ -25,9 +27,16 @@ public class App extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        this.mContext =this;
         Config.DEBUG=true;
         UMShareAPI.get(this);
-    }
 
+//        设置异常处理，程序才能获取未处理的异常
+        CrashHandler handler = CrashHandler.getInstance();
+        handler.init(this);
+    }
+    public static Context getContext(){
+        return mContext;
+    }
 
 }

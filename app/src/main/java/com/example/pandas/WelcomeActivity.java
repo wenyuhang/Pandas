@@ -36,9 +36,9 @@ public class WelcomeActivity extends BaseActivity {
         if(preferences.getBoolean("sure",false) == true) {
             Intent intent = new Intent(WelcomeActivity.this,HomeActivity.class);
             startActivity(intent);
+            finish();
         }
-//        PandaCulture pandaCulture = new PandaCulture();
-//        PandaEye
+
         ImageView culture = new ImageView(this);
         culture.setScaleType(ImageView.ScaleType.FIT_XY);
         culture.setImageResource(R.mipmap.guide_one);
@@ -65,6 +65,7 @@ public class WelcomeActivity extends BaseActivity {
                 edit.putBoolean("sure",true);
                 edit.commit();
                 startActivity(intent);
+                finish();
             }
         });
     }
