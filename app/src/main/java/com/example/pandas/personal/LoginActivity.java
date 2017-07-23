@@ -149,16 +149,16 @@ public class LoginActivity extends BaseActivity {
             String name = data.get("name");
             Log.e("TAG", iconurl);
             Log.e("TAG", name);
-            Intent intent = new Intent(LoginActivity.this, PersonalCenterActivity.class);
-//            intent.putExtra();
-//            intent.putExtra();
-            startActivity(intent);
+//            Intent intent = new Intent(LoginActivity.this, PersonalCenterActivity.class);
+//            startActivity(intent);
+
             SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
             SharedPreferences.Editor edit = xinxi.edit();
             edit.putBoolean("boolean", false);
             edit.putString("iconurl", iconurl);
             edit.putString("name", name);
             edit.commit();
+            information.setOnInfor();
             finish();
         }
 
@@ -172,6 +172,16 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(getApplicationContext(), "Authorize cancel", Toast.LENGTH_SHORT).show();
         }
     };
+
+    public static LoginActivity.Informatio information;
+
+    public static void setInformatio(LoginActivity.Informatio information) {
+        LoginActivity.information = information;
+    }
+
+    public interface Informatio{
+        void setOnInfor();
+    }
 
 
     @Override

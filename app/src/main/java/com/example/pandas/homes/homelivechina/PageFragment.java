@@ -7,12 +7,15 @@ import android.widget.RelativeLayout;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.config.ACache;
 import com.example.pandas.model.datebean.livechina.LiveChinaBean;
 import com.example.pandas.model.datebean.livechina.SceneryBean;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 
@@ -27,6 +30,7 @@ public class PageFragment extends BaseFragment implements LiveChinaContract.View
     private LiveChinaContract.Presenter presenter;
     private XrecyclerviewAdapter xrecyclerviewAdapter;
     private ArrayList<LiveChinaBean.LiveBean> liveBeen;
+    private ACache aCache;
 
     @Override
     protected int getLayoutId() {
@@ -42,12 +46,46 @@ public class PageFragment extends BaseFragment implements LiveChinaContract.View
                 new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         pagefragmentXrlview.setLayoutParams(params);
         pagefragmentXrlview.setAdapter(xrecyclerviewAdapter);
+        pagefragmentXrlview.setLoadingMoreEnabled(false);
+        pagefragmentXrlview.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                pagefragmentXrlview.refreshComplete();
+                            }
+                        });
+
+                    }
+                },1500);
+
+            }
+
+            @Override
+            public void onLoadMore() {
+
+            }
+        });
+
+
     }
 
     @Override
     protected void loadData() {
 //        presenter.onload("http://www.ipanda.com/kehuduan/liebiao/zhangjiajie/index.shtml");
-        presenter.onload(s);
+//        aCache = ACache.get(App.context);
+//        String tab = aCache.getAsString("tab");
+//        if(tab!=null){
+//            LiveChinaBean liveChinaBean = new Gson().fromJson(tab, LiveChinaBean.class);
+//            setDate(liveChinaBean);
+//        }else {
+            presenter.onload(s);
+//        }
+
     }
 
     @Override
@@ -62,6 +100,14 @@ public class PageFragment extends BaseFragment implements LiveChinaContract.View
 
     @Override
     public void setResult(LiveChinaBean netBean) {
+        setDate(netBean);
+
+//        Gson gson = new Gson();
+//        String s = gson.toJson(netBean);
+//        aCache.put("tab",s);
+    }
+
+    private void setDate(LiveChinaBean netBean) {
         List<LiveChinaBean.LiveBean> lives = netBean.getLive();
         liveBeen.addAll(lives);
         xrecyclerviewAdapter.notifyDataSetChanged();

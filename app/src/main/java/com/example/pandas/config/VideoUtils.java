@@ -9,7 +9,7 @@ import com.example.pandas.wxapi.App;
 import fm.jiecao.jcvideoplayer_lib.JCUserAction;
 import fm.jiecao.jcvideoplayer_lib.JCUserActionStandard;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+
 
 /**
  * Created by 联想 on 2017/7/17.
@@ -17,31 +17,27 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class VideoUtils {
     private static VideoUtils utils;
+
     private VideoUtils() {
     }
 
-    public static VideoUtils getUtils(){
+    public static VideoUtils getUtils() {
 //        if(utils==null){
 //            synchronized (VideoUtils.class){
 //                if(utils==null) {
-                    utils=new VideoUtils();
+        utils = new VideoUtils();
 //                }
 //            }
 //        }
         return utils;
     }
 
-    public void playVideo(JCVideoPlayerStandard jc_video,String video_url,String video_title,String thumb_url) {
+    public void playVideo(JCVideoPlayerStandard jc_video, String video_url, String video_title, String thumb_url) {
         jc_video.setUp(video_url, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, video_title);
         jc_video.thumbImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//        if(!thumb_url.equals("")){
-            Glide.with(App.context).load(thumb_url).into(jc_video.thumbImageView);
-//        }
-//        if(thumb_url.equals("")){
-//            Glide.with(App.context).load(R.mipmap._no_img).into(jc_video.thumbImageView);
-//        }
+        Glide.with(App.context).load(thumb_url).into(jc_video.thumbImageView);
         JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
-    } 
+    }
 
 
     class MyUserActionStandard implements JCUserActionStandard {

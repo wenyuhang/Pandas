@@ -5,33 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context="com.example.pandas.personal.PersonalCenterActivity">
 
 
-    <RelativeLayout
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x150">
-        <ImageButton
-            android:id="@+id/fanhui"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/fenlei_fanhui"
-            android:layout_centerVertical="true"
-            />
-
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x150"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="#ffffff"
-            android:text="@string/personalCenter"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/y20"
@@ -55,7 +32,7 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/image1"
                 android:layout_width="@dimen/x100"
                 android:layout_height="@dimen/y100"
                 android:background="@mipmap/personal_login_head"/>

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.config.ACache;
 import com.example.pandas.model.datebean.livechina.LiveChinaBean;
 import com.example.pandas.model.datebean.livechina.SceneryBean;
 
@@ -32,7 +33,6 @@ import butterknife.OnClick;
  */
 
 public class LiveChinaMain extends BaseFragment implements LiveChinaContract.View, View.OnClickListener {
-
 
 
     @Bind(R.id.liveChina_tablayout)
@@ -63,6 +63,7 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
     private Button but;
     private DragGridView dragGridView;
     private List<SceneryBean.AlllistBean> alllist;
+    private ACache aCache;
 
 
     @Override
@@ -130,16 +131,30 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
                     if (strings1.size() <= 5) {
                         Toast.makeText(getActivity(), "栏目区，不能少于五个频道", Toast.LENGTH_SHORT).show();
                     } else {
-                        strings1.remove(position-1);
-                        urls.remove(position-1);
-                        dragAdapter.notifyDataSetChanged();
 
                         for (int i = 0; i < alllist.size(); i++) {
-                            if (strings1.get(position-1).equals(alllist.get(i).getTitle())) {
+                            if (strings1.get(position).equals(alllist.get(i).getTitle())) {
                                 list1.add(alllist.get(i));
                                 gridViewAdapter.notifyDataSetChanged();
                             }
                         }
+                        strings1.remove(position);
+                        urls.remove(position);
+                        dragAdapter.notifyDataSetChanged();
+
+/**
+ * 第二种添加方法
+ */
+/*                        list1.clear();
+                        list1.addAll(alllist);
+                        for(int i = 0; i <list1.size() ; i++) {
+                          for(int x = 0; x <strings1.size() ; x++) {
+                            if(list1.get(i).getTitle().equals(strings1.get(x))){
+                                list1.remove(i);
+                                gridViewAdapter.notifyDataSetChanged();
+                            }
+                          }
+                        }*/
                     }
                 }
 
@@ -150,8 +165,16 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
 
     @Override
     protected void loadData() {
-        presenter.strat();
         urls = new ArrayList<>();
+//        aCache = ACache.get(App.context);
+//        String china = aCache.getAsString("china");
+//        if(china!=null){
+//            setpoppupwindowDate(new Gson().fromJson(china,SceneryBean.class));
+//            lcPpageAdapter.notifyDataSetChanged();
+//        }else {
+            presenter.strat();
+//        }
+
     }
 
     @Override
@@ -172,7 +195,16 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
 
     @Override
     public void setResult2(SceneryBean netBean) {
-        if(netBean!=null){
+       setpoppupwindowDate(netBean);
+        settablayout();
+//        Gson gson = new Gson();
+//        String s = gson.toJson(netBean);
+//        aCache.put("china",s);
+
+    }
+
+    private void setpoppupwindowDate(SceneryBean netBean) {
+        if (netBean != null) {
             livechinaRelalayout.setVisibility(View.GONE);
         }
         alllist = netBean.getAlllist();
@@ -197,7 +229,7 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
         }
 
 
-        settablayout();
+
     }
 
 

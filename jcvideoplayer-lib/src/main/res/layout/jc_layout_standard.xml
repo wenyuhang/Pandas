@@ -35,6 +35,15 @@
         android:orientation="horizontal"
         android:visibility="invisible">
 
+
+        <ImageView
+            android:id="@+id/start"
+            android:layout_width="@dimen/jc_start_button_w_h_normal"
+            android:layout_height="@dimen/jc_start_button_w_h_normal"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/jc_click_play_selector" />
         <TextView
             android:id="@+id/current"
             android:layout_width="wrap_content"
@@ -67,6 +76,16 @@
             android:text="00:00"
             android:textColor="#ffffff" />
 
+        <Button
+            android:id="@+id/definition"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:background="#1f539e"
+            android:textColor="#fff"
+            android:text="高清"
+            android:visibility="gone"
+            />
+
         <ImageView
             android:id="@+id/fullscreen"
             android:layout_width="52.5dp"
@@ -74,7 +93,8 @@
             android:paddingLeft="14dp"
             android:paddingRight="14dp"
             android:scaleType="centerInside"
-            android:src="@drawable/jc_enlarge" />
+            android:src="@drawable/jc_enlarge"
+            />
     </LinearLayout>
 
     <ProgressBar
@@ -95,7 +115,7 @@
         android:background="@drawable/jc_click_back_tiny_selector"
         android:visibility="visible" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -115,9 +135,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
-    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <CheckBox
+                android:id="@+id/collect"
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:button="@null"
+                android:background="@drawable/collect_select"
+                android:visibility="gone"
+                />
+            <ImageView
+                android:id="@+id/share"
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:src="@drawable/play_fullsrcee_share"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/loading"
@@ -128,13 +176,6 @@
         android:indeterminateDrawable="@drawable/jc_loading"
         android:visibility="invisible" />
 
-    <ImageView
-        android:id="@+id/start"
-        android:layout_width="@dimen/jc_start_button_w_h_normal"
-        android:layout_height="@dimen/jc_start_button_w_h_normal"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/jc_click_play_selector" />
+
 
 </RelativeLayout>

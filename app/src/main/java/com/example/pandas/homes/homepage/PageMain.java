@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.config.ACache;
 import com.example.pandas.config.CultureSpActivity;
 import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
@@ -18,6 +19,7 @@ import com.example.pandas.model.datebean.homebean.VideoInfoBean;
 import com.example.pandas.networks.mycallbacks.NetCallbacks;
 import com.example.pandas.personal.homeinteractive.InteractiveInfoActivity;
 import com.example.pandas.wxapi.App;
+import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
@@ -28,7 +30,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 
 /**
@@ -51,6 +52,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
     private ArrayList<VideoInfoBean.VideoBean.ChaptersBean> videoList;
     private Banner banner;
     private TextView homepageTitle;
+    private ACache aCache;
 
     @Override
     protected int getLayoutId() {
@@ -59,6 +61,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     protected void init(View view) {
+
         pagemainRelalayout.setVisibility(View.VISIBLE);
         list = new ArrayList<>();
         objectList = new ArrayList<>();
@@ -69,7 +72,16 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     protected void loadData() {
-        presenter.strat();
+        aCache = ACache.get(App.context);
+        String page = aCache.getAsString("page");
+        if(page!=null){
+            Gson gson=new Gson();
+            HomePageBean homePageBean = gson.fromJson(page, HomePageBean.class);
+            setdate(homePageBean);
+        }else {
+            presenter.strat();
+        }
+
     }
 
     @Override
@@ -83,7 +95,16 @@ public class PageMain extends BaseFragment implements PageContract.View {
     }
 
     @Override
-    public void setResult(final HomePageBean netBean) {
+    public void setResult(HomePageBean netBean) {
+       setdate(netBean);
+
+
+        Gson gson = new Gson();
+        String s = gson.toJson(netBean);
+        aCache.put("page",s);
+    }
+
+    private void setdate(final HomePageBean netBean) {
         if(netBean!=null){
             pagemainRelalayout.setVisibility(View.GONE);
         }
@@ -148,7 +169,6 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
         homePageAdapter = new HomePageAdapter(getActivity(), list, objectList);
         homeXrecyclerview.setAdapter(homePageAdapter);
-
     }
 
     private void carousel(final HomePageBean netBean) {
@@ -226,9 +246,4 @@ public class PageMain extends BaseFragment implements PageContract.View {
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 }

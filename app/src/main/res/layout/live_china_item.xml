@@ -5,11 +5,11 @@
     android:orientation="vertical">
 
 
-    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:id="@+id/livechina_adapter_jc_video"
-        ></fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
+        android:scaleType="fitXY"
+        android:id="@+id/livechinaAdapterImge"></ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"

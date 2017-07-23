@@ -6,18 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.pandas.R;
-import com.example.pandas.config.VideoUtils;
 import com.example.pandas.model.datebean.livechina.LiveChinaBean;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * Created by 联想 on 2017/7/15.
@@ -45,8 +45,8 @@ public class XrecyclerviewAdapter extends RecyclerView.Adapter {
     }
 
     class ViewHplder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.livechina_adapter_jc_video)
-        JCVideoPlayerStandard livechinaAdapterJcVideo;
+        @Bind(R.id.livechinaAdapterImge)
+        ImageView livechinaAdapterImge;
         @Bind(R.id.livechina_adapter_title)
         TextView livechinaAdapterTitle;
         @Bind(R.id.livechina_adapter_conimag)
@@ -84,8 +84,8 @@ public class XrecyclerviewAdapter extends RecyclerView.Adapter {
         mholder.livechinaAdapterConimag.setChecked(false);
         mholder.livechinaAdapterTitle.setText(list.get(position).getTitle());
         mholder.livechinaAdapterJianjie.setText(list.get(position).getBrief());
-        VideoUtils.getUtils().playVideo(mholder.livechinaAdapterJcVideo,"http://video.jiecao.fm/11/23/xin/%E5%81%87%E4%BA%BA.mp4","",list.get(position).getImage());
-//        Glide.with(context).load(list.get(position).getImage()).into(mholder.livechinaAdapterImge);
+//        VideoUtils.getUtils().playVideo(mholder.livechinaAdapterJcVideo,"http://video.jiecao.fm/11/23/xin/%E5%81%87%E4%BA%BA.mp4","",list.get(position).getImage());
+        Glide.with(context).load(list.get(position).getImage()).into(mholder.livechinaAdapterImge);
     }
 
     @Override

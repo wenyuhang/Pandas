@@ -2,6 +2,7 @@ package com.example.pandas.personal;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -49,6 +50,7 @@ public class PersonalXinActivity extends BaseActivity implements UMAuthListener{
         SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
         String iconurl = xinxi.getString("iconurl", "");
         String name = xinxi.getString("name", "");
+        Log.d("PersonalXinActivity", iconurl + "--------" + name);
         Glide.with(this).load(iconurl).into(ivHeadicon);
         nickName.setText(name);
     }
@@ -85,15 +87,27 @@ public class PersonalXinActivity extends BaseActivity implements UMAuthListener{
     public void onStart(SHARE_MEDIA share_media) {
 
     }
+public static Information information;
+
+    public static void setInformation(Information information) {
+        PersonalXinActivity.information = information;
+    }
+
+    public interface Information{
+    void setOnInformation();
+}
 
     @Override
     public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
         Toast.makeText(PersonalXinActivity.this, "退出成功", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(PersonalXinActivity.this,PersonalCenterActivity.class));
+//        startActivity(new Intent(PersonalXinActivity.this,PersonalCenterActivity.class));
+        information.setOnInformation();
+
         SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
         SharedPreferences.Editor edit = xinxi.edit();
         edit.putBoolean("boolean",true);
         edit.commit();
+        finish();
     }
 
     @Override

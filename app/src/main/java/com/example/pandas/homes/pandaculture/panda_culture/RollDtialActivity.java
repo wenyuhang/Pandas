@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
+import com.example.pandas.config.JCVideoPlayerStandard;
 import com.example.pandas.config.VideoUtils;
 import com.example.pandas.homes.pandaculture.adapter.VideoXRecylerAdapter;
 import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
@@ -29,7 +30,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class RollDtialActivity extends BaseActivity implements CultureContract.View {
     @Bind(R.id.rollvideo_details_show_image)

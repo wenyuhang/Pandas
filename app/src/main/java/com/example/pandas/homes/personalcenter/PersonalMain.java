@@ -1,7 +1,8 @@
-package com.example.pandas.personal;
+package com.example.pandas.homes.personalcenter;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,12 +10,24 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
-import com.example.pandas.base.BaseActivity;
+import com.example.pandas.base.BaseFragment;
+import com.example.pandas.personal.CollectionActivity;
+import com.example.pandas.personal.HistoryActivity;
+import com.example.pandas.personal.LoginActivity;
+import com.example.pandas.personal.PersonalXinActivity;
+import com.example.pandas.personal.SetActivity;
+import com.example.pandas.wxapi.App;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class PersonalCenterActivity extends BaseActivity {
+import static android.content.Context.MODE_PRIVATE;
+
+/**
+ * Created by 联想 on 2017/7/22.
+ */
+
+public class PersonalMain extends BaseFragment implements PersonalXinActivity.Information,LoginActivity.Informatio {
     @Bind(R.id.personalCenter_Signin)
     LinearLayout personalCenterSignin;
     @Bind(R.id.personalCenter_History)
@@ -25,29 +38,29 @@ public class PersonalCenterActivity extends BaseActivity {
     LinearLayout personalCenterSet;
     @Bind(R.id.activity_personal_center)
     LinearLayout activityPersonalCenter;
-    @Bind(R.id.image)
+    @Bind(R.id.image1)
     ImageView image;
     @Bind(R.id.title)
     TextView title;
     private boolean aBoolean;
     private String iconurl;
     private String name;
-
-
     @Override
-    public int getLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_personal_center;
     }
 
     @Override
-    public void initview() {
-        SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
+    protected void init(View view) {
+        PersonalXinActivity.setInformation(this);
+        LoginActivity.setInformatio(this);
+        SharedPreferences xinxi = getActivity().getSharedPreferences("xinxi", MODE_PRIVATE);
         aBoolean = xinxi.getBoolean("boolean", true);
         iconurl = xinxi.getString("iconurl", "");
         name = xinxi.getString("name", "");
 
         if(aBoolean==false) {
-            Glide.with(PersonalCenterActivity.this).load(iconurl).into(image);
+            Glide.with(App.context).load(iconurl).into(image);
             title.setText(name);
         }else {
             image.setImageResource(R.mipmap.personal_login_head);
@@ -59,12 +72,14 @@ public class PersonalCenterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.personalCenter_Signin:
+                Log.d("PersonalMain", "aBoolean13231:" + aBoolean);
                 if (aBoolean == true) {
-                    startActivity(new Intent(PersonalCenterActivity.this, LoginActivity.class));
+
+                    startActivity(new Intent(App.context, LoginActivity.class));
 //                    image.setImageResource(R.mipmap.personal_login_head);
 //                    title.setText("点击登录");
                 } else {
-                    Intent intent = new Intent(PersonalCenterActivity.this, PersonalXinActivity.class);
+                    Intent intent = new Intent(App.context, PersonalXinActivity.class);
 //                    intent.putExtra("iconurl",iconurl);
 //                    intent.putExtra("name",);
                     startActivity(intent);
@@ -73,22 +88,41 @@ public class PersonalCenterActivity extends BaseActivity {
                 }
                 break;
             case R.id.personalCenter_History:
-                startActivity(new Intent(PersonalCenterActivity.this, HistoryActivity.class));
+                startActivity(new Intent(App.context, HistoryActivity.class));
                 break;
             case R.id.personalCenter_Collection:
-                startActivity(new Intent(PersonalCenterActivity.this, CollectionActivity.class));
+                startActivity(new Intent(App.context, CollectionActivity.class));
                 break;
             case R.id.personalCenter_set:
-                startActivity(new Intent(PersonalCenterActivity.this, SetActivity.class));
+                startActivity(new Intent(App.context, SetActivity.class));
                 break;
             case R.id.activity_personal_center:
                 break;
+
         }
     }
 
     @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        finish();
+    protected void loadData() {
+
+    }
+
+    @Override
+    public void setOnInformation() {
+        aBoolean=true;
+        image.setImageResource(R.mipmap.personal_login_head);
+        title.setText("点击登录");
+    }
+
+    @Override
+    public void setOnInfor() {
+        SharedPreferences xinxi = getActivity().getSharedPreferences("xinxi", MODE_PRIVATE);
+        aBoolean = xinxi.getBoolean("boolean", true);
+
+        iconurl = xinxi.getString("iconurl", "");
+        name = xinxi.getString("name", "");
+        Log.d("PersonalMain", "aBoolean:" + iconurl);
+        Glide.with(getActivity()).load(iconurl).into(image);
+        title.setText(name);
     }
 }
