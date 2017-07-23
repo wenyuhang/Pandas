@@ -61,4 +61,5 @@ public interface IHomeModel extends BaseModel{
     void getVideoUrl(String pid, NetCallbacks<PlayVideo> callbacks);
     //    熊猫文化全屏播放的
     void getStartVideo(String pid, NetCallbacks<VideoStartBean> callbacks);
+
 }

@@ -1,7 +1,6 @@
 package com.example.pandas.homes.homepage;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,14 +20,10 @@ import com.example.pandas.homes.homepage.adapter.PandaEyeAdapter;
 import com.example.pandas.homes.homepage.adapter.PandaLiveAdapter;
 import com.example.pandas.homes.homepage.adapter.PandaWatchTitleAdapter;
 import com.example.pandas.homes.homepage.adapter.WonderfulreCommendationAdapter;
-import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.datebean.homebean.CCTVInfoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.LightChinaBean;
 import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
-import com.example.pandas.networks.mycallbacks.NetCallbacks;
-import com.example.pandas.personal.homeinteractive.InteractiveInfoActivity;
-import com.example.pandas.wxapi.App;
 
 import java.util.ArrayList;
 
@@ -57,21 +52,39 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     private LightChinaAdapter lightChinaAdapter;
 
 
-    private ArrayList<HomePageBean.DataBean.AreaBean.ListscrollBean> scrollList=new ArrayList<>();
-    private ArrayList<HomePageBean.DataBean.PandaeyeBean.ItemsBean> itemsList=new ArrayList<>();
-    private ArrayList<PandaEyeListBean.ListBean> pandaEyeList=new ArrayList<>();
-    private ArrayList<HomePageBean.DataBean.PandaliveBean.ListBean> pandaLiveList=new ArrayList<>();
-    private ArrayList<HomePageBean.DataBean.WallliveBean.ListBeanX> wallList=new ArrayList<>();
-    private ArrayList<HomePageBean.DataBean.ChinaliveBean.ListBeanXX> chinaList=new ArrayList<>();
-    private ArrayList<CCTVInfoBean.ListBean> cctvList=new ArrayList<>();
-    private ArrayList<LightChinaBean.ListBean> lightChinaList=new ArrayList<>();
-    private ArrayList<HomePageBean.DataBean.InteractiveBean.InteractiveoneBean> interactiveList=new ArrayList<>();
+    private ArrayList<HomePageBean.DataBean.AreaBean.ListscrollBean> scrollList;
+    private ArrayList<HomePageBean.DataBean.PandaeyeBean.ItemsBean> itemsList;
+    private ArrayList<PandaEyeListBean.ListBean> pandaEyeList;
+    private ArrayList<HomePageBean.DataBean.PandaliveBean.ListBean> pandaLiveList;
+    private ArrayList<HomePageBean.DataBean.WallliveBean.ListBeanX> wallList;
+    private ArrayList<HomePageBean.DataBean.ChinaliveBean.ListBeanXX> chinaList;
+    private ArrayList<CCTVInfoBean.ListBean> cctvList;
+    private ArrayList<LightChinaBean.ListBean> lightChinaList;
+    private ArrayList<HomePageBean.DataBean.InteractiveBean.InteractiveoneBean> interactiveList;
 
 
-    public HomePageAdapter(Context context, ArrayList<HomePageBean.DataBean> list,ArrayList<Object> objectList) {
+    public HomePageAdapter(Context context, ArrayList<HomePageBean.DataBean> list, ArrayList<Object> objectList,
+                           ArrayList<HomePageBean.DataBean.AreaBean.ListscrollBean> scrollList,
+                           ArrayList<HomePageBean.DataBean.PandaeyeBean.ItemsBean> itemsList,
+                           ArrayList<PandaEyeListBean.ListBean> pandaEyeList,
+                           ArrayList<HomePageBean.DataBean.PandaliveBean.ListBean> pandaLiveList,
+                           ArrayList<HomePageBean.DataBean.WallliveBean.ListBeanX> wallList,
+                           ArrayList<HomePageBean.DataBean.ChinaliveBean.ListBeanXX> chinaList,
+                           ArrayList<CCTVInfoBean.ListBean> cctvList,
+                           ArrayList<LightChinaBean.ListBean> lightChinaList,
+                           ArrayList<HomePageBean.DataBean.InteractiveBean.InteractiveoneBean> interactiveList) {
         this.context = context;
         this.list = list;
         this.objectList=objectList;
+        this.scrollList=scrollList;
+        this.itemsList=itemsList;
+        this.pandaEyeList=pandaEyeList;
+        this.pandaLiveList=pandaLiveList;
+        this.wallList=wallList;
+        this.chinaList=chinaList;
+        this.cctvList=cctvList;
+        this.lightChinaList=lightChinaList;
+        this.interactiveList=interactiveList;
     }
 
     @Override
@@ -162,150 +175,127 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     }
 
     private void initWonderful(WonderfulViewHolder wonderfulViewHolder) {
-        scrollList.clear();
-        scrollList.addAll(list.get(0).getArea().getListscroll());
         wonderfulViewHolder.wonderfulRecommendation.setText(list.get(0).getArea().getTitle());
         Glide.with(context).load(list.get(0).getArea().getImage()).into(wonderfulViewHolder.home_wonderful_recommendation_img);
         wonderfulViewHolder.wonderfulRecommendationRecyclerview.setHasFixedSize(true);
         wonderfulViewHolder.wonderfulRecommendationRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         WonderfulreCommendationAdapter wonderfulreCommendationAdapter=new WonderfulreCommendationAdapter(context,scrollList);
         wonderfulViewHolder.wonderfulRecommendationRecyclerview.setAdapter(wonderfulreCommendationAdapter);
+        wonderfulreCommendationAdapter.setClickListener(new WonderfulreCommendationAdapter.itemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                clickListener.onWonderfulreItemClickListener(position);
+            }
+        });
     }
 
     private void initPandaWatch(PandaWatchViewHolder pandaWatchViewHolder) {
-        itemsList.clear();
-        itemsList.addAll(list.get(0).getPandaeye().getItems());
         pandaWatchViewHolder.pandaWatch.setText(list.get(0).getPandaeye().getTitle());
         Glide.with(context).load(list.get(0).getPandaeye().getPandaeyelogo()).into(pandaWatchViewHolder.pandaWatchImg);
         pandaWatchViewHolder.pandaWatchTitleRecyclerview.setHasFixedSize(true);
         pandaWatchViewHolder.pandaWatchTitleRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         PandaWatchTitleAdapter pandaWatchTitleAdapter=new PandaWatchTitleAdapter(context,itemsList);
         pandaWatchViewHolder.pandaWatchTitleRecyclerview.setAdapter(pandaWatchTitleAdapter);
+        pandaWatchTitleAdapter.setClickListener(new PandaWatchTitleAdapter.itemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                clickListener.onPandaWatchItemClickListener(position);
+            }
+        });
     }
 
     private void initPandaEye(PandaEyeViewHolder pandaEyeViewHolder) {
-        IHomeImpl.ihttp.get(list.get(0).getPandaeye().getPandaeyelist(), null, new NetCallbacks<PandaEyeListBean>() {
-            @Override
-            public void onSuccess(PandaEyeListBean pandaEyeListBean) {
-                pandaEyeList.clear();
-                pandaEyeList.addAll(pandaEyeListBean.getList());
-
-                App.context.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        pandaEyeAdapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-
-            }
-        });
         pandaEyeAdapter = new PandaEyeAdapter(context,pandaEyeList);
         pandaEyeViewHolder.pandaWatchNewsRecyclerview.setHasFixedSize(true);
         pandaEyeViewHolder.pandaWatchNewsRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         pandaEyeViewHolder.pandaWatchNewsRecyclerview.setAdapter(pandaEyeAdapter);
+        pandaEyeAdapter.setClickListener(new PandaEyeAdapter.itemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                clickListener.onPandaEyeItemClickListener(position);
+            }
+        });
     }
 
     private void initPandaLive(PandaLiveViewHolder pandaLiveViewHolder) {
-        pandaLiveList.clear();
-        pandaLiveList.addAll(list.get(0).getPandalive().getList());
         pandaLiveViewHolder.liveTitle.setText(list.get(0).getPandalive().getTitle());
         pandaLiveViewHolder.liveRecyclerview.setHasFixedSize(true);
         pandaLiveViewHolder.liveRecyclerview.setLayoutManager(new GridLayoutManager(context,3));
         PandaLiveAdapter pandaLiveAdapter=new PandaLiveAdapter(context,pandaLiveList);
         pandaLiveViewHolder.liveRecyclerview.setAdapter(pandaLiveAdapter);
+        pandaLiveAdapter.setClickListener(new PandaLiveAdapter.itemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                clickListener.onPandaLiveItemClickListener(position);
+            }
+        });
     }
 
     private void initGreatWallLive(GreatWallLiveViewHolder greatWallLiveViewHolder) {
-        wallList.clear();
-        wallList.addAll(list.get(0).getWalllive().getList());
         greatWallLiveViewHolder.liveTitle.setText(list.get(0).getWalllive().getTitle());
         greatWallLiveViewHolder.liveRecyclerview.setHasFixedSize(true);
         greatWallLiveViewHolder.liveRecyclerview.setLayoutManager(new GridLayoutManager(context,3));
         GreatWallLiveAdapter greatWallLiveAdapter=new GreatWallLiveAdapter(wallList,context);
         greatWallLiveViewHolder.liveRecyclerview.setAdapter(greatWallLiveAdapter);
+        greatWallLiveAdapter.setClickListener(new GreatWallLiveAdapter.itemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                clickListener.onGreatWallLiveItemClickListener(position);
+            }
+        });
     }
 
     private void initLiveInChina(LiveInChinaViewHolder liveInChinaViewHolder) {
-        chinaList.clear();
-        chinaList.addAll(list.get(0).getChinalive().getList());
         liveInChinaViewHolder.liveTitle.setText(list.get(0).getChinalive().getTitle());
         liveInChinaViewHolder.liveRecyclerview.setHasFixedSize(true);
         liveInChinaViewHolder.liveRecyclerview.setLayoutManager(new GridLayoutManager(context,3));
         LiveInChinaAdapter liveInChinaAdapter=new LiveInChinaAdapter(context,chinaList);
         liveInChinaViewHolder.liveRecyclerview.setAdapter(liveInChinaAdapter);
+        liveInChinaAdapter.setClickListener(new LiveInChinaAdapter.itemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                clickListener.onLiveInChinaItemClickListener(position);
+            }
+        });
     }
 
     private void initPlan(PlanViewHolder planViewHolder) {
-        interactiveList.addAll(list.get(0).getInteractive().getInteractiveone());
         planViewHolder.specialPlanning.setText(list.get(0).getInteractive().getTitle());
         Glide.with(context).load(interactiveList.get(0).getImage()).into(planViewHolder.specialPlanningImg);
         planViewHolder.specialPlanningTitle.setText(interactiveList.get(0).getTitle());
         planViewHolder.specialPlanningImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, InteractiveInfoActivity.class);
-                intent.putParcelableArrayListExtra("datas",interactiveList);
-                intent.putExtra("poss",0);
-                context.startActivity(intent);
+                clickListener.onSpecialPlanItemClickListener(0);
             }
         });
     }
 
     private void initCCTV(CCTVViewHolder cctvViewHolder) {
-        IHomeImpl.ihttp.get(list.get(0).getCctv().getListurl(), null, new NetCallbacks<CCTVInfoBean>() {
-            @Override
-            public void onSuccess(CCTVInfoBean cctvInfoBean) {
-                cctvList.clear();
-                cctvList.addAll(cctvInfoBean.getList());
-
-                App.context.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        cctvAdapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-
-            }
-        });
         cctvViewHolder.liveTitle.setText(list.get(0).getCctv().getTitle());
         cctvViewHolder.liveRecyclerview.setHasFixedSize(true);
         cctvViewHolder.liveRecyclerview.setLayoutManager(new GridLayoutManager(context,2));
         cctvAdapter = new CCTVAdapter(context,cctvList);
         cctvViewHolder.liveRecyclerview.setAdapter(cctvAdapter);
+        cctvAdapter.setClickListener(new CCTVAdapter.itemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                clickListener.onCCTVItemClickListener(position);
+            }
+        });
     }
 
     private void initLightChina(LightChinaViewHolder lightChinaViewHolder) {
-        IHomeImpl.ihttp.get(list.get(0).getList().get(0).getListUrl(), null, new NetCallbacks<LightChinaBean>() {
-            @Override
-            public void onSuccess(LightChinaBean lightChinaBean) {
-                lightChinaList.clear();
-                lightChinaList.addAll(lightChinaBean.getList());
-
-                App.context.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lightChinaAdapter.notifyDataSetChanged();
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-
-            }
-        });
         lightChinaViewHolder.liveTitle.setText(list.get(0).getList().get(0).getTitle());
         lightChinaViewHolder.liveRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         lightChinaAdapter = new LightChinaAdapter(context,lightChinaList);
         lightChinaViewHolder.liveRecyclerview.setAdapter(lightChinaAdapter);
+        lightChinaAdapter.setClickListener(new LightChinaAdapter.itemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                clickListener.onLightChinaItemClickListener(position);
+            }
+        });
     }
 
 
@@ -431,7 +421,23 @@ public class HomePageAdapter extends RecyclerView.Adapter {
         return -1;
     }
 
+    public itemClickListener clickListener;
 
+    public void setClickListener(itemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface itemClickListener{
+        void onCCTVItemClickListener(int position);
+        void onGreatWallLiveItemClickListener(int position);
+        void onLightChinaItemClickListener(int position);
+        void onLiveInChinaItemClickListener(int position);
+        void onPandaEyeItemClickListener(int position);
+        void onPandaLiveItemClickListener(int position);
+        void onPandaWatchItemClickListener(int position);
+        void onWonderfulreItemClickListener(int position);
+        void onSpecialPlanItemClickListener(int position);
+    }
 
     @Override
     public int getItemCount() {

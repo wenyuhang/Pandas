@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
@@ -55,9 +54,19 @@ public class PandaLiveAdapter extends RecyclerView.Adapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, list.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                clickListener.onItemClickListener(position);
             }
         });
+    }
+
+    public itemClickListener clickListener;
+
+    public void setClickListener(itemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface itemClickListener{
+        void onItemClickListener(int position);
     }
 
     @Override
