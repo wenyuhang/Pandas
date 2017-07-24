@@ -31,4 +31,15 @@ public class ACacheUtils {
         ACache aCache = ACache.get(App.context);
         aCache.put("array",dates);
     }
+    public void deleteStorage(String moviename){
+        for(int i = 0; i <dates.size() ; i++) {
+            if(dates.get(i).getMoviename().equals(moviename)){
+                dates.remove(i);
+            }
+        }
+    }
+
+    public ArrayList<CollectionDate> Storage(){
+        return dates;
+    }
 }
