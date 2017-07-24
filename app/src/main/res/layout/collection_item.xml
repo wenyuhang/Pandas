@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioButton
+        android:id="@+id/collection_ration"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/y50"
+        android:checked="false"
+        android:button="@null"
+        android:background="@drawable/checkbox"
+        android:layout_marginTop="@dimen/y100" />
+
+    <RelativeLayout
+        android:layout_width="@dimen/x300"
+        android:layout_height="@dimen/y200"
+        >
+
+        <ImageView
+            android:padding="@dimen/x20"
+            android:id="@+id/collection_img"
+            android:layout_width="@dimen/x300"
+            android:layout_height="@dimen/y200"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/y20"
+            android:background="@mipmap/play"
+            android:backgroundTint="@color/black"
+            android:scaleType="fitXY"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginBottom="@dimen/x20"
+            />
+
+        <TextView
+            android:id="@+id/collection_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginBottom="@dimen/x20"
+            android:background="@color/black"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/x400"
+        android:layout_height="@dimen/y200"
+        >
+        <TextView
+            android:id="@+id/collection_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/x30"
+            android:textColor="@color/colorBlack"
+            android:padding="@dimen/x20"
+            android:layout_alignParentTop="true"
+            />
+        <TextView
+            android:padding="@dimen/x20"
+            android:id="@+id/collection_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="666"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+</LinearLayout>

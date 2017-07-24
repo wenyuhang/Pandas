@@ -1,5 +1,6 @@
 package com.example.pandas.personal;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -42,6 +43,7 @@ public class CollectionActivity extends BaseActivity {
     RelativeLayout activityCollection;
     private FragmentManager fragmentManager;
     private LiveBroadcastFragment liveBroadcastFragment;
+    private Intent intent;
 
     @Override
     public int getLayoutId() {
@@ -63,7 +65,7 @@ public class CollectionActivity extends BaseActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         switch (view.getId()) {
             case R.id.fanhui:
-
+                finish();
                 break;
             case R.id.phone:
                 transaction.replace(R.id.fram, liveBroadcastFragment);
@@ -79,19 +81,28 @@ public class CollectionActivity extends BaseActivity {
                 if (collectionEdit.getText().toString().equals("编辑")) {
                     collectLinearlayout.setVisibility(View.VISIBLE);
                     collectionEdit.setText("取消");
+
                 } else {
                     collectLinearlayout.setVisibility(View.GONE);
                     collectionEdit.setText("编辑");
                 }
                 break;
-            case collect_all:
+            case R.id.collect_all:
                 if (collectAll.getText().toString().equals("全选")) {
                     collectAll.setText("取消全选");
+                    intent = new Intent("checks");
+                    intent.putExtra("yes","全选");
+                    sendBroadcast(intent);
                 } else {
                     collectAll.setText("全选");
+                    intent.putExtra("yes","取消全选");
+                    sendBroadcast(intent);
                 }
                 break;
             case R.id.collect_delect:
+                intent = new Intent("checks");
+                intent.putExtra("yes","删除");
+                sendBroadcast(intent);
                 break;
         }
     }

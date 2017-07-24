@@ -1,13 +1,19 @@
 package com.example.pandas.personal.fragment;
 
-import android.util.Log;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.config.ACacheUtils;
 import com.example.pandas.config.CollectionDate;
+import com.example.pandas.personal.adapters.CollectionAdapter;
 
 import java.util.ArrayList;
 
@@ -20,8 +26,23 @@ import butterknife.Bind;
 public class HighlightsFragment extends BaseFragment {
 
 
-    @Bind(R.id.history_listview)
-    ListView historyListview;
+    @Bind(R.id.history_recyclerview)
+    RecyclerView history_recyclerview;
+
+    private BroadcastReceiver receiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getStringExtra("yes").equals("全选")){
+                Toast.makeText(context, "全选", Toast.LENGTH_SHORT).show();
+
+            }else if(intent.getStringExtra("yes").equals("取消全选")){
+                Toast.makeText(context, "取消全选", Toast.LENGTH_SHORT).show();
+            }else if(intent.getStringExtra("yes").equals("删除")){
+                Toast.makeText(context, "删除", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+    private CollectionAdapter adapter;
 
     @Override
     protected int getLayoutId() {
@@ -30,10 +51,14 @@ public class HighlightsFragment extends BaseFragment {
 
     @Override
     protected void init(View view) {
+        IntentFilter filter=new IntentFilter("checks");
+        getActivity().registerReceiver(receiver,filter);
         ArrayList<CollectionDate> storage = ACacheUtils.getUtils().Storage();
         if(storage!=null){
-            String moviename = storage.get(0).getMoviename();
-            Log.d("HighlightsFragment", moviename);
+            history_recyclerview.setHasFixedSize(true);
+            history_recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+            adapter = new CollectionAdapter(getActivity(),storage);
+            history_recyclerview.setAdapter(adapter);
         }
 
     }

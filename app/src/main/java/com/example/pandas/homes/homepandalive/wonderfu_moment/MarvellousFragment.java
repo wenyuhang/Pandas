@@ -19,7 +19,9 @@ import com.example.pandas.model.datebean.pandasending.PlayBean;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -135,10 +137,15 @@ public class MarvellousFragment extends BaseFragment implements OtherTabContract
             Intent intent = new Intent(getActivity(), CultureSpActivity.class);
             intent.putExtra("title", otherTabDetails.get(pos).getT());
             intent.putExtra("url", chapters);
+            intent.putExtra("imageurl",otherTabDetails.get(pos).getImg());
+            intent.putExtra("movietime",otherTabDetails.get(pos).getLen());
+            intent.putExtra("otherurl",lowChapters);
             getActivity().startActivity(intent);
         }
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date=format.format(new Date());
 
-        SqlUtils.getInstance().add(0,otherTabDetails.get(pos).getImg(),otherTabDetails.get(pos).getLen(),otherTabDetails.get(pos).getT(),otherTabDetails.get(pos).getPtime(),chapters);
+        SqlUtils.getInstance().add(0,otherTabDetails.get(pos).getImg(),otherTabDetails.get(pos).getLen(),otherTabDetails.get(pos).getT(),date,chapters);
 
 
     }
