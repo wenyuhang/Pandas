@@ -29,6 +29,8 @@ import java.util.List;
 import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
+
+
 public class RollDtialActivity extends BaseActivity implements ActivityContract.View,View.OnClickListener{
     @Bind(R.id.rollvideo_details_show_image)
     ImageView rollvideoDetailsShowImage;
