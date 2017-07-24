@@ -52,4 +52,6 @@ public class Urls {
     //所有的播放视频的地址
     public static final String PLAYVIDEO="http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do";
 
+    public static final String VERSIONCODE="http://115.182.9.124/index.php?action=release-GetNewVersions&applyName=1426217325";
+
 }

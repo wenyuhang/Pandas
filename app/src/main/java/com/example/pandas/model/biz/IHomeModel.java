@@ -5,6 +5,7 @@ import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
 import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
 import com.example.pandas.homes.pandaculture.bean.PlayVideo;
 import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
+import com.example.pandas.model.datebean.UpDateBean;
 import com.example.pandas.model.datebean.homebean.CCTVInfoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
@@ -81,4 +82,6 @@ public interface IHomeModel extends BaseModel{
     void getPandaWatchBean(String id,NetCallbacks<VideoInfoBean> callbacks);
 
     void getLightChinaVideoInfo(String id,NetCallbacks<VideoInfoBean> callbacks);
+
+    void getUpDateBean(NetCallbacks<UpDateBean> callbacks);
 }

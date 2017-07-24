@@ -6,6 +6,7 @@ import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
 import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
 import com.example.pandas.homes.pandaculture.bean.PlayVideo;
 import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
+import com.example.pandas.model.datebean.UpDateBean;
 import com.example.pandas.model.datebean.homebean.CCTVInfoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
@@ -203,5 +204,10 @@ public class IHomeImpl implements IHomeModel{
         Map<String,String> map = new HashMap<>();
         map.put("pid",id);
         ihttp.get(Urls.PLAYVIDEO,map,callbacks);
+    }
+
+    @Override
+    public void getUpDateBean(NetCallbacks<UpDateBean> callbacks) {
+        ihttp.get(Urls.VERSIONCODE,null,callbacks);
     }
 }

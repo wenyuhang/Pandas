@@ -4,8 +4,6 @@ import com.example.pandas.wxapi.App;
 
 import java.util.ArrayList;
 
-import static android.R.id.list;
-
 /**
  * Created by 联想 on 2017/7/24.
  */
