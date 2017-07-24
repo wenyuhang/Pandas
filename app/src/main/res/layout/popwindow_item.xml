@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/popwindow_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="#66000000">
+
+        <Button
+            android:id="@+id/photochoose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlue"
+            android:text="@string/photochoose"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginBottom="@dimen/y30"
+            android:background="@drawable/shape_circle"/>
+
+        <Button
+            android:id="@+id/takephoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlue"
+            android:text="@string/takephoto"
+            android:background="@drawable/shape_circle"/>
+        <Button
+            android:id="@+id/cancels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlue"
+            android:text="@string/cancel"
+            android:background="@drawable/shape_circle"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/y30"
+            android:layout_marginBottom="@dimen/y30"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

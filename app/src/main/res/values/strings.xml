@@ -23,6 +23,9 @@
     <string name="live_china">直播中国</string>
     <string name="panda_broadcast">熊猫观察</string>
     <string name="roll_video">熊猫文化</string>
+    <string name="photochoose">从手机相册选择</string>
+    <string name="takephoto">拍一张</string>
+    <string name="cancel">取消</string>
     <!--忘记密码-->
     <string name="forget_pasword">忘记密码</string>
     <string name="forget_found_pswd">找回密码</string>

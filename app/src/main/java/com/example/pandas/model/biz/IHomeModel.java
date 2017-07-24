@@ -5,8 +5,12 @@ import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
 import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
 import com.example.pandas.homes.pandaculture.bean.PlayVideo;
 import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
+import com.example.pandas.model.datebean.homebean.CCTVInfoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
+import com.example.pandas.model.datebean.homebean.LightChinaBean;
+import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
+import com.example.pandas.model.datebean.homebean.VideoInfoBean;
 import com.example.pandas.model.datebean.livechina.LiveChinaBean;
 import com.example.pandas.model.datebean.livechina.SceneryBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
@@ -62,4 +66,19 @@ public interface IHomeModel extends BaseModel{
     //    熊猫文化全屏播放的
     void getStartVideo(String pid, NetCallbacks<VideoStartBean> callbacks);
 
+    void getPandaEyeBean(String url,NetCallbacks<PandaEyeListBean> callbacks);
+
+    void getCCTVBean(String url, NetCallbacks<CCTVInfoBean> callbacks);
+
+    void getLightChinaBean(String url, NetCallbacks<LightChinaBean> callbacks);
+
+    void getRotationBean(String id,NetCallbacks<VideoInfoBean> callbacks);
+
+    void getWonderfulBean(String id,NetCallbacks<VideoInfoBean> callbacks);
+
+    void getItemBean(String id,NetCallbacks<VideoInfoBean> callbacks);
+
+    void getPandaWatchBean(String id,NetCallbacks<VideoInfoBean> callbacks);
+
+    void getLightChinaVideoInfo(String id,NetCallbacks<VideoInfoBean> callbacks);
 }

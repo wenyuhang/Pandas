@@ -14,13 +14,11 @@ import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.config.CultureSpActivity;
 import com.example.pandas.config.database.SqlUtils;
-import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.datebean.homebean.CCTVInfoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.LightChinaBean;
 import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
 import com.example.pandas.model.datebean.homebean.VideoInfoBean;
-import com.example.pandas.networks.mycallbacks.NetCallbacks;
 import com.example.pandas.personal.homeinteractive.InteractiveInfoActivity;
 import com.example.pandas.wxapi.App;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -32,10 +30,8 @@ import com.youth.banner.listener.OnBannerListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 
 /**
@@ -68,6 +64,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
     private Banner banner;
     private TextView homepageTitle;
     private String duration;
+    private int pos,wonderfulPosition,itemPosition,eyePosition,lightChinaPosition;
 
     @Override
     protected int getLayoutId() {
@@ -110,10 +107,6 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
     @Override
     public void setResult(final HomePageBean netBean) {
-        if(netBean!=null){
-            pagemainRelalayout.setVisibility(View.GONE);
-        }
-
         objectList.add(netBean.getData().getArea());
         objectList.add(netBean.getData().getPandaeye().getItems().get(0));
         objectList.add(netBean.getData().getPandaeye());
@@ -123,6 +116,10 @@ public class PageMain extends BaseFragment implements PageContract.View {
         objectList.add(netBean.getData().getInteractive());
         objectList.add(netBean.getData().getCctv());
         objectList.add(netBean.getData().getList().get(0));
+
+        presenter.pandaEyeResult(netBean.getData().getPandaeye().getPandaeyelist());
+        presenter.cctvResult(netBean.getData().getCctv().getListurl());
+        presenter.lightChinaResult(netBean.getData().getList().get(0).getListUrl());
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.homepage_header_item, null);
         homeXrecyclerview.addHeaderView(view);
@@ -138,25 +135,6 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
         itemsList.addAll(netBean.getData().getPandaeye().getItems());
 
-        IHomeImpl.ihttp.get(netBean.getData().getPandaeye().getPandaeyelist(), null, new NetCallbacks<PandaEyeListBean>() {
-            @Override
-            public void onSuccess(final PandaEyeListBean pandaEyeListBean) {
-                App.context.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        pandaEyeList.clear();
-                        pandaEyeList.addAll(pandaEyeListBean.getList());
-                    }
-                });
-
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-
-            }
-        });
-
         pandaLiveList.addAll(netBean.getData().getPandalive().getList());
 
         wallList.addAll(netBean.getData().getWalllive().getList());
@@ -164,44 +142,6 @@ public class PageMain extends BaseFragment implements PageContract.View {
         chinaList.addAll(netBean.getData().getChinalive().getList());
 
         interactiveList.addAll(netBean.getData().getInteractive().getInteractiveone());
-
-        IHomeImpl.ihttp.get(netBean.getData().getCctv().getListurl(), null, new NetCallbacks<CCTVInfoBean>() {
-            @Override
-            public void onSuccess(final CCTVInfoBean cctvInfoBean) {
-                App.context.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        cctvList.clear();
-                        cctvList.addAll(cctvInfoBean.getList());
-                    }
-                });
-
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-
-            }
-        });
-
-        IHomeImpl.ihttp.get(netBean.getData().getList().get(0).getListUrl(), null, new NetCallbacks<LightChinaBean>() {
-            @Override
-            public void onSuccess(final LightChinaBean lightChinaBean) {
-                App.context.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lightChinaList.clear();
-                        lightChinaList.addAll(lightChinaBean.getList());
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-
-            }
-        });
-
 
         homeXrecyclerview.setHasFixedSize(true);
         homeXrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -260,38 +200,8 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
             @Override
             public void onLightChinaItemClickListener(final int position) {
-                HashMap<String,String> map=new HashMap<String, String>();
-                map.put("pid",lightChinaList.get(position).getPid());
-                IHomeImpl.ihttp.get("http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do", map, new NetCallbacks<VideoInfoBean>() {
-                    @Override
-                    public void onSuccess(final VideoInfoBean videoInfoBean) {
-                        videoList.addAll(videoInfoBean.getVideo().getChapters());
-                        Intent intent=new Intent(getActivity(), CultureSpActivity.class);
-                        intent.putExtra("url",videoList.get(0).getUrl());
-                        intent.putExtra("title",lightChinaList.get(position).getTitle());
-
-                        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        String date=format.format(new Date());
-
-                        duration=videoList.get(0).getDuration();
-                        StringBuffer buffer=new StringBuffer();
-                        if(Integer.valueOf(duration)<60){
-                            buffer.append("00:").append(duration);
-                        }else{
-                            duration=(Integer.valueOf(duration)%60)+"";
-                            buffer.append("01:").append(duration);
-                        }
-                        SqlUtils.getInstance()
-                                .add(0,videoList.get(0).getUrl(),buffer.toString(),lightChinaList.get(position).getTitle(),date,videoList.get(0).getImage());
-                        getActivity().startActivity(intent);
-                        videoList.clear();
-                    }
-
-                    @Override
-                    public void onError(String errorMsg) {
-
-                    }
-                });
+                lightChinaPosition=position;
+                presenter.lightChinaVideoInfo(lightChinaList.get(position).getPid());
             }
 
             @Override
@@ -301,38 +211,8 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
             @Override
             public void onPandaEyeItemClickListener(final int position) {
-                HashMap<String,String> map=new HashMap<String, String>();
-                map.put("pid",pandaEyeList.get(position).getPid());
-                IHomeImpl.ihttp.get("http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do", map, new NetCallbacks<VideoInfoBean>() {
-                    @Override
-                    public void onSuccess(final VideoInfoBean videoInfoBean) {
-                        videoList.addAll(videoInfoBean.getVideo().getChapters());
-                        Intent intent=new Intent(getActivity(), CultureSpActivity.class);
-                        intent.putExtra("url",videoList.get(0).getUrl());
-                        intent.putExtra("title",pandaEyeList.get(position).getTitle());
-
-                        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        String date=format.format(new Date());
-
-                        duration=videoList.get(0).getDuration();
-                        StringBuffer buffer=new StringBuffer();
-                        if(Integer.valueOf(duration)<60){
-                            buffer.append("00:").append(duration);
-                        }else{
-                            duration=(Integer.valueOf(duration)%60)+"";
-                            buffer.append("01:").append(duration);
-                        }
-                        SqlUtils.getInstance()
-                                .add(0,videoList.get(0).getUrl(),buffer.toString(),pandaEyeList.get(position).getTitle(),date,videoList.get(0).getImage());
-                        getActivity().startActivity(intent);
-                        videoList.clear();
-                    }
-
-                    @Override
-                    public void onError(String errorMsg) {
-
-                    }
-                });
+                eyePosition=position;
+                presenter.pandaWatchResult(pandaEyeList.get(position).getPid());
             }
 
             @Override
@@ -342,74 +222,14 @@ public class PageMain extends BaseFragment implements PageContract.View {
 
             @Override
             public void onPandaWatchItemClickListener(final int position) {
-                HashMap<String,String> map=new HashMap<String, String>();
-                map.put("pid",itemsList.get(position).getPid());
-                IHomeImpl.ihttp.get("http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do", map, new NetCallbacks<VideoInfoBean>() {
-                    @Override
-                    public void onSuccess(final VideoInfoBean videoInfoBean) {
-                        videoList.addAll(videoInfoBean.getVideo().getChapters());
-                        Intent intent=new Intent(getActivity(), CultureSpActivity.class);
-                        intent.putExtra("url",videoList.get(0).getUrl());
-                        intent.putExtra("title",itemsList.get(position).getTitle());
-
-                        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        String date=format.format(new Date());
-
-                        duration=videoList.get(0).getDuration();
-                        StringBuffer buffer=new StringBuffer();
-                        if(Integer.valueOf(duration)<60){
-                            buffer.append("00:").append(duration);
-                        }else{
-                            duration=(Integer.valueOf(duration)%60)+"";
-                            buffer.append("01:").append(duration);
-                        }
-                        SqlUtils.getInstance()
-                                .add(0,videoList.get(0).getUrl(),buffer.toString(),itemsList.get(position).getTitle(),date,videoList.get(0).getImage());
-                        getActivity().startActivity(intent);
-                        videoList.clear();
-                    }
-
-                    @Override
-                    public void onError(String errorMsg) {
-
-                    }
-                });
+                itemPosition=position;
+                presenter.itemResult(itemsList.get(position).getPid());
             }
 
             @Override
             public void onWonderfulreItemClickListener(final int position) {
-                HashMap<String,String> map=new HashMap<String, String>();
-                map.put("pid",scrollList.get(position).getPid());
-                IHomeImpl.ihttp.get("http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do", map, new NetCallbacks<VideoInfoBean>() {
-                    @Override
-                    public void onSuccess(final VideoInfoBean videoInfoBean) {
-                        videoList.addAll(videoInfoBean.getVideo().getChapters());
-                        Intent intent=new Intent(getActivity(), CultureSpActivity.class);
-                        intent.putExtra("url",videoList.get(0).getUrl());
-                        intent.putExtra("title",scrollList.get(position).getTitle());
-
-                        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        String date=format.format(new Date());
-
-                        duration=videoList.get(0).getDuration();
-                        StringBuffer buffer=new StringBuffer();
-                        if(Integer.valueOf(duration)<60){
-                            buffer.append("00:").append(duration);
-                        }else{
-                            duration=(Integer.valueOf(duration)%60)+"";
-                            buffer.append("01:").append(duration);
-                        }
-                        SqlUtils.getInstance()
-                                .add(0,videoList.get(0).getUrl(),buffer.toString(),scrollList.get(position).getTitle(),date,videoList.get(0).getImage());
-                        getActivity().startActivity(intent);
-                        videoList.clear();
-                    }
-
-                    @Override
-                    public void onError(String errorMsg) {
-
-                    }
-                });
+                wonderfulPosition=position;
+                presenter.wonderfulResult(netBean.getData().getArea().getListscroll().get(wonderfulPosition).getPid());
             }
 
             @Override
@@ -442,39 +262,8 @@ public class PageMain extends BaseFragment implements PageContract.View {
                     intent.putExtra("position", position);
                     startActivity(intent);
                 } else {
-                    HashMap<String, String> map = new HashMap<String, String>();
-                    map.put("pid", netBean.getData().getBigImg().get(position).getPid());
-                    IHomeImpl.ihttp.get("http://vdn.apps.cntv.cn/api/getVideoInfoForCBox.do", map, new NetCallbacks<VideoInfoBean>() {
-                        @Override
-                        public void onSuccess(final VideoInfoBean videoInfoBean) {
-                            videoList.addAll(videoInfoBean.getVideo().getChapters());
-                            Intent intent = new Intent(getActivity(), CultureSpActivity.class);
-                            intent.putExtra("url", videoList.get(0).getUrl());
-                            intent.putExtra("title", list.get(0).getBigImg().get(position).getTitle());
-
-                            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            String date=format.format(new Date());
-
-                            duration=videoList.get(0).getDuration();
-                            StringBuffer buffer=new StringBuffer();
-                            if(Integer.valueOf(duration)<60){
-                                buffer.append("00:").append(duration);
-                            }else{
-                                duration=(Integer.valueOf(duration)%60)+"";
-                                buffer.append("01:").append(duration);
-                            }
-                            SqlUtils.getInstance()
-                                        .add(0,videoList.get(0).getUrl(),buffer.toString(),list.get(0).getBigImg().get(position).getTitle(),date,videoList.get(0).getImage());
-                            startActivity(intent);
-                            videoList.clear();
-
-                        }
-
-                        @Override
-                        public void onError(String errorMsg) {
-
-                        }
-                    });
+                    pos = position;
+                    presenter.rotationResult(netBean.getData().getBigImg().get(position).getPid());
                 }
             }
         });
@@ -508,14 +297,174 @@ public class PageMain extends BaseFragment implements PageContract.View {
     }
 
     @Override
-    public void setPresenter(PageContract.Presenter presenter) {
-        this.presenter = presenter;
+    public void setPandaEyesResult(PandaEyeListBean pandaEyeListBean) {
+        if(pandaEyeListBean!=null){
+            pagemainRelalayout.setVisibility(View.GONE);
+        }
+        pandaEyeList.clear();
+        pandaEyeList.addAll(pandaEyeListBean.getList());
     }
 
+    @Override
+    public void setCCTVResult(CCTVInfoBean cctvInfoBean) {
+        cctvList.clear();
+        cctvList.addAll(cctvInfoBean.getList());
+    }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+    public void setLightChinaResult(LightChinaBean lightChinaBean) {
+        lightChinaList.clear();
+        lightChinaList.addAll(lightChinaBean.getList());
+    }
+
+    @Override
+    public void setRotationResult(VideoInfoBean videoInfoBean) {
+        videoList.addAll(videoInfoBean.getVideo().getChapters());
+
+        duration=videoList.get(0).getDuration();
+        StringBuffer buffer=new StringBuffer();
+        if(Integer.valueOf(duration)<60){
+            buffer.append("00:").append(duration);
+        }else{
+            duration=(Integer.valueOf(duration)%60)+"";
+            buffer.append("01:").append(duration);
+        }
+
+        Intent intent = new Intent(getActivity(), CultureSpActivity.class);
+        intent.putExtra("url", videoList.get(0).getUrl());
+        intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
+        intent.putExtra("imgurl",list.get(0).getBigImg().get(pos).getImage());
+        intent.putExtra("movietime",duration);
+        intent.putExtra("title", list.get(0).getBigImg().get(pos).getTitle());
+
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date=format.format(new Date());
+
+        SqlUtils.getInstance()
+                .add(0,videoList.get(0).getUrl(),buffer.toString(),list.get(0).getBigImg().get(pos).getTitle(),date,list.get(0).getBigImg().get(pos).getImage());
+        startActivity(intent);
+        videoList.clear();
+    }
+
+    @Override
+    public void setWonderfulResult(VideoInfoBean videoInfoBean) {
+        videoList.addAll(videoInfoBean.getVideo().getChapters());
+
+        duration=videoList.get(0).getDuration();
+        StringBuffer buffer=new StringBuffer();
+        if(Integer.valueOf(duration)<60){
+            buffer.append("00:").append(duration);
+        }else{
+            duration=(Integer.valueOf(duration)%60)+"";
+            buffer.append("01:").append(duration);
+        }
+
+        Intent intent=new Intent(getActivity(), CultureSpActivity.class);
+        intent.putExtra("url",videoList.get(0).getUrl());
+        intent.putExtra("title",scrollList.get(wonderfulPosition).getTitle());
+        intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
+        intent.putExtra("imgurl",scrollList.get(wonderfulPosition).getImage());
+        intent.putExtra("movietime",duration);
+
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date=format.format(new Date());
+
+        SqlUtils.getInstance()
+                .add(0,videoList.get(0).getUrl(),buffer.toString(),scrollList.get(wonderfulPosition).getTitle(),date,scrollList.get(wonderfulPosition).getImage());
+        getActivity().startActivity(intent);
+        videoList.clear();
+    }
+
+    @Override
+    public void setItemResult(VideoInfoBean videoInfoBean) {
+        videoList.addAll(videoInfoBean.getVideo().getChapters());
+
+        duration=videoList.get(0).getDuration();
+        StringBuffer buffer=new StringBuffer();
+        if(Integer.valueOf(duration)<60){
+            buffer.append("00:").append(duration);
+        }else{
+            duration=(Integer.valueOf(duration)%60)+"";
+            buffer.append("01:").append(duration);
+        }
+
+        Intent intent=new Intent(getActivity(), CultureSpActivity.class);
+        intent.putExtra("url",videoList.get(0).getUrl());
+        intent.putExtra("title",itemsList.get(itemPosition).getTitle());
+        intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
+        intent.putExtra("imgurl","");
+        intent.putExtra("movietime",duration);
+
+
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date=format.format(new Date());
+
+        SqlUtils.getInstance()
+                .add(0,videoList.get(0).getUrl(),buffer.toString(),itemsList.get(itemPosition).getTitle(),date,itemsList.get(itemPosition).getUrl());
+        getActivity().startActivity(intent);
+        videoList.clear();
+    }
+
+    @Override
+    public void setPandaWatchResult(VideoInfoBean videoInfoBean) {
+        videoList.addAll(videoInfoBean.getVideo().getChapters());
+
+        duration=videoList.get(0).getDuration();
+        StringBuffer buffer=new StringBuffer();
+        if(Integer.valueOf(duration)<60){
+            buffer.append("00:").append(duration);
+        }else{
+            duration=(Integer.valueOf(duration)%60)+"";
+            buffer.append("01:").append(duration);
+        }
+
+        Intent intent=new Intent(getActivity(), CultureSpActivity.class);
+        intent.putExtra("url",videoList.get(0).getUrl());
+        intent.putExtra("title",pandaEyeList.get(eyePosition).getTitle());
+        intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
+        intent.putExtra("imgurl",pandaEyeList.get(eyePosition).getImage());
+        intent.putExtra("movietime",duration);
+
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date=format.format(new Date());
+
+        SqlUtils.getInstance()
+                .add(0,videoList.get(0).getUrl(),buffer.toString(),pandaEyeList.get(eyePosition).getTitle(),date,pandaEyeList.get(eyePosition).getImage());
+        getActivity().startActivity(intent);
+        videoList.clear();
+    }
+
+    @Override
+    public void setLightChinaVideoInfo(VideoInfoBean videoInfoBean) {
+        videoList.addAll(videoInfoBean.getVideo().getChapters());
+
+        duration=videoList.get(0).getDuration();
+        StringBuffer buffer=new StringBuffer();
+        if(Integer.valueOf(duration)<60){
+            buffer.append("00:").append(duration);
+        }else{
+            duration=(Integer.valueOf(duration)%60)+"";
+            buffer.append("01:").append(duration);
+        }
+
+        Intent intent=new Intent(getActivity(), CultureSpActivity.class);
+        intent.putExtra("url",videoList.get(0).getUrl());
+        intent.putExtra("title",lightChinaList.get(lightChinaPosition).getTitle());
+        intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
+        intent.putExtra("imgurl",lightChinaList.get(lightChinaPosition).getImage());
+        intent.putExtra("movietime",duration);
+
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date=format.format(new Date());
+
+        SqlUtils.getInstance()
+                .add(0,videoList.get(0).getUrl(),buffer.toString(),lightChinaList.get(lightChinaPosition).getTitle(),date,lightChinaList.get(lightChinaPosition).getImage());
+        getActivity().startActivity(intent);
+        videoList.clear();
+    }
+
+    @Override
+    public void setPresenter(PageContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 }

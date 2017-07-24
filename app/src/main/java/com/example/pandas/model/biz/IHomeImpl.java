@@ -6,8 +6,12 @@ import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
 import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
 import com.example.pandas.homes.pandaculture.bean.PlayVideo;
 import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
+import com.example.pandas.model.datebean.homebean.CCTVInfoBean;
 import com.example.pandas.model.datebean.homebean.HomePageBean;
 import com.example.pandas.model.datebean.homebean.InteractiveInfoBean;
+import com.example.pandas.model.datebean.homebean.LightChinaBean;
+import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
+import com.example.pandas.model.datebean.homebean.VideoInfoBean;
 import com.example.pandas.model.datebean.livechina.SceneryBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
@@ -148,6 +152,56 @@ public class IHomeImpl implements IHomeModel{
     public void getStartVideo(String pid, NetCallbacks<VideoStartBean> callbacks) {
         Map<String,String> map = new HashMap<>();
         map.put("pid",pid);
+        ihttp.get(Urls.PLAYVIDEO,map,callbacks);
+    }
+
+    @Override
+    public void getPandaEyeBean(String url,NetCallbacks<PandaEyeListBean> callbacks) {
+        ihttp.get(url,null,callbacks);
+    }
+
+    @Override
+    public void getCCTVBean(String url, NetCallbacks<CCTVInfoBean> callbacks) {
+        ihttp.get(url,null,callbacks);
+    }
+
+    @Override
+    public void getLightChinaBean(String url, NetCallbacks<LightChinaBean> callbacks) {
+        ihttp.get(url,null,callbacks);
+    }
+
+    @Override
+    public void getRotationBean(String id, NetCallbacks<VideoInfoBean> callbacks) {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",id);
+        ihttp.get(Urls.PLAYVIDEO,map,callbacks);
+    }
+
+    @Override
+    public void getWonderfulBean(String id, NetCallbacks<VideoInfoBean> callbacks) {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",id);
+        ihttp.get(Urls.PLAYVIDEO,map,callbacks);
+    }
+
+    @Override
+    public void getItemBean(String id, NetCallbacks<VideoInfoBean> callbacks) {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",id);
+        ihttp.get(Urls.PLAYVIDEO,map,callbacks);
+    }
+
+    @Override
+    public void getPandaWatchBean(String id, NetCallbacks<VideoInfoBean> callbacks) {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",id);
+        ihttp.get(Urls.PLAYVIDEO,map,callbacks);
+    }
+
+    @Override
+    public void getLightChinaVideoInfo(String id, NetCallbacks<VideoInfoBean> callbacks) {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",id);
         ihttp.get(Urls.PLAYVIDEO,map,callbacks);
     }
 }
