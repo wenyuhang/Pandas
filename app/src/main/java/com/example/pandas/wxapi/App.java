@@ -30,6 +30,7 @@ public class App extends Application{
     public void onCreate() {
         super.onCreate();
         this.mContext =this;
+
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         Config.DEBUG=true;
