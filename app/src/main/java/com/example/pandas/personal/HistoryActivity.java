@@ -1,11 +1,13 @@
 package com.example.pandas.personal;
 
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,33 +23,41 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class HistoryActivity extends BaseActivity implements ListAdapter.OnClick{
+public class HistoryActivity extends BaseActivity {
 
     @Bind(R.id.fanhui)
     ImageButton fanhui;
-    @Bind(R.id.quxiao)
-    TextView quxiao;
     @Bind(R.id.bianji)
     TextView bianji;
-    @Bind(R.id.personal_history_listview)
-    ListView personalHistoryListview;
     @Bind(R.id.personal_hy_all)
     TextView personalHyAll;
     @Bind(R.id.personal_hy_delete)
     TextView personalHyDelete;
-    @Bind(R.id.personal_hy_net_layout)
-    ImageView personalHyNetLayout;
-    @Bind(R.id.personal_history_data_layout)
-    RelativeLayout personalHistoryDataLayout;
     @Bind(R.id.personal_history_item_detail_bottom)
     LinearLayout personalHistoryItemDetailBottom;
-    private ArrayList<SqliteBean> list;
-    private ArrayList<HistoryBean> history;
-    private ListAdapter adapter;
-    private Integer integer;
-    private ArrayList<Integer> positionBean = new ArrayList<>();
-    private boolean sureTrue = false;
+    @Bind(R.id.personal_history_view)
+    RecyclerView personalHistoryView;
+    @Bind(R.id.personal_history_data_layout)
+    RelativeLayout personalHistoryDataLayout;
+    @Bind(R.id.personal_hy_net_layout)
+    ImageView personalHyNetLayout;
+    @Bind(R.id.activity_history)
+    LinearLayout activityHistory;
 
+    private ArrayList<HistoryBean> list;
+    private ListAdapter adapter;
+    private int count=0;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 300:
+                    adapter.notifyDataSetChanged();
+                    break;
+            }
+        }
+    };
 
     @Override
     public int getLayoutId() {
@@ -56,87 +66,122 @@ public class HistoryActivity extends BaseActivity implements ListAdapter.OnClick
 
     @Override
     public void initview() {
-        history = new ArrayList<>();
-        list = new ArrayList<>();
-//        list.add(new HistoryBean("http://img1.imgtn.bdimg.com/it/u=1494050267,2635264334&fm=26&gp=0.jpg", "00.30", "title", "2017/10/11", ""));
+        list=new ArrayList<>();
         ArrayList<SqliteBean> query = SqlUtils.getInstance().query();
-        for (int x=0;x<query.size();x++){
-            SqliteBean sqliteBean = query.get(x);
-            HistoryBean bean = new HistoryBean();
-            bean.setData(sqliteBean.getMoviedate());
-            bean.setImage(sqliteBean.getImageurl());
-            bean.setTimer(sqliteBean.getMovietime());
-            bean.setTitle(sqliteBean.getMoviename());
-            bean.setUrl(sqliteBean.getMovieurl());
-            bean.setFlg(false);
+        for(int i=0;i<query.size();i++){
 
-            history.add(bean);
-            list.add(sqliteBean);
+            HistoryBean historyBean=new HistoryBean();
+            historyBean.setTitle(query.get(i).getMoviename());
+            historyBean.setImage(query.get(i).getImageurl());
+            historyBean.setData(query.get(i).getMoviedate());
+            historyBean.setTimer(query.get(i).getMovietime());
+            historyBean.setUrl(query.get(i).getMovieurl());
+            historyBean.setFlg(false);
+            list.add(0,historyBean);
         }
+
+
         if (list.size() == 0) {
             personalHyNetLayout.setVisibility(View.VISIBLE);
+            personalHistoryDataLayout.setVisibility(View.GONE);
+            personalHistoryItemDetailBottom.setVisibility(View.GONE);
         } else {
+            personalHyNetLayout.setVisibility(View.GONE);
             personalHistoryDataLayout.setVisibility(View.VISIBLE);
-            adapter = new ListAdapter(this, history ,personalHyDelete);
-            adapter.setOnClick(this);
-            positionBean.addAll(adapter.getList());
-            personalHistoryListview.setAdapter(adapter);
+            personalHistoryItemDetailBottom.setVisibility(View.GONE);
+            personalHistoryView.setHasFixedSize(true);
+            personalHistoryView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            adapter = new ListAdapter(this, list);
+            personalHistoryView.setAdapter(adapter);
+            adapter.setOnClick(new ListAdapter.OnClick() {
+                @Override
+                public void choseClick(int pos) {
+                    if(bianji.getText().equals("取消")){
+                        if(list.get(pos).isFlgCheck()==false){
+                            list.get(pos).setFlgCheck(true);
+                            count++;
+                            personalHyDelete.setText("删除"+count);
+                        }else{
+                            count--;
+                            personalHyDelete.setText("删除"+count);
+                            list.get(pos).setFlgCheck(false);
+                        }
+                        if(count==0){
+                            personalHyDelete.setText("删除");
+                        }
+                    }
+                    handler.sendEmptyMessage(300);
+                }
+            });
         }
     }
 
-
-
-
-
-    @OnClick({R.id.quxiao, R.id.bianji, R.id.personal_hy_all, R.id.personal_hy_delete})
+    @OnClick({R.id.fanhui, R.id.bianji, R.id.personal_hy_all, R.id.personal_hy_delete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.quxiao:
-                bianji.setVisibility(View.VISIBLE);
-                quxiao.setVisibility(View.GONE);
-                personalHistoryItemDetailBottom.setVisibility(View.GONE);
-                adapter.setFlg(false);
-                adapter.notifyDataSetChanged();
+            case R.id.fanhui:
+                finish();
                 break;
             case R.id.bianji:
-                this.bianji.setVisibility(View.GONE);
-                adapter.setFlg(true);
-                quxiao.setVisibility(View.VISIBLE);
-                personalHistoryItemDetailBottom.setVisibility(View.VISIBLE);
-
-                adapter.notifyDataSetChanged();
+                if(bianji.getText().equals("编辑")){
+                    bianji.setText("取消");
+                    personalHistoryDataLayout.setVisibility(View.VISIBLE);
+                    personalHistoryItemDetailBottom.setVisibility(View.VISIBLE);
+                    for(int i=0;i<list.size();i++){
+                        list.get(i).setFlg(true);
+                    }
+                    handler.sendEmptyMessage(300);
+                }else if(bianji.getText().equals("取消")){
+                    bianji.setText("编辑");
+                    personalHistoryDataLayout.setVisibility(View.VISIBLE);
+                    personalHistoryItemDetailBottom.setVisibility(View.GONE);
+                    for(int i=0;i<list.size();i++){
+                        list.get(i).setFlg(false);
+                    }
+                    handler.sendEmptyMessage(300);
+                }
                 break;
             case R.id.personal_hy_all:
-                positionBean.clear();
-                if(personalHyAll.equals("全选")) {
-                    for (int i=0;i<history.size();i++){
-                        history.get(i).setFlg(true);
-                        positionBean.add(i);
-                    }
+                if(personalHyAll.getText().equals("全选")){
                     personalHyAll.setText("取消全选");
-                }else {
-                    positionBean.clear();
-                    for (int i=0;i<history.size();i++){
-                        history.get(i).setFlg(false);
+                    if(bianji.getText().equals("取消")){
+                        for(int i=0;i<list.size();i++){
+                            list.get(i).setFlgCheck(true);
+                        }
+                        count=list.size();
+                        personalHyDelete.setText("删除"+count);
+                        handler.sendEmptyMessage(300);
                     }
+                }else{
+                    for(int i=0;i<list.size();i++){
+                        list.get(i).setFlgCheck(false);
+                    }
+                    personalHyDelete.setText("删除");
                     personalHyAll.setText("全选");
+                    handler.sendEmptyMessage(300);
                 }
-                adapter.notifyDataSetChanged();
                 break;
             case R.id.personal_hy_delete:
-                Log.e("TAG",list.toString()+"have");
-                for (int x=0;x<positionBean.size();x++){
-                    this.list.remove(x);
-                }
-                adapter.notifyDataSetChanged();
+                if(bianji.getText().equals("取消")){
+                    for(int i=list.size()-1;i>=0;i--){
+                        if(list.get(i).isFlgCheck()){
+                            SqlUtils.getInstance().delete(list.get(i).getTitle());
+                            list.remove(i);
+                        }
+                    }
+                    count=0;
+                    personalHyDelete.setText("删除");
+                    handler.sendEmptyMessage(300);
 
+                    if(list.size()==0){
+                        personalHistoryDataLayout.setVisibility(View.GONE);
+                        personalHistoryItemDetailBottom.setVisibility(View.GONE);
+                        bianji.setText("编辑");
+                        bianji.setVisibility(View.GONE);
+                        personalHyNetLayout.setVisibility(View.VISIBLE);
+                    }
+                }
                 break;
         }
-    }
-
-
-    @Override
-    public void choseClick(int pos) {
-//        i = pos;
     }
 }

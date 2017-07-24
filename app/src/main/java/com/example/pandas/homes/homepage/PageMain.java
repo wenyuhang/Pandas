@@ -333,7 +333,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
         Intent intent = new Intent(getActivity(), CultureSpActivity.class);
         intent.putExtra("url", videoList.get(0).getUrl());
         intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
-        intent.putExtra("imgurl",list.get(0).getBigImg().get(pos).getImage());
+        intent.putExtra("imageurl",list.get(0).getBigImg().get(pos).getImage());
         intent.putExtra("movietime",duration);
         intent.putExtra("title", list.get(0).getBigImg().get(pos).getTitle());
 
@@ -341,7 +341,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
         String date=format.format(new Date());
 
         SqlUtils.getInstance()
-                .add(0,videoList.get(0).getUrl(),buffer.toString(),list.get(0).getBigImg().get(pos).getTitle(),date,list.get(0).getBigImg().get(pos).getImage());
+                .add(0,list.get(0).getBigImg().get(pos).getImage(),buffer.toString(),list.get(0).getBigImg().get(pos).getTitle(),date,videoList.get(0).getUrl());
         startActivity(intent);
         videoList.clear();
     }
@@ -363,14 +363,14 @@ public class PageMain extends BaseFragment implements PageContract.View {
         intent.putExtra("url",videoList.get(0).getUrl());
         intent.putExtra("title",scrollList.get(wonderfulPosition).getTitle());
         intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
-        intent.putExtra("imgurl",scrollList.get(wonderfulPosition).getImage());
+        intent.putExtra("imageurl",scrollList.get(wonderfulPosition).getImage());
         intent.putExtra("movietime",duration);
 
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date=format.format(new Date());
 
         SqlUtils.getInstance()
-                .add(0,videoList.get(0).getUrl(),buffer.toString(),scrollList.get(wonderfulPosition).getTitle(),date,scrollList.get(wonderfulPosition).getImage());
+                .add(0,scrollList.get(wonderfulPosition).getImage(),buffer.toString(),scrollList.get(wonderfulPosition).getTitle(),date,videoList.get(0).getUrl());
         getActivity().startActivity(intent);
         videoList.clear();
     }
@@ -392,7 +392,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
         intent.putExtra("url",videoList.get(0).getUrl());
         intent.putExtra("title",itemsList.get(itemPosition).getTitle());
         intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
-        intent.putExtra("imgurl","");
+        intent.putExtra("imageurl","");
         intent.putExtra("movietime",duration);
 
 
@@ -400,7 +400,7 @@ public class PageMain extends BaseFragment implements PageContract.View {
         String date=format.format(new Date());
 
         SqlUtils.getInstance()
-                .add(0,videoList.get(0).getUrl(),buffer.toString(),itemsList.get(itemPosition).getTitle(),date,itemsList.get(itemPosition).getUrl());
+                .add(0,itemsList.get(itemPosition).getUrl(),buffer.toString(),itemsList.get(itemPosition).getTitle(),date,videoList.get(0).getUrl());
         getActivity().startActivity(intent);
         videoList.clear();
     }
@@ -422,14 +422,14 @@ public class PageMain extends BaseFragment implements PageContract.View {
         intent.putExtra("url",videoList.get(0).getUrl());
         intent.putExtra("title",pandaEyeList.get(eyePosition).getTitle());
         intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
-        intent.putExtra("imgurl",pandaEyeList.get(eyePosition).getImage());
+        intent.putExtra("imageurl",pandaEyeList.get(eyePosition).getImage());
         intent.putExtra("movietime",duration);
 
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date=format.format(new Date());
 
         SqlUtils.getInstance()
-                .add(0,videoList.get(0).getUrl(),buffer.toString(),pandaEyeList.get(eyePosition).getTitle(),date,pandaEyeList.get(eyePosition).getImage());
+                .add(0,pandaEyeList.get(eyePosition).getImage(),buffer.toString(),pandaEyeList.get(eyePosition).getTitle(),date,videoList.get(0).getUrl());
         getActivity().startActivity(intent);
         videoList.clear();
     }
@@ -451,14 +451,14 @@ public class PageMain extends BaseFragment implements PageContract.View {
         intent.putExtra("url",videoList.get(0).getUrl());
         intent.putExtra("title",lightChinaList.get(lightChinaPosition).getTitle());
         intent.putExtra("otherurl",videoInfoBean.getVideo().getLowChapters().get(0).getUrl());
-        intent.putExtra("imgurl",lightChinaList.get(lightChinaPosition).getImage());
+        intent.putExtra("imageurl",lightChinaList.get(lightChinaPosition).getImage());
         intent.putExtra("movietime",duration);
 
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date=format.format(new Date());
 
         SqlUtils.getInstance()
-                .add(0,videoList.get(0).getUrl(),buffer.toString(),lightChinaList.get(lightChinaPosition).getTitle(),date,lightChinaList.get(lightChinaPosition).getImage());
+                .add(0,lightChinaList.get(lightChinaPosition).getImage(),buffer.toString(),lightChinaList.get(lightChinaPosition).getTitle(),date,videoList.get(0).getUrl());
         getActivity().startActivity(intent);
         videoList.clear();
     }

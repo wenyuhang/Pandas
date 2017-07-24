@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,7 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         TextView timer;
         TextView title;
         TextView data;
-        CheckBox cb;
+        RadioButton radioButton;
         private SetonClickListener seton;
 
         public MyHolder(View itemView, SetonClickListener setonClickListener) {
@@ -46,9 +47,9 @@ public class MyAdapter extends RecyclerView.Adapter {
             image = (ImageView) itemView.findViewById(R.id.image);
             timer = (TextView) itemView.findViewById(R.id.timer);
             title = (TextView) itemView.findViewById(R.id.title);
-            data = (TextView) itemView.findViewById(R.id.data);
-            cb = (CheckBox) itemView.findViewById(R.id.cb);
-            cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            data = (TextView) itemView.findViewById(R.id.date);
+            radioButton = (RadioButton) itemView.findViewById(R.id.ration);
+            radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     seton.onClickListener(getAdapterPosition(),isChecked);

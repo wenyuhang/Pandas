@@ -12,26 +12,13 @@
     <RelativeLayout
         android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x150">
+        android:layout_height="@dimen/y150">
         <ImageButton
             android:layout_centerVertical="true"
             android:id="@+id/fanhui"
             android:layout_width="@dimen/x80"
             android:layout_height="@dimen/y80"
-            android:background="@mipmap/fenlei_fanhui"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/x150"
-            android:text="@string/quxiao"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/x20"
-            android:textSize="@dimen/x35"
-            android:textColor="@color/white"
-            android:id="@+id/quxiao"
-            android:visibility="gone"/>
+            android:background="@mipmap/fenlei_fanhui" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/x150"
@@ -50,8 +37,7 @@
             android:gravity="center"
             android:textSize="@dimen/x50"
             android:textColor="#ffffff"
-            android:text="@string/lisi"
-            />
+            android:text="@string/lisi" />
 
     </RelativeLayout>
 
@@ -65,30 +51,12 @@
         android:layout_below="@+id/personal_history_item_detail_top"
         android:visibility="gone" >
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-        <ListView
-            android:id="@+id/personal_history_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/personal_history_item_detail_bottom"
-            android:layout_marginTop="10dp"
-            android:divider="@null"
-            android:dividerHeight="10px"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:scrollbars="none" />
-        </LinearLayout>
-        <LinearLayout
             android:id="@+id/personal_history_item_detail_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
-            android:gravity="center"
-            android:visibility="gone"
-            >
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/personal_hy_all"
@@ -118,6 +86,17 @@
                 android:text="删除"
                 android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/personal_history_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/personal_history_item_detail_bottom"
+            android:layout_marginTop="10dp"
+            android:divider="@null"
+            android:dividerHeight="10px"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scrollbars="none" />
     </RelativeLayout>
 
     <ImageView
