@@ -35,12 +35,12 @@ public class PandaCultureItemAdapter extends BaseAdapter<PandaCultureEntity.List
                 .setText(R.id.panda_culture_item_time, listBean.getBrief());
 
         ImageView imageView = holder.getView(R.id.panda_culture_item_image);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Glide.with(context).load(listBean.getImage()).into(imageView);
 
         holder.setOnclickListener(R.id.panda_observe_relativeLayout, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context,"跳转",Toast.LENGTH_SHORT).show();
                 if(listBean.getType().toString().equals("2")){
                     Intent it=new Intent(context, RollDtialActivity.class);
                     context.startActivity(it);

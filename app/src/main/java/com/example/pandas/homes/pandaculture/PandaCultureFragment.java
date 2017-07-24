@@ -1,7 +1,6 @@
 package com.example.pandas.homes.pandaculture;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -24,9 +23,7 @@ import com.example.pandas.base.BaseFragment;
 import com.example.pandas.config.CultureSpActivity;
 import com.example.pandas.homes.pandaculture.adapter.PandaCultureBannerAdapter;
 import com.example.pandas.homes.pandaculture.adapter.PandaCultureItemAdapter;
-import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
 import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
-import com.example.pandas.homes.pandaculture.bean.PlayVideo;
 import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
 import com.example.pandas.homes.pandaculture.contract.CultureContract;
 import com.example.pandas.homes.pandaculture.contract.PandaCulturePresenter;
@@ -36,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by INS7566 on 2017/7/14.
@@ -51,22 +47,19 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
     @Bind(R.id.culture_out_relalayout)
     RelativeLayout cultureOutRelalayout;
     private PandaCulturePresenter pandaCulturePersenter;
-    private List<PandaCultureEntity.BigImgBean> dataBeanList;
-    private List<ImageView> imgs;
     private PandaCultureBannerAdapter pandaCultureBannerAdapter;
     private ViewPager pandaCultureViewPagerView;
     private TextView pandaCultureBannerTitle;
-    private List<PandaCultureEntity.ListBean> listBeanList;
     private PandaCultureItemAdapter itemAdapter;
-    private List<CircleImageView> points;
     private int currentPosition = 10000;
     private ViewGroup pointsLinearLayout;
     ImageView imageView;
     CultureContract.Presenter presenter;
-    int middle;
-    int i = 0;
     String titles;
-
+    private List<CircleImageView> points;
+    private List<PandaCultureEntity.BigImgBean> dataBeanList;
+    private List<ImageView> imgs;
+    private List<PandaCultureEntity.ListBean> listBeanList;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_culture;
@@ -93,34 +86,12 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
         culturePullrecycler.setLoadingMoreEnabled(false);
         //设置是否显示上次刷新的时间
         culturePullrecycler.displayLastRefreshTime(true);
-        culturePullrecycler.setPullToRefreshListener(new PullToRefreshListener() {
-            @Override
-            public void onRefresh() {
-                culturePullrecycler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        culturePullrecycler.setRefreshComplete();
-                        listBeanList.clear();
-                        loadData();
-                    }
-                }, 2000);
-
-            }
-
-            @Override
-            public void onLoadMore() {
-
-            }
-        });
-
         itemAdapter.msetonlistener(new PandaCultureItemAdapter.setOnclick() {
             @Override
             public void setonlistener(String pid, String title) {
-                Log.e("TAG", "一个pid" + pid);
                 presenter.startVideo(pid);
                 titles = title;
             }
-
         });
     }
 
@@ -193,8 +164,6 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
                     break;
 
             }
-
-
         }
     };
 
@@ -237,13 +206,6 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
-
-    @Override
     public void showProgressDialog() {
 
     }
@@ -254,7 +216,7 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
     }
 
     @Override
-    public void setResult(PandaCultureEntity pandaCultureEntity) {
+    public void setResult(final PandaCultureEntity pandaCultureEntity) {
         dataBeanList.addAll(pandaCultureEntity.getBigImg());
         listBeanList.addAll(pandaCultureEntity.getList());
         createImg(pandaCultureEntity);
@@ -262,16 +224,28 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
         if(pandaCultureEntity!=null){
             cultureOutRelalayout.setVisibility(View.GONE);
         }
-    }
+        culturePullrecycler.setPullToRefreshListener(new PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                culturePullrecycler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        culturePullrecycler.setRefreshComplete();
+                        dataBeanList.clear();
+                        listBeanList.clear();
 
-    @Override
-    public void setVideoResult(CCTVBaen cctvBaen) {
+                        dataBeanList.addAll(pandaCultureEntity.getBigImg());
+                        listBeanList.addAll(pandaCultureEntity.getList());
+                    }
+                }, 2000);
 
-    }
+            }
 
-    @Override
-    public void setvideoURl(PlayVideo playVideo) {
+            @Override
+            public void onLoadMore() {
 
+            }
+        });
     }
 
     @Override
@@ -295,11 +269,4 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
         this.presenter = presenter;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 }

@@ -55,7 +55,7 @@ public class VideoXRecylerAdapter extends RecyclerView.Adapter {
             title= (TextView) itemView.findViewById(R.id.panda_culture_detial_item_title);
             time= (TextView) itemView.findViewById(R.id.panda_culture_detial_item_sp_time);
             image= (ImageView) itemView.findViewById(R.id.panda_culture_detial_item_image);
-
+            image.setScaleType(ImageView.ScaleType.CENTER_CROP);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

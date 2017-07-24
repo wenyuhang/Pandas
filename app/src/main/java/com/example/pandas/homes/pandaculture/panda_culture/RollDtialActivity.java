@@ -15,11 +15,9 @@ import com.example.pandas.config.JCVideoPlayerStandard;
 import com.example.pandas.config.VideoUtils;
 import com.example.pandas.homes.pandaculture.adapter.VideoXRecylerAdapter;
 import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
-import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
 import com.example.pandas.homes.pandaculture.bean.PlayVideo;
-import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
-import com.example.pandas.homes.pandaculture.contract.CultureContract;
-import com.example.pandas.homes.pandaculture.contract.PandaCulturePresenter;
+import com.example.pandas.homes.pandaculture.contract.ActivityContract;
+import com.example.pandas.homes.pandaculture.contract.ActivityPresenter;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -31,7 +29,7 @@ import java.util.List;
 import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
-public class RollDtialActivity extends BaseActivity implements CultureContract.View {
+public class RollDtialActivity extends BaseActivity implements ActivityContract.View,View.OnClickListener{
     @Bind(R.id.rollvideo_details_show_image)
     ImageView rollvideoDetailsShowImage;
     @Bind(R.id.visibility_linear)
@@ -42,27 +40,27 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
     ImageView collectNo;
     @Bind(R.id.share)
     ImageView share;
-    ArrayList<CCTVBaen.VideoBean> itemlist;
-    CultureContract.Presenter presenter;
     @Bind(R.id.goback_butt)
     ImageView gobackButt;
-    PandaCulturePresenter pandaCulturePresenter;
-    List<CCTVBaen.VideoBean> video;
     @Bind(R.id.culture_cctv_video)
     JCVideoPlayerStandard cultureCctvVideo;
-    List<PlayVideo.VideoBean.Chapters2Bean> videourllist;
     @Bind(R.id.detils_pullto)
     XRecyclerView detilsPullto;
+    @Bind(R.id.culture_insiad_probar)
+    ProgressBar cultureInsiadProbar;
+    @Bind(R.id.culture_insiad_relalayout)
+    RelativeLayout cultureInsiadRelalayout;
+    ActivityContract.Presenter presenter;
+    ActivityPresenter activityPresenter;
+//    请求视频集的集合
+    ArrayList<CCTVBaen.VideoBean> itemlist;
+    List<CCTVBaen.VideoBean> video;
+    List<PlayVideo.VideoBean.Chapters2Bean> videourllist;
     VideoXRecylerAdapter adapter;
     int p = 1;
     int pos = 1;
     boolean flags=false;
     String des;
-    @Bind(R.id.culture_insiad_probar)
-    ProgressBar cultureInsiadProbar;
-    @Bind(R.id.culture_insiad_relalayout)
-    RelativeLayout cultureInsiadRelalayout;
-
     @Override
     public int getLayoutId() {
         return R.layout.rollvideo_details;
@@ -71,15 +69,57 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
     @Override
     public void initview() {
         cultureInsiadRelalayout.setVisibility(View.VISIBLE);
-        pandaCulturePresenter = new PandaCulturePresenter(this);
+        activityPresenter = new ActivityPresenter(this);
         itemlist = new ArrayList<>();
         videourllist = new ArrayList<>();
+        collectNo.setOnClickListener(this);
+        share.setOnClickListener(this);
+        gobackButt.setOnClickListener(this);
         adapter = new VideoXRecylerAdapter(itemlist, this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         detilsPullto.setLayoutManager(manager);
         detilsPullto.setAdapter(adapter);
         detilsPullto.setPullRefreshEnabled(true);
         detilsPullto.setLoadingMoreEnabled(true);
+        adapter.setOnClick(new VideoXRecylerAdapter.setOnClick() {
+            @Override
+            public void mSetOnClick(View v, int postion) {
+                presenter.playVideo(itemlist.get(postion - 1).getVid());
+                pos = postion;
+            }
+        });
+        rollvideoDetailsShowImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i = 0;
+                i = visibilityLinear.getVisibility();
+                if (i == 8) {
+                    visibilityLinear.setVisibility(View.VISIBLE);
+                    detilesText.setText(des);
+                    rollvideoDetailsShowImage.setImageResource(R.drawable.lpanda_show);
+                } else {
+                    visibilityLinear.setVisibility(View.GONE);
+                    rollvideoDetailsShowImage.setImageResource(R.drawable.lpanda_off);
+                }
+            }
+        });
+
+        presenter.loadDate("6", "VSET100311356635", p + "", "panda", "1");
+
+    }
+
+    @Override
+    public void setVideoResult(CCTVBaen cctvBaen) {
+        des = cctvBaen.getVideoset().get_$0().getDesc();
+        video = cctvBaen.getVideo();
+        if (cctvBaen.getVideo() != null) {
+            itemlist.addAll(video);
+        }
+        adapter.notifyDataSetChanged();
+
+        if (itemlist.size() > 0) {
+            presenter.playVideo(itemlist.get(0).getVid());
+        }
         detilsPullto.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -96,32 +136,65 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
                 detilsPullto.loadMoreComplete();
             }
         });
-        adapter.setOnClick(new VideoXRecylerAdapter.setOnClick() {
-            @Override
-            public void mSetOnClick(View v, int postion) {
-                presenter.playVideo(itemlist.get(postion - 1).getVid());
-                pos = postion;
-            }
-        });
+    }
 
-        collectNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public void setvideoURl(PlayVideo playVideo) {
+        if(playVideo!=null){
+            cultureInsiadRelalayout.setVisibility(View.GONE);
+        }
+        if (videourllist.size() > 0) {
+            videourllist.clear();
+        }
+        videourllist.addAll(playVideo.getVideo().getChapters2());
 
-                if (flags) {
-                    collectNo.setImageResource(R.drawable.collect_no);
-                    Toast.makeText(RollDtialActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
-                    flags = false;
-                }else {
-                    flags=true;
-                    collectNo.setImageResource(R.drawable.collect_yes);
-                    Toast.makeText(RollDtialActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (videourllist.size() > 1 && itemlist.size() > 1) {
+            VideoUtils.getUtils().playVideo(cultureCctvVideo, videourllist.get(0).getUrl(), "", itemlist.get(pos - 1).getImg());
+        }
+
+    }
+
+
+    @Override
+    public void showMessage(String msg) {
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    public void setPresenter(ActivityContract.Presenter presenter) {
+        this.presenter=presenter;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+           case  R.id.collect_no:
+               if (flags) {
+                   collectNo.setImageResource(R.drawable.collect_no);
+                   Toast.makeText(RollDtialActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                   flags = false;
+               }else {
+                   flags=true;
+                   collectNo.setImageResource(R.drawable.collect_yes);
+                   Toast.makeText(RollDtialActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+               }
+            break;
+            case  R.id.share:
                 new ShareAction(RollDtialActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.SINA)
                         .withText("hello")
                         .setCallback(new UMShareListener() {
@@ -147,106 +220,11 @@ public class RollDtialActivity extends BaseActivity implements CultureContract.V
                             }
                         })
                         .open();
-
-            }
-        });
-        gobackButt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case  R.id.goback_butt:
                 finish();
-            }
-        });
-        rollvideoDetailsShowImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int i = 0;
-                i = visibilityLinear.getVisibility();
-                if (i == 8) {
-                    visibilityLinear.setVisibility(View.VISIBLE);
-                    detilesText.setText(des);
-                    rollvideoDetailsShowImage.setImageResource(R.drawable.lpanda_show);
-                } else {
-                    visibilityLinear.setVisibility(View.GONE);
-                    rollvideoDetailsShowImage.setImageResource(R.drawable.lpanda_off);
-                }
-            }
-        });
+                break;
 
-        presenter.loadDate("6", "VSET100311356635", p + "", "panda", "1");
-
-    }
-
-
-    @Override
-    public void showProgressDialog() {
-    }
-
-    @Override
-    public void dismissDialog() {
-    }
-
-    @Override
-    public void setResult(PandaCultureEntity pandaCultureEntity) {
-
-    }
-
-    @Override
-    public void setVideoResult(CCTVBaen cctvBaen) {
-        des = cctvBaen.getVideoset().get_$0().getDesc();
-        video = cctvBaen.getVideo();
-        if (cctvBaen.getVideo() != null) {
-            itemlist.addAll(video);
         }
-        adapter.notifyDataSetChanged();
-
-        if (itemlist.size() > 0) {
-            presenter.playVideo(itemlist.get(0).getVid());
-        }
-    }
-
-    @Override
-    public void setvideoURl(PlayVideo playVideo) {
-        if(playVideo!=null){
-            cultureInsiadRelalayout.setVisibility(View.GONE);
-        }
-        if (videourllist.size() > 0) {
-            videourllist.clear();
-        }
-        videourllist.addAll(playVideo.getVideo().getChapters2());
-
-        if (videourllist.size() > 1 && itemlist.size() > 1) {
-            VideoUtils.getUtils().playVideo(cultureCctvVideo, videourllist.get(0).getUrl(), "", itemlist.get(pos - 1).getImg());
-        }
-
-    }
-
-    @Override
-    public void setStartVideoURL(VideoStartBean videoStartBean) {
-
-    }
-
-    @Override
-    public void showMessage(String msg) {
-
-    }
-
-    @Override
-    public void setPresenter(CultureContract.Presenter presenter) {
-        this.presenter = presenter;
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        JCVideoPlayer.releaseAllVideos();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
-            return;
-        }
-        super.onBackPressed();
     }
 }

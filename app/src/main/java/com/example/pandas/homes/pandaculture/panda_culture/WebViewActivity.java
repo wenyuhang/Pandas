@@ -2,7 +2,6 @@ package com.example.pandas.homes.pandaculture.panda_culture;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -14,17 +13,10 @@ import android.widget.ImageView;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
-import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
-import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
-import com.example.pandas.homes.pandaculture.bean.PlayVideo;
-import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
-import com.example.pandas.homes.pandaculture.contract.CultureContract;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
-public class WebViewActivity extends BaseActivity implements CultureContract.View {
-
+public class WebViewActivity extends BaseActivity  {
 
     @Bind(R.id.culture_webview)
     WebView cultureWebview;
@@ -106,51 +98,4 @@ public class WebViewActivity extends BaseActivity implements CultureContract.Vie
 
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    public void showProgressDialog() {
-
-    }
-
-    @Override
-    public void dismissDialog() {
-
-    }
-
-    @Override
-    public void setResult(PandaCultureEntity pandaCultureEntity) {
-
-    }
-
-    @Override
-    public void setVideoResult(CCTVBaen cctvBaen) {
-
-    }
-
-    @Override
-    public void setvideoURl(PlayVideo playVideo) {
-
-    }
-
-    @Override
-    public void setStartVideoURL(VideoStartBean videoStartBean) {
-
-    }
-
-    @Override
-    public void showMessage(String msg) {
-
-    }
-
-    @Override
-    public void setPresenter(CultureContract.Presenter presenter) {
-
-    }
 }

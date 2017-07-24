@@ -1,8 +1,6 @@
 package com.example.pandas.homes.pandaculture.contract;
 
-import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
 import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
-import com.example.pandas.homes.pandaculture.bean.PlayVideo;
 import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
 import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.biz.IHomeModel;
@@ -42,37 +40,6 @@ public class PandaCulturePresenter implements CultureContract.Presenter {
        
     }
 
-
-    @Override
-    public void loadDate(String n, String vsid, String p, String serviceId,String em) {
-        iHomeModel.getCCTVVideo(n,vsid,p,serviceId,em, new NetCallbacks<CCTVBaen>() {
-            @Override
-            public void onSuccess(CCTVBaen cctvBaen) {
-               cultureview.setVideoResult(cctvBaen);
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-                cultureview.showMessage(errorMsg);
-
-            }
-        });
-    }
-    public void playVideo(String pid){
-        iHomeModel.getVideoUrl(pid, new NetCallbacks<PlayVideo>() {
-            @Override
-            public void onSuccess(PlayVideo playVideo) {
-              cultureview.setvideoURl(playVideo);
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-
-             cultureview.showMessage(errorMsg);
-            }
-        });
-
-    }
     public void startVideo(String pid){
         iHomeModel.getStartVideo(pid, new NetCallbacks<VideoStartBean>() {
             @Override
@@ -86,8 +53,4 @@ public class PandaCulturePresenter implements CultureContract.Presenter {
             }
         });
     }
-
-
-
-
 }

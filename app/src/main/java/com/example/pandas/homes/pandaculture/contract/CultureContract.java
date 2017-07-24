@@ -3,9 +3,7 @@ package com.example.pandas.homes.pandaculture.contract;
 
 import com.example.pandas.base.BasePresenter;
 import com.example.pandas.base.BaseView;
-import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
 import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
-import com.example.pandas.homes.pandaculture.bean.PlayVideo;
 import com.example.pandas.homes.pandaculture.bean.VideoStartBean;
 
 /**
@@ -30,10 +28,8 @@ public interface CultureContract {
          */
 //  请求首个页面的数据
         void setResult(PandaCultureEntity pandaCultureEntity);
-//  请求详情的数据
-        void setVideoResult(CCTVBaen cctvBaen);
-//  请求视频的方法
-        void setvideoURl(PlayVideo playVideo);
+
+
 //       视频全屏播放的请求url
         void setStartVideoURL(VideoStartBean videoStartBean);
         /**
@@ -44,8 +40,7 @@ public interface CultureContract {
 
     }
     interface Presenter extends BasePresenter {
-      void loadDate(String n, String vsid, String p,String serviceId,String em);
-       void playVideo(String pid);
+
        void startVideo(String pid);
 
     }

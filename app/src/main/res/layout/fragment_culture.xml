@@ -12,7 +12,9 @@
 <com.androidkun.PullToRefreshRecyclerView
     android:id="@+id/culture_pullrecycler"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#fdfdfd"
+    >
 
 </com.androidkun.PullToRefreshRecyclerView>
 

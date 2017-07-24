@@ -8,6 +8,8 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by 联想 on 2017/7/12.
@@ -28,6 +30,8 @@ public class App extends Application{
     public void onCreate() {
         super.onCreate();
         this.mContext =this;
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         Config.DEBUG=true;
         UMShareAPI.get(this);
 
