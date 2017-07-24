@@ -86,6 +86,7 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
         culturePullrecycler.setLoadingMoreEnabled(false);
         //设置是否显示上次刷新的时间
         culturePullrecycler.displayLastRefreshTime(true);
+
         itemAdapter.msetonlistener(new PandaCultureItemAdapter.setOnclick() {
             @Override
             public void setonlistener(String pid, String title) {
@@ -93,6 +94,7 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
                 titles = title;
             }
         });
+
     }
 
     @Override
@@ -233,7 +235,6 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
                         culturePullrecycler.setRefreshComplete();
                         dataBeanList.clear();
                         listBeanList.clear();
-
                         dataBeanList.addAll(pandaCultureEntity.getBigImg());
                         listBeanList.addAll(pandaCultureEntity.getList());
                     }
@@ -255,6 +256,8 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
             Intent it = new Intent(getActivity(), CultureSpActivity.class);
             it.putExtra("url", videoStartBean.getVideo().getChapters().get(0).getUrl());
             it.putExtra("title", titles);
+
+//            it.putExtra("image",listBeanList.get())
             startActivity(it);
         }
     }
