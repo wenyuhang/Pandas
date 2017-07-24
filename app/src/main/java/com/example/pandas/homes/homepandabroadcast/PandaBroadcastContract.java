@@ -12,7 +12,6 @@ import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 public interface PandaBroadcastContract {
 //
     interface Presenter extends BasePresenter {
-
     }
 
     interface View extends BaseView<Presenter>  {

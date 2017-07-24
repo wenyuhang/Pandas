@@ -14,6 +14,7 @@ import com.example.pandas.model.datebean.homebean.LightChinaBean;
 import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
 import com.example.pandas.model.datebean.homebean.VideoInfoBean;
 import com.example.pandas.model.datebean.livechina.SceneryBean;
+import com.example.pandas.model.datebean.pandabroadcastbean.BandaBroadBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
@@ -209,5 +210,12 @@ public class IHomeImpl implements IHomeModel{
     @Override
     public void getUpDateBean(NetCallbacks<UpDateBean> callbacks) {
         ihttp.get(Urls.VERSIONCODE,null,callbacks);
+    }
+//    熊猫观察里面视频url的请求
+    public void getBroadVideoUrl(String pid, NetCallbacks<BandaBroadBean> callbacks){
+        Map<String,String> map=new HashMap<>();
+        map.put("pid",pid);
+        ihttp.get(Urls.BROADPLAYVIDEO,map,callbacks);
+
     }
 }

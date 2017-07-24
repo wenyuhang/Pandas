@@ -24,7 +24,6 @@ public class DetilPulltoAdapter extends BaseAdapter<CCTVBaen.VideoBean> {
     public DetilPulltoAdapter(Context context, List<CCTVBaen.VideoBean> datas) {
         super(context, R.layout.detilpullto_item, datas);
         View view= LayoutInflater.from(context).inflate(R.layout.detilpullto_item,null);
-
 //        MyViewholder viewholder=new MyViewholder(context,view);
     }
 
@@ -58,19 +57,6 @@ public class DetilPulltoAdapter extends BaseAdapter<CCTVBaen.VideoBean> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
     }
-
-//    class MyViewholder extends ViewHolder{
-//
-//        public MyViewholder(Context context, View itemView) {
-//            super(context, itemView);
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                msetonclick.setonlistener(v, getAdapterPosition());
-//            }
-//        });
-//        }
-//    }
     }
 
 

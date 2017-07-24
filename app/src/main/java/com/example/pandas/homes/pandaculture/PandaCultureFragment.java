@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
 import com.example.pandas.config.CultureSpActivity;
+import com.example.pandas.config.database.SqlUtils;
 import com.example.pandas.homes.pandaculture.adapter.PandaCultureBannerAdapter;
 import com.example.pandas.homes.pandaculture.adapter.PandaCultureItemAdapter;
 import com.example.pandas.homes.pandaculture.bean.PandaCultureEntity;
@@ -29,7 +30,9 @@ import com.example.pandas.homes.pandaculture.contract.CultureContract;
 import com.example.pandas.homes.pandaculture.contract.PandaCulturePresenter;
 import com.example.pandas.homes.pandaculture.panda_culture.WebViewActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -55,7 +58,8 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
     private ViewGroup pointsLinearLayout;
     ImageView imageView;
     CultureContract.Presenter presenter;
-    String titles;
+    String titles,images,times;
+
     private List<CircleImageView> points;
     private List<PandaCultureEntity.BigImgBean> dataBeanList;
     private List<ImageView> imgs;
@@ -89,9 +93,12 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
 
         itemAdapter.msetonlistener(new PandaCultureItemAdapter.setOnclick() {
             @Override
-            public void setonlistener(String pid, String title) {
+            public void setonlistener(String pid, String title, String image, String time) {
                 presenter.startVideo(pid);
                 titles = title;
+                times=time;
+                images=image;
+
             }
         });
 
@@ -251,13 +258,17 @@ public class PandaCultureFragment extends BaseFragment implements CultureContrac
 
     @Override
     public void setStartVideoURL(VideoStartBean videoStartBean) {
-        Log.e("playvideolist", videoStartBean.getVideo().getChapters().get(0).getUrl() + "请求有没有数据");
+        Log.e("playvideolist", videoStartBean.getVideo().getLowChapters().get(0).getUrl() + "请求有没有数据");
         if (videoStartBean.getVideo().getChapters().get(0).getUrl() != null) {
             Intent it = new Intent(getActivity(), CultureSpActivity.class);
             it.putExtra("url", videoStartBean.getVideo().getChapters().get(0).getUrl());
             it.putExtra("title", titles);
-
-//            it.putExtra("image",listBeanList.get())
+            it.putExtra("imgurl",images);
+            it.putExtra("movietime",times);
+            it.putExtra("otherurl", videoStartBean.getVideo().getChapters4().get(0).getUrl());
+            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String date=format.format(new Date());
+            SqlUtils.getInstance().add(0,images,times,titles,date,videoStartBean.getVideo().getChapters().get(0).getUrl());
             startActivity(it);
         }
     }

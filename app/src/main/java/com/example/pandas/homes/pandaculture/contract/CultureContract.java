@@ -44,5 +44,4 @@ public interface CultureContract {
        void startVideo(String pid);
 
     }
-
 }

@@ -14,6 +14,7 @@ import com.androidkun.callback.PullToRefreshListener;
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.base.BaseFragment;
+import com.example.pandas.model.datebean.pandabroadcastbean.BandaBroadBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 
@@ -41,6 +42,7 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     private PandaBroadcastAdapter pandaBroadcastAdapter;
     private ImageView pdb_up_image;
     private List<TitleBean.DataBean.BigImgBean> bigImg;
+    private List<BandaBroadBean.VideoBean.LowChaptersBean> videourllist;
     private View inflate;
 
     @Override
@@ -52,6 +54,7 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
     protected void init(View view) {
         pandabroadcastRelalayout.setVisibility(View.VISIBLE);
         listBeen = new ArrayList<>();
+        videourllist=new ArrayList<>();
         inflate = View.inflate(getContext(), R.layout.pandabroadcast_up_item, null);
         textView = (TextView) inflate.findViewById(R.id.pdb_up_image_title);
         pdb_up_image = (ImageView) inflate.findViewById(R.id.pdb_up_image);
@@ -88,6 +91,7 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
 
             }
         });
+
     }
 
     //
@@ -110,7 +114,6 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
 
     @Override
     public void setResult(PdBBean pdBBean) {
-
         list = pdBBean.getList();
         listBeen.addAll(list);
         pandaBroadcastAdapter.notifyDataSetChanged();
@@ -142,14 +145,10 @@ public class PandaBroadcastMain extends BaseFragment implements PandaBroadcastCo
 
     @Override
     public void showMessage(String msg) {
-
     }
-
 
     @Override
     public void setPresenter(PandaBroadcastContract.Presenter presenter) {
         this.presenter = presenter;
     }
-
-
 }

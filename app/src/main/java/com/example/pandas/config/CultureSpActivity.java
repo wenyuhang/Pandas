@@ -27,7 +27,7 @@ public class CultureSpActivity extends BaseActivity implements JCVideoPlayerStan
                 url, title);
 
         JCVideoPlayerStandard.setOnCollect(this);
-        finish();
+//        finish();
     }
 
     @Override

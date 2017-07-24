@@ -44,9 +44,8 @@ public class PandaCultureItemAdapter extends BaseAdapter<PandaCultureEntity.List
                 if(listBean.getType().toString().equals("2")){
                     Intent it=new Intent(context, RollDtialActivity.class);
                     context.startActivity(it);
-
                 }else{
-                    msetonclick.setonlistener(listBean.getId(),listBean.getTitle());
+                    msetonclick.setonlistener(listBean.getId(),listBean.getTitle(),listBean.getImage(),listBean.getBrief());
                 }
 
             }
@@ -54,12 +53,11 @@ public class PandaCultureItemAdapter extends BaseAdapter<PandaCultureEntity.List
 
     }
     public interface setOnclick{
-        void setonlistener(String pid,String title);
+        void setonlistener(String pid,String title,String image,String time);
     }
 
     public void msetonlistener(setOnclick msetonclick){
         this.msetonclick=msetonclick;
     }
-
 
 }

@@ -14,6 +14,7 @@ import com.example.pandas.model.datebean.homebean.PandaEyeListBean;
 import com.example.pandas.model.datebean.homebean.VideoInfoBean;
 import com.example.pandas.model.datebean.livechina.LiveChinaBean;
 import com.example.pandas.model.datebean.livechina.SceneryBean;
+import com.example.pandas.model.datebean.pandabroadcastbean.BandaBroadBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.TitleBean;
 import com.example.pandas.model.datebean.pandasending.LiveTabBean;
 import com.example.pandas.model.datebean.pandasending.MultipleBean;
@@ -84,4 +85,5 @@ public interface IHomeModel extends BaseModel{
     void getLightChinaVideoInfo(String id,NetCallbacks<VideoInfoBean> callbacks);
 
     void getUpDateBean(NetCallbacks<UpDateBean> callbacks);
+    void getBroadVideoUrl(String pid, NetCallbacks<BandaBroadBean> callbacks);
 }

@@ -12,6 +12,7 @@ import com.androidkun.adapter.ViewHolder;
 import com.bumptech.glide.Glide;
 import com.example.pandas.R;
 import com.example.pandas.config.CultureSpActivity;
+import com.example.pandas.config.database.SqlUtils;
 import com.example.pandas.model.biz.IHomeImpl;
 import com.example.pandas.model.datebean.pandabroadcastbean.BandaBroadBean;
 import com.example.pandas.model.datebean.pandabroadcastbean.PdBBean;
@@ -30,6 +31,7 @@ import java.util.Map;
 
 public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
 
+//     OnClick monclick;
 
     public PandaBroadcastAdapter(Context context, List<PdBBean.ListBean> datas) {
         super(context, R.layout.pandabroadcast_down_item, datas);
@@ -44,14 +46,14 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(dat);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String format1 = format.format(gc.getTime());
+        final String format1 = format.format(gc.getTime());
         holder.setText(R.id.pdbd_d_time, format1);
         ImageView imageView = holder.getView(R.id.pdbd_d_iamge);
         Glide.with(context).load(pdBBean.getPicurl()).into(imageView);
         holder.setOnclickListener(R.id.pulltorefersh_down, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String guid = pdBBean.getGuid();
+                 String guid = pdBBean.getGuid();
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("pid", guid);
                 IHomeImpl.ihttp.get("http://115.182.35.91/api/getVideoInfoForCBox.do", map, new NetCallbacks<BandaBroadBean>() {
@@ -60,7 +62,6 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
                     public void onSuccess(BandaBroadBean bandaBroadBean) {
                         // 标题
                         String title = bandaBroadBean.getTitle();
-
                         //高清
                         String url = bandaBroadBean.getVideo().getChapters().get(0).getUrl();
                         Log.e("高清", url);
@@ -72,9 +73,16 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
                         if(s1.getBoolean("bool",false)){
                             Log.e("123","----------");
                         }else {
+//
                             Intent intent = new Intent(context, CultureSpActivity.class);
-                            intent.putExtra("url",url);
+                            intent.putExtra("url",url1);
                             intent.putExtra("title",title);
+                            intent.putExtra("imgurl",pdBBean.getPicurl());
+                            intent.putExtra("movietime",pdBBean.getVideolength());
+                            intent.putExtra("otherurl",url);
+                            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            String date=format.format(new Date());
+                            SqlUtils.getInstance().add(0,pdBBean.getPicurl(),pdBBean.getVideolength(),title,date,url1);
                             context.startActivity(intent);
                             SharedPreferences.Editor edit = s1.edit();
                             edit.putBoolean("bool",true);
@@ -89,7 +97,5 @@ public class PandaBroadcastAdapter extends BaseAdapter<PdBBean.ListBean> {
                 });
             }
         });
-
     }
-
 }

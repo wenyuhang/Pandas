@@ -11,8 +11,10 @@ import android.widget.Toast;
 
 import com.example.pandas.R;
 import com.example.pandas.base.BaseActivity;
+import com.example.pandas.config.ACacheUtils;
 import com.example.pandas.config.JCVideoPlayerStandard;
 import com.example.pandas.config.VideoUtils;
+import com.example.pandas.config.database.SqlUtils;
 import com.example.pandas.homes.pandaculture.adapter.VideoXRecylerAdapter;
 import com.example.pandas.homes.pandaculture.bean.CCTVBaen;
 import com.example.pandas.homes.pandaculture.bean.PlayVideo;
@@ -23,12 +25,13 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-
 
 
 public class RollDtialActivity extends BaseActivity implements ActivityContract.View,View.OnClickListener{
@@ -58,6 +61,7 @@ public class RollDtialActivity extends BaseActivity implements ActivityContract.
     ArrayList<CCTVBaen.VideoBean> itemlist;
     List<CCTVBaen.VideoBean> video;
     List<PlayVideo.VideoBean.Chapters2Bean> videourllist;
+    List<PlayVideo.VideoBean.Chapters4Bean> otherurl;
     VideoXRecylerAdapter adapter;
     int p = 1;
     int pos = 1;
@@ -73,6 +77,7 @@ public class RollDtialActivity extends BaseActivity implements ActivityContract.
         cultureInsiadRelalayout.setVisibility(View.VISIBLE);
         activityPresenter = new ActivityPresenter(this);
         itemlist = new ArrayList<>();
+        otherurl=new ArrayList<>();
         videourllist = new ArrayList<>();
         collectNo.setOnClickListener(this);
         share.setOnClickListener(this);
@@ -88,6 +93,9 @@ public class RollDtialActivity extends BaseActivity implements ActivityContract.
             public void mSetOnClick(View v, int postion) {
                 presenter.playVideo(itemlist.get(postion - 1).getVid());
                 pos = postion;
+                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String date=format.format(new Date());
+                SqlUtils.getInstance().add(0,itemlist.get(pos - 1).getImg(),itemlist.get(pos-1).getPtime(),itemlist.get(pos-1).getT(),date, videourllist.get(0).getUrl());
             }
         });
         rollvideoDetailsShowImage.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +138,6 @@ public class RollDtialActivity extends BaseActivity implements ActivityContract.
                 adapter.notifyDataSetChanged();
                 detilsPullto.refreshComplete();
             }
-
             @Override
             public void onLoadMore() {
                 p++;
@@ -149,11 +156,13 @@ public class RollDtialActivity extends BaseActivity implements ActivityContract.
             videourllist.clear();
         }
         videourllist.addAll(playVideo.getVideo().getChapters2());
-
+        otherurl.addAll(playVideo.getVideo().getChapters4());
         if (videourllist.size() > 1 && itemlist.size() > 1) {
+            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String videodate=format.format(new Date());
             VideoUtils.getUtils().playVideo(cultureCctvVideo, videourllist.get(0).getUrl(), "", itemlist.get(pos - 1).getImg());
+            ACacheUtils.getUtils().setStorage(itemlist.get(pos - 1).getImg(),itemlist.get(pos-1).getPtime(),itemlist.get(pos-1).getT(),videodate,videourllist.get(0).getUrl(),otherurl.get(0).getUrl());
         }
-
     }
 
 
@@ -161,8 +170,6 @@ public class RollDtialActivity extends BaseActivity implements ActivityContract.
     public void showMessage(String msg) {
 
     }
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -189,11 +196,17 @@ public class RollDtialActivity extends BaseActivity implements ActivityContract.
                if (flags) {
                    collectNo.setImageResource(R.drawable.collect_no);
                    Toast.makeText(RollDtialActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                   ACacheUtils.getUtils().deleteStorage(itemlist.get(pos-1).getT());
                    flags = false;
                }else {
                    flags=true;
                    collectNo.setImageResource(R.drawable.collect_yes);
+                   SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                   Date curadte=new Date(System.currentTimeMillis());
+                   String datetime=format.format(curadte);
+                   ACacheUtils.getUtils().setStorage(itemlist.get(pos - 1).getImg(),itemlist.get(pos-1).getPtime(),itemlist.get(pos-1).getT(),datetime, videourllist.get(0).getUrl(),otherurl.get(0).getUrl());
                    Toast.makeText(RollDtialActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+
                }
             break;
             case  R.id.share:
