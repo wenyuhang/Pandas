@@ -208,7 +208,6 @@ public class LoginActivity extends BaseActivity {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.e("TAG","-----"+e.getMessage().toString());
                 }
 
                 @Override
@@ -218,11 +217,9 @@ public class LoginActivity extends BaseActivity {
 
                     JSESSIONID = headers.get("Set-Cookie");
 
-                    Log.e("TAG", "Cookie+++++" + JSESSIONID);
 
                     String string = response.body().string();
 
-                    Log.e("TAG","+++++"+string);
 
                     Gson gson = new Gson();
 
@@ -296,6 +293,17 @@ public class LoginActivity extends BaseActivity {
 
                     nickname1 = niChengBean.getContent().getNickname();
                     Log.d("LoginActivity", nickname1);
+                    SharedPreferences.Editor xinxi = getSharedPreferences("xinxi", MODE_PRIVATE).edit();
+                    xinxi.putString("iconurl", "");
+                    xinxi.putString("name", nickname1);
+                    xinxi.putBoolean("boolean",false);
+                    xinxi.commit();
+                    Intent intent = new Intent();
+                    intent.putExtra("s",nickname1);
+                    intent.putExtra("boolean",false);
+                    intent.setAction("aabb");
+                    sendBroadcast(intent);
+                    finish();
                 }
             });
 
@@ -303,4 +311,7 @@ public class LoginActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
-    }
+
+
+}
+

@@ -72,7 +72,10 @@ public class PersonalXinActivity extends BaseActivity implements UMAuthListener{
         String iconurl = xinxi.getString("iconurl", "");
         String name = xinxi.getString("name", "");
         Log.d("PersonalXinActivity", iconurl + "--------" + name);
-        Glide.with(this).load(iconurl).into(ivHeadicon);
+        if(!iconurl.equals("")){
+            Glide.with(this).load(iconurl).into(ivHeadicon);
+        }
+
         nickName.setText(name);
         edit = xinxi.edit();
 

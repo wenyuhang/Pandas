@@ -1,6 +1,9 @@
 package com.example.pandas.homes.personalcenter;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +48,14 @@ public class PersonalMain extends BaseFragment implements PersonalXinActivity.In
     private boolean aBoolean;
     private String iconurl;
     private String name;
+
+    private BroadcastReceiver bar=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            aBoolean=intent.getBooleanExtra("boolean",true);
+            title.setText(intent.getStringExtra("s"));
+        }
+    };
     @Override
     protected int getLayoutId() {
         return R.layout.activity_personal_center;
@@ -52,6 +63,8 @@ public class PersonalMain extends BaseFragment implements PersonalXinActivity.In
 
     @Override
     protected void init(View view) {
+        IntentFilter filter=new IntentFilter("aabb");
+        getActivity().registerReceiver(bar,filter);
         PersonalXinActivity.setInformation(this);
         LoginActivity.setInformatio(this);
         SharedPreferences xinxi = getActivity().getSharedPreferences("xinxi", MODE_PRIVATE);
@@ -76,15 +89,9 @@ public class PersonalMain extends BaseFragment implements PersonalXinActivity.In
                 if (aBoolean == true) {
 
                     startActivity(new Intent(App.context, LoginActivity.class));
-//                    image.setImageResource(R.mipmap.personal_login_head);
-//                    title.setText("点击登录");
                 } else {
                     Intent intent = new Intent(App.context, PersonalXinActivity.class);
-//                    intent.putExtra("iconurl",iconurl);
-//                    intent.putExtra("name",);
                     startActivity(intent);
-//                    Glide.with(PersonalCenterActivity.this).load(iconurl).into(image);
-//                    title.setText(name);
                 }
                 break;
             case R.id.personalCenter_History:
@@ -125,4 +132,5 @@ public class PersonalMain extends BaseFragment implements PersonalXinActivity.In
         Glide.with(getActivity()).load(iconurl).into(image);
         title.setText(name);
     }
+
 }
