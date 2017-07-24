@@ -32,7 +32,7 @@ import butterknife.OnClick;
  * Created by 联想 on 2017/7/10.
  */
 
-public class LiveChinaMain extends BaseFragment implements LiveChinaContract.View, View.OnClickListener {
+public class LiveChinaMain extends BaseFragment implements LiveChinaContract.View, View.OnClickListener{
 
 
     @Bind(R.id.liveChina_tablayout)
@@ -73,6 +73,8 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
 
     @Override
     protected void init(View view) {
+
+
         livechinaRelalayout.setVisibility(View.VISIBLE);
 
         list = new ArrayList<BaseFragment>();
@@ -166,41 +168,13 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
     @Override
     protected void loadData() {
         urls = new ArrayList<>();
-//        aCache = ACache.get(App.context);
-//        String china = aCache.getAsString("china");
-//        if(china!=null){
-//            setpoppupwindowDate(new Gson().fromJson(china,SceneryBean.class));
-//            lcPpageAdapter.notifyDataSetChanged();
-//        }else {
             presenter.strat();
-//        }
-
-    }
-
-    @Override
-    public void showProgressDialog() {
-
-    }
-
-    @Override
-    public void dismissDialog() {
-
-    }
-
-    @Override
-    public void setResult(LiveChinaBean netBean) {
-
-
     }
 
     @Override
     public void setResult2(SceneryBean netBean) {
        setpoppupwindowDate(netBean);
         settablayout();
-//        Gson gson = new Gson();
-//        String s = gson.toJson(netBean);
-//        aCache.put("china",s);
-
     }
 
     private void setpoppupwindowDate(SceneryBean netBean) {
@@ -281,6 +255,7 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
         }
     }
 
+
     private void settablayout() {
         list.clear();
         strings.clear();
@@ -319,6 +294,12 @@ public class LiveChinaMain extends BaseFragment implements LiveChinaContract.Vie
         ViewGroup.LayoutParams params = gridView.getLayoutParams();
         params.height = (totalHeight + (gridView.getMeasuredHeight() * (listAdapter.getCount() - 1))) / 3;
         gridView.setLayoutParams(params);
+    }
+
+    @Override
+    public void setResult(LiveChinaBean netBean) {
+
+
     }
 
 

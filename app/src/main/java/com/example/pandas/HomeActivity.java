@@ -129,6 +129,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
                 homeIcon.setVisibility(View.VISIBLE);
                 homeText.setVisibility(View.GONE);
                 homeInteraction.setVisibility(View.VISIBLE);
+                transaction.commit();
                 break;
             case R.id.home_PandaLive:
                 a = 2;
@@ -140,7 +141,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
                 } else {
                     transaction.show(pandaLiveMain);
                 }
-
+                transaction.commit();
                 break;
             case R.id.home_RollVideo:
                 a = 3;
@@ -152,6 +153,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
                 } else {
                     transaction.show(pandaCultureFragment);
                 }
+                transaction.commit();
                 break;
             case R.id.home_PandaBroadcast:
                 a = 4;
@@ -164,6 +166,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
                 } else {
                     transaction.show(pandaBroadcastMain);
                 }
+                transaction.commit();
                 break;
             case R.id.home_LiveChina:
                 a = 5;
@@ -176,6 +179,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
                 } else {
                     transaction.show(liveChinaMain);
                 }
+                transaction.commit();
                 break;
             case R.id.home_radiogroup:
                 break;
@@ -191,13 +195,23 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
                 } else {
                     transaction.show(personalMain);
                 }
+                transaction.commit();
                 break;
             case R.id.home_interaction:
                 startActivity(new Intent(this, InteractiveMainActivity.class));
                 break;
         }
         x=0;
-        transaction.commit();
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        homeIcon.setVisibility(View.VISIBLE);
+        homeText.setVisibility(View.GONE);
+        homeInteraction.setVisibility(View.VISIBLE);
+        presenter.strat();
     }
 
     public void getpanduan(FragmentTransaction transaction) {
@@ -232,9 +246,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
 
     @Override
     public void onBackPressed() {
+
         x++;
         Log.d("HomeActivity", x + "-------");
-
         if (b == 0) {
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
@@ -248,7 +262,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
                     homeText.setVisibility(View.GONE);
                     homeInteraction.setVisibility(View.VISIBLE);
                     transaction.show(pageMain);
-
                     break;
                 case 2:
                     homeText.setText("熊猫直播");
@@ -271,6 +284,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
             b = 1;
             homeRadiogroup.setVisibility(View.VISIBLE);
             transaction.commit();
+            presenter.strat();
         }
 
 

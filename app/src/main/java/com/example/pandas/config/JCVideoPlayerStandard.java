@@ -255,7 +255,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
             backPress();
         }else if(i == fm.jiecao.jcvideoplayer_lib.R.id.share){
             Log.d(TAG, "1234");
-            new ShareAction(App.context).setDisplayList(SHARE_MEDIA.SINA).withText("我能分享了").setCallback(new UMShareListener() {
+            new ShareAction(App.context).setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.FACEBOOK).withText("我能分享了").setCallback(new UMShareListener() {
                 @Override
                 public void onStart(SHARE_MEDIA share_media) {
                     Log.d(TAG, "开始");

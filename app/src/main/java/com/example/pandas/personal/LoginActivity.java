@@ -76,21 +76,13 @@ public class LoginActivity extends BaseActivity {
                     getUserTicket();
                 break;
 
-                case 400:
-                    Log.e("TAG","--------"+nickname1);
-                    SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
-                    SharedPreferences.Editor edit = xinxi.edit();
-                    edit.putBoolean("boolean", false);
-//                    edit.putString("iconurl", substring);
-                    edit.putString("name", nickname1);
-                    edit.commit();
-                    break;
             }
         }
     };
     private String usrid;
     private String JSESSIONID = null;
     private String nickname1;
+    private String user_seq_id;
 
     @Override
     public int getLayoutId() {
@@ -149,8 +141,6 @@ public class LoginActivity extends BaseActivity {
             String name = data.get("name");
             Log.e("TAG", iconurl);
             Log.e("TAG", name);
-//            Intent intent = new Intent(LoginActivity.this, PersonalCenterActivity.class);
-//            startActivity(intent);
 
             SharedPreferences xinxi = getSharedPreferences("xinxi", MODE_PRIVATE);
             SharedPreferences.Editor edit = xinxi.edit();
@@ -238,7 +228,10 @@ public class LoginActivity extends BaseActivity {
 
                     LoginBean loginBean = gson.fromJson(string, LoginBean.class);
 
+                    user_seq_id = loginBean.getUser_seq_id();
+
                     String errType = loginBean.getErrType();
+
 
                     usrid = loginBean.getUsrid();
 
@@ -276,13 +269,7 @@ public class LoginActivity extends BaseActivity {
         String form = "http://cbox_mobile.regclientuser.cntv.cn";
         String url = "http://my.cntv.cn/intf/napi/api.php" + "?client="
                 + "cbox_mobile" + "&method=" + "user.getNickName"
-                + "&userid=" + usrid;
-
-//        httpGet.addHeader("Referer",
-//                URLEncoder.encode(client, "UTF-8"));
-//        httpGet.addHeader("User-Agent", URLEncoder.encode(
-//                "CNTV_APP_CLIENT_CBOX_MOBILE", "UTF-8"));
-//        httpGet.addHeader("Cookie", "verifycode=" + verifycode);
+                + "&userid=" + user_seq_id;
 
         try {
             Request request = new Request.Builder()
@@ -308,13 +295,7 @@ public class LoginActivity extends BaseActivity {
                     NiChengBean niChengBean = gson.fromJson(string, NiChengBean.class);
 
                     nickname1 = niChengBean.getContent().getNickname();
-
-//                    substring = nickname1.substring(1);
-
-                    Log.e("TAG","--------"+nickname1);
-//                    Log.e("TAG","--------"+substring);
-
-                    handler.sendEmptyMessage(MSG_GET_NICKNAME_SUCCESS);
+                    Log.d("LoginActivity", nickname1);
                 }
             });
 

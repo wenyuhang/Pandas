@@ -15,31 +15,11 @@ public interface LiveChinaContract {
      * view接口
      */
     interface View extends BaseView<Presenter> {
-        /**
-         * 显示进度dialog
-         */
-        void showProgressDialog();
-        /**
-         * 关闭进度dialog
-         */
-        void dismissDialog();
 
-        /**
-         * 返回网络数据
-         * @param netBean
-         */
         void setResult(LiveChinaBean netBean);
 
-        /**
-         * 返回网络数据
-         * @param netBean
-         */
         void setResult2(SceneryBean netBean);
 
-        /**
-         * 显示返回信息（成功或失败）
-         * @param msg
-         */
         void showMessage(String msg);
     }
 

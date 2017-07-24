@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ACacheUtils {
     private static ACacheUtils utils;
-    private final ArrayList<CollectionDate> dates;
+    private ArrayList<CollectionDate> dates;
 
     private ACacheUtils() {
         dates = new ArrayList<>();
@@ -32,14 +32,19 @@ public class ACacheUtils {
         aCache.put("array",dates);
     }
     public void deleteStorage(String moviename){
+        Storage();
         for(int i = 0; i <dates.size() ; i++) {
             if(dates.get(i).getMoviename().equals(moviename)){
                 dates.remove(i);
             }
         }
+        ACache aCache = ACache.get(App.context);
+        aCache.put("array",dates);
     }
 
     public ArrayList<CollectionDate> Storage(){
+        ACache aCache = ACache.get(App.context);
+        dates = (ArrayList<CollectionDate>) aCache.getAsObject("array");
         return dates;
     }
 }

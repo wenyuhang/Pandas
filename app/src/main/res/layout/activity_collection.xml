@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_collection"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.example.pandas.personal.CollectionActivity">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
     <RelativeLayout
         android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x150">
+        android:layout_height="@dimen/y100">
         <ImageButton
             android:layout_centerVertical="true"
             android:id="@+id/fanhui"
@@ -26,7 +29,17 @@
             android:textSize="@dimen/x50"
             android:textColor="#ffffff"
             android:text="@string/shouchang"
+            />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:id="@+id/collection_edit"
+            android:text="编辑"
             />
 
     </RelativeLayout>
@@ -74,9 +87,38 @@
         android:id="@+id/fram"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></FrameLayout>
-
-
-
-
-
 </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:id="@+id/collect_linearlayout"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    >
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:id="@+id/collect_all"
+        android:text="全选"
+        android:layout_weight="1"
+        />
+    <View
+        android:layout_width="@dimen/x1"
+        android:layout_height="match_parent"
+        android:background="@color/barbackground"
+        ></View>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:id="@+id/collect_delect"
+        android:text="删除"
+        android:layout_weight="1"
+        />
+</LinearLayout>
+
+
+
+</RelativeLayout>
