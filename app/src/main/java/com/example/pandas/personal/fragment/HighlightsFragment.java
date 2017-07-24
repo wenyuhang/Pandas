@@ -33,16 +33,32 @@ public class HighlightsFragment extends BaseFragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent.getStringExtra("yes").equals("全选")){
-                Toast.makeText(context, "全选", Toast.LENGTH_SHORT).show();
-
+                adapter.ffff=true;
+                adapter.notifyDataSetChanged();
             }else if(intent.getStringExtra("yes").equals("取消全选")){
+                adapter.ffff=false;
+                adapter.notifyDataSetChanged();
                 Toast.makeText(context, "取消全选", Toast.LENGTH_SHORT).show();
             }else if(intent.getStringExtra("yes").equals("删除")){
-                Toast.makeText(context, "删除", Toast.LENGTH_SHORT).show();
+                if(adapter.ffff){
+                    storage.clear();
+                    ACacheUtils.getUtils().deleteStorage("");
+                    adapter.notifyDataSetChanged();
+                }else {
+                    Toast.makeText(context, "请选择您要删除的内容", Toast.LENGTH_SHORT).show();
+                }
+            }else if(intent.getStringExtra("yes").equals("编辑")){
+                adapter.flag=true;
+                adapter.notifyDataSetChanged();
+
+            }else if(intent.getStringExtra("yes").equals("取消")){
+                adapter.flag=false;
+                adapter.notifyDataSetChanged();
             }
         }
     };
     private CollectionAdapter adapter;
+    private ArrayList<CollectionDate> storage;
 
     @Override
     protected int getLayoutId() {
@@ -53,11 +69,12 @@ public class HighlightsFragment extends BaseFragment {
     protected void init(View view) {
         IntentFilter filter=new IntentFilter("checks");
         getActivity().registerReceiver(receiver,filter);
-        ArrayList<CollectionDate> storage = ACacheUtils.getUtils().Storage();
-        if(storage!=null){
+        storage = ACacheUtils.getUtils().Storage();
+        if(storage !=null){
+            history_recyclerview.setBackground(null);
             history_recyclerview.setHasFixedSize(true);
             history_recyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-            adapter = new CollectionAdapter(getActivity(),storage);
+            adapter = new CollectionAdapter(getActivity(), storage);
             history_recyclerview.setAdapter(adapter);
         }
 

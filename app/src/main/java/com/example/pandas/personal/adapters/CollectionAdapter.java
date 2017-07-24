@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +23,8 @@ public class CollectionAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private ArrayList<CollectionDate> list;
+    public boolean flag=false;
+    public boolean ffff=false;
 
     public CollectionAdapter(Context context, ArrayList<CollectionDate> list) {
         this.context = context;
@@ -35,7 +37,7 @@ public class CollectionAdapter extends RecyclerView.Adapter {
         TextView timer;
         TextView title;
         TextView date;
-        RadioButton radio;
+        CheckBox radio;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -43,7 +45,7 @@ public class CollectionAdapter extends RecyclerView.Adapter {
             timer = (TextView) itemView.findViewById(R.id.collection_timer);
             title = (TextView) itemView.findViewById(R.id.collection_title);
             date = (TextView) itemView.findViewById(R.id.collection_date);
-            radio= (RadioButton) itemView.findViewById(R.id.collection_ration);
+            radio= (CheckBox) itemView.findViewById(R.id.collection_ration);
         }
     }
 
@@ -61,18 +63,18 @@ public class CollectionAdapter extends RecyclerView.Adapter {
         viewHolder.title.setText(list.get(position).getMoviename());
         viewHolder.timer.setText(list.get(position).getMovietime());
         viewHolder.date.setText(list.get(position).getMoviedate());
-
+        if(flag){
+            viewHolder.radio.setVisibility(View.VISIBLE);
+            if(ffff){
+                viewHolder.radio.setChecked(true);
+            }else {
+                viewHolder.radio.setChecked(false);
+            }
+        }else {
+            viewHolder.radio.setVisibility(View.GONE);
+        }
     }
 
-    public OnClick onClick;
-
-    public void setOnClick(OnClick onClick) {
-        this.onClick = onClick;
-    }
-
-    public  interface OnClick{
-        void choseClick(int pos);
-    }
 
     @Override
     public int getItemCount() {

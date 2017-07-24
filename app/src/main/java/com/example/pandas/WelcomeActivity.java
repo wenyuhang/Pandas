@@ -34,7 +34,7 @@ public class WelcomeActivity extends BaseActivity {
         edit = preferences.edit();
 
         if(preferences.getBoolean("sure",false) == true) {
-            Intent intent = new Intent(WelcomeActivity.this,HomeActivity.class);
+            Intent intent = new Intent(WelcomeActivity.this,AnimationActivity.class);
             startActivity(intent);
             finish();
         }
@@ -61,7 +61,7 @@ public class WelcomeActivity extends BaseActivity {
         live.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this,HomeActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this,AnimationActivity.class);
                 edit.putBoolean("sure",true);
                 edit.commit();
                 startActivity(intent);

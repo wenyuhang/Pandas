@@ -32,14 +32,16 @@ public class ACacheUtils {
         aCache.put("array",dates);
     }
     public void deleteStorage(String moviename){
-        Storage();
-        for(int i = 0; i <dates.size() ; i++) {
-            if(dates.get(i).getMoviename().equals(moviename)){
-                dates.remove(i);
-            }
-        }
+//        Storage();
+//        for(int i = 0; i <dates.size() ; i++) {
+//            if(dates.get(i).getMoviename().equals(moviename)){
+//                dates.remove(i);
+//            }
+//        }
+//        ACache aCache = ACache.get(App.context);
+//        aCache.put("array",dates);
         ACache aCache = ACache.get(App.context);
-        aCache.put("array",dates);
+        aCache.clear();
     }
 
     public ArrayList<CollectionDate> Storage(){

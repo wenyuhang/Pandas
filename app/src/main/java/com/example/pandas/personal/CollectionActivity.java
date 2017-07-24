@@ -82,9 +82,16 @@ public class CollectionActivity extends BaseActivity {
                     collectLinearlayout.setVisibility(View.VISIBLE);
                     collectionEdit.setText("取消");
 
+                    intent = new Intent("checks");
+                    intent.putExtra("yes","编辑");
+                    sendBroadcast(intent);
                 } else {
                     collectLinearlayout.setVisibility(View.GONE);
                     collectionEdit.setText("编辑");
+
+                    intent = new Intent("checks");
+                    intent.putExtra("yes","取消");
+                    sendBroadcast(intent);
                 }
                 break;
             case R.id.collect_all:

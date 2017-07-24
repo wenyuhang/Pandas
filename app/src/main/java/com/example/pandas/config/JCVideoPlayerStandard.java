@@ -18,11 +18,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pandas.R;
 import com.example.pandas.wxapi.App;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -279,13 +281,13 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
         }else if(i == fm.jiecao.jcvideoplayer_lib.R.id.collect){
             if(collect.isChecked()){
                 onCollect.successful();
-
             }else {
                 onCollect.filed();
-
             }
         }else if(i == fm.jiecao.jcvideoplayer_lib.R.id.definition){
-
+            View view = View.inflate(App.context, R.layout.popitem, null);
+            PopupWindow popupWindow = new PopupWindow(view,150,200,true);
+            popupWindow.showAsDropDown(definition);
         }
     }
     public static OnCollect onCollect;
